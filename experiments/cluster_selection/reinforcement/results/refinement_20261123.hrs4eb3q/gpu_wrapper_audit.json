@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "bash_syntax_checked": true,
+  "submission_performed": false,
+  "GPU_execution_tested": false,
+  "source_sha256": {
+    "experiments/cluster_selection/reinforcement/refine_gpu.sh": "622c8f2e20951b8da189837469f80c542ecee2fe515804dcaf623d7399d9838f",
+    "experiments/cluster_selection/reinforcement/refine_gpu.sub": "4883bef42841ebd82d330b526dd5fcaa13bad317c0af1516001dd97cdd362deb"
+  },
+  "tests": [
+    {
+      "status": "passed",
+      "temporary_directory": "/tmp/refine_wrapper_test_gnheroyp",
+      "cpu_resume_weights_optimizer_rng_contexts_exact": true,
+      "segments": 2,
+      "initial_removed_on_resume": true,
+      "source_and_settings_checks_retained": true,
+      "run_lock_exclusive": true,
+      "reserved_output_resume_rejected": true,
+      "old_checkpoint_sha256": "ead3344b7e4656f0305447a0737a51f9a317dad803b06b943552db79cc4078e0",
+      "old_checkpoint_unchanged": true,
+      "no_htcondor_submission": true
+    },
+    {
+      "status": "passed",
+      "temporary_directory": "/tmp/refine_wrapper_adam_3tfcnne6",
+      "nonempty_adam_states": 59,
+      "actual_optimizer_steps": 4,
+      "completed": 64,
+      "contexts": 2,
+      "exact_fields": [
+        "weights",
+        "optimizer",
+        "torch_rng",
+        "rng",
+        "contexts",
+        "pending",
+        "completed",
+        "batches",
+        "scale",
+        "settings",
+        "source_hashes"
+      ],
+      "old_checkpoint_unchanged": true,
+      "wrapper_auto_resume": true,
+      "no_htcondor_submission": true
+    }
+  ],
+  "interpretation": "Automatic fresh-segment CPU continuation is exact for nonempty Adam state, policy weights, RNG, context pools and puzzle ordering. HTCondor template follows existing shared-filesystem GPU configuration; no local condor_submit available."
+}

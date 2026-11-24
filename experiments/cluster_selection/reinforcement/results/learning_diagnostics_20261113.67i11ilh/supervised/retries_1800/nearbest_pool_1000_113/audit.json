@@ -1,0 +1,32 @@
+{
+  "puzzle": 113,
+  "arm": "nearbest_pool",
+  "updates": 1000,
+  "status": "solved",
+  "nodes": 142,
+  "solve_s": 498.5606298450002,
+  "checks": {
+    "original_censor_preserved": true,
+    "main_protocol_unchanged": true,
+    "checkpoint_unchanged": true,
+    "frozen_sources_unchanged": true,
+    "only_wall_guard_changed": true,
+    "original_givens_satisfied": true,
+    "all_original_tensor_cores_satisfied": true,
+    "all_variables_assigned": true,
+    "actual_contractions_match_counters": true
+  },
+  "no_new_contractions_or_solves": true,
+  "original_seconds": 600,
+  "retry_seconds": 1800,
+  "note": "The extended retry finished below600s under a different concurrent CPU load; the earlier censor remains unchanged. Effective aggregation is maintained separately by the main audit.",
+  "source_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/retries_1800/nearbest_pool_1000_113/protocol.json": "c33fc75a16903ed443e9ffbc32ea319fc82d45731976006714a6b3f0ed3fb8b1",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/retries_1800/nearbest_pool_1000_113/row.json": "c73abce5cca3ddc1b9f83544407c70240c2b734e353bdd9722f0f82cec585dce",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/protocol.json": "b28d3978d5eca6dd10b521627218afdc32133892d678509df27c69128af17ed3",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/nearbest_pool/dfs_1000/puzzle_113.json": "5479f0cb66fc6c92e842c3e28b15f41b18a04bbb68d631ff960485360c2c75db",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/nearbest_pool/policy_1000.pt": "a21b9bed1faec0f67863987820dd445fe07129295152cb27f71a2b2a6529394c",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/extend_guards.py": "2f32891fd7d57fcb4ad5486e087eff46e31ab778436bc7690c5d0e01296d9fb3",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/development.json": "9f56c35b058e9f1a16419a290584b501eb3a2fc9fbbecda27cbd46cc5a9586ba"
+  }
+}

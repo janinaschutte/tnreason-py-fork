@@ -1,0 +1,48 @@
+Paired structural allowance sweep with oldest-pruned branching
+
+23 original validation Sudoku indices; no retraining and no final-test queries.
+Both rules: smallest domain, highest incident-core degree. Then name, or oldest retained pruning then name.
+Never-pruned variables are oldest. Backtracking restores history; temporary summaries retain only pruning.
+Same nested structural proposal generator and contraction limits in both arms; no total-work limit.
+Whole-solve wall guard: 600 s; independent DFS node guard: 100000.
+Wall time includes cluster generation, contraction, GAC and DFS. Censored final node counts are unavailable.
+A complete solve counts its root: 1 node means no branching. Totals are absent if any solve is censored.
+Rows sorted by largest completed node count across both rules and all allowances, then puzzle index.
+Puzzle 113 was identified as an outlier in the original sweep; sensitivity totals retain all other 22 puzzles.
+Wins/ties/losses and delta compare only solved pairs; delta is oldest-pruned minus name.
+
+Allowance | Name nodes | Oldest nodes | Branch-free name/oldest | Pairs | Wins/ties/losses | Paired delta
+32 | 188 | 102 | 9/9 | 23 | 1/13/9 | -86
+  Censored: {'name': [], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 solved, 136 nodes, 8.574s; other 22 nodes: 52
+  oldest_pruned: puzzle 113 solved, 6 nodes, 0.499s; other 22 nodes: 96
+64 | 173 | 90 | 13/13 | 23 | 1/15/7 | -83
+  Censored: {'name': [], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 solved, 129 nodes, 23.049s; other 22 nodes: 44
+  oldest_pruned: puzzle 113 solved, 6 nodes, 1.162s; other 22 nodes: 84
+128 | 155 | 83 | 14/14 | 23 | 1/15/7 | -72
+  Censored: {'name': [], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 solved, 112 nodes, 50.647s; other 22 nodes: 43
+  oldest_pruned: puzzle 113 solved, 6 nodes, 3.299s; other 22 nodes: 77
+256 | 52 | 60 | 15/15 | 23 | 2/16/5 | +8
+  Censored: {'name': [], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 solved, 7 nodes, 18.091s; other 22 nodes: 45
+  oldest_pruned: puzzle 113 solved, 5 nodes, 11.756s; other 22 nodes: 55
+512 | 66 | 57 | 16/16 | 23 | 2/18/3 | -9
+  Censored: {'name': [], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 solved, 22 nodes, 172.837s; other 22 nodes: 44
+  oldest_pruned: puzzle 113 solved, 5 nodes, 30.932s; other 22 nodes: 52
+1024 | incomplete | 51 | 17/17 | 22 | 0/19/3 | +10
+  Censored: {'name': [{'puzzle': 113, 'status': 'wall_timeout'}], 'oldest_pruned': []}; name differs from historical node/status results: []
+  name: puzzle 113 wall_timeout, None nodes, 600.001s; other 22 nodes: 36
+  oldest_pruned: puzzle 113 solved, 5 nodes, 104.286s; other 22 nodes: 46
+
+Validated 276 solve rows and 12 summaries.
+Every aggregate improvement at allowances 32, 64, 128 and 512 depends on puzzle 113.
+Across the other 22 puzzles, oldest-pruned uses more total nodes at every allowance.
+At allowance 256, oldest-pruned is worse overall: 60 versus 52 nodes.
+The best new total is 51 at allowance 1024; the best name total is 52 at allowance 256.
+Those best totals use different allowances; this is exploratory validation, not a final-test result.
+The solver's default branching rule remains name-based; this sweep makes no production changes.
+Full source hashes, per-puzzle paired deltas and censoring lists: comparison.json.
+CSV leaves censored dfs_nodes blank; partial_dfs_nodes is observed work, not a completed solve count.

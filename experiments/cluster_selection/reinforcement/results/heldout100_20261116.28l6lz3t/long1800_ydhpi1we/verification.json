@@ -1,0 +1,169 @@
+{
+  "status": "PASSED",
+  "audited_at_utc": "2026-11-23T15:26:47.226012+00:00",
+  "solver_comparison": {
+    "fields_equal": [
+      "methods",
+      "sources",
+      "positions",
+      "seed",
+      "order",
+      "limits",
+      "expert_limits",
+      "expert_families",
+      "technical_iterator_bound",
+      "structural_initial_quota",
+      "structural_initial_steps",
+      "residual_dfs",
+      "workers",
+      "data_sha256"
+    ],
+    "normalized_data_references_models_equal": true
+  },
+  "frozen_inputs_verified_excluding_plot_source": {
+    "old300": 216,
+    "prepared1800_before_plot_edit": 216,
+    "smoke2": 216
+  },
+  "smoke": {
+    "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long2_v_6v5x4g",
+    "position": 21,
+    "root_rows": 9,
+    "residual_rows": 9,
+    "row_hashes": 18,
+    "checkpoint_comparisons": 18,
+    "monotone_reference_retaining_snapshots": 22,
+    "methods": {
+      "plain": {
+        "status": "ordinary_gac_stalled",
+        "wall_s": 0.04578092699921399,
+        "useful": 0
+      },
+      "heuristic": {
+        "status": "resource_guard",
+        "wall_s": 2.00036261599962,
+        "useful": 1
+      },
+      "initial": {
+        "status": "resource_guard",
+        "wall_s": 2.0004747870007122,
+        "useful": 2
+      },
+      "teacher": {
+        "status": "resource_guard",
+        "wall_s": 2.0001605540001037,
+        "useful": 2
+      },
+      "reinforce": {
+        "status": "resource_guard",
+        "wall_s": 2.0002695659986784,
+        "useful": 1
+      },
+      "replay": {
+        "status": "solved",
+        "wall_s": 1.4229129970008216,
+        "useful": 1
+      },
+      "q": {
+        "status": "solved",
+        "wall_s": 0.39406940700064297,
+        "useful": 1
+      },
+      "expert": {
+        "status": "solved",
+        "wall_s": 0.1609614179997152,
+        "useful": 3
+      },
+      "combined": {
+        "status": "resource_guard",
+        "wall_s": 2.0010262729992974,
+        "useful": 2
+      }
+    },
+    "mix": {
+      "events": 103,
+      "charged_s": 1.9493349919939646,
+      "overhead_s": 0.05169128100533271,
+      "wall_s": 2.0010262729992974,
+      "source_totals": {
+        "heuristic": {
+          "charged_s": 0.38732521099336736,
+          "turns": 92,
+          "useful": 1
+        },
+        "teacher": {
+          "charged_s": 0.389654143998996,
+          "turns": 2,
+          "useful": 1
+        },
+        "reinforce": {
+          "charged_s": 0.40114662400083034,
+          "turns": 2,
+          "useful": 0
+        },
+        "replay": {
+          "charged_s": 0.37804056700042565,
+          "turns": 2,
+          "useful": 0
+        },
+        "q": {
+          "charged_s": 0.3931684460003453,
+          "turns": 5,
+          "useful": 0
+        }
+      }
+    }
+  },
+  "collector_regression": {
+    "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/extended_collector_check_u3j2t4wb",
+    "totals_equal": 54,
+    "per_puzzle_rows_equal": 5400,
+    "capped_mean_used_wall_verified": true
+  },
+  "run": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_ydhpi1we",
+  "execution_status": "PREPARED_NOT_SUBMITTED",
+  "caveat": "This is a local preparation and short smoke check, not the 1800-second experiment. No Condor submission or long solver run was performed by this review. Run prepare with the shared Python interpreter on Bernoulli to generate its submission paths.",
+  "protocol_sha256": "9a57ec109419d7715ee175a729a98a1a9218c7efa687a8e6723cf65eb2ab9984",
+  "frozen_inputs_verified": 217,
+  "seconds": 1800,
+  "budgets_s": [
+    1,
+    5,
+    15,
+    60,
+    120,
+    300,
+    600,
+    1200,
+    1800
+  ],
+  "methods": [
+    "plain",
+    "heuristic",
+    "initial",
+    "teacher",
+    "reinforce",
+    "replay",
+    "q",
+    "expert",
+    "combined"
+  ],
+  "puzzles": 100,
+  "source_sha256": "6945952c893df1f978c191a8db76db9f976050b7316fbfb9d88efc8c92955665",
+  "submission": {
+    "sha256": "b36e485b3e22a37033fdbf546666c26c69a5f3862a7ff28f9fd83d01a2e5483e",
+    "cpu_only": true,
+    "max_materialize": 10,
+    "jobs": 100,
+    "one_cpu_each": true,
+    "shared_filesystem": true
+  },
+  "plot_only_change": {
+    "description": "Paired figure width increased from17.5to21inches; solver/preparation/collection calculations unchanged.",
+    "previous_source_snapshot": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long2_v_6v5x4g/extended_budget_snapshot.py",
+    "previous_source_sha256": "6fc56a19756aa48e836cf95849846292a912c7d61a7782b4814c99ae021e18a3",
+    "exact_single_replacement_verified": true,
+    "layout_checked_by": "root agent"
+  },
+  "prepared_run_empty": true
+}

@@ -1,0 +1,309 @@
+{
+  "kind": "Paired optional generic heuristic comparison on previously queried16 puzzles",
+  "results": {
+    "plain": {
+      "solved": 16,
+      "dfs_nodes": 62,
+      "branch_free": 0,
+      "root_positions": [],
+      "solve_seconds": 1.5136208270014322,
+      "censored": [],
+      "work": {
+        "contractions": 0,
+        "estimated_work": 0
+      },
+      "family_counts": {},
+      "rule_statistics": {}
+    },
+    "cycles8": {
+      "solved": 16,
+      "dfs_nodes": 34,
+      "branch_free": 6,
+      "root_positions": [
+        0,
+        2,
+        5,
+        6,
+        10,
+        11
+      ],
+      "solve_seconds": 11.603149587004737,
+      "censored": [],
+      "work": {
+        "contractions": 1306,
+        "estimated_work": 384233
+      },
+      "family_counts": {
+        "cycle": {
+          "contractions": 1306,
+          "root_contractions": 757,
+          "useful": 66,
+          "removed": 4963
+        }
+      },
+      "rule_statistics": {}
+    },
+    "cycles12": {
+      "solved": 16,
+      "dfs_nodes": 55,
+      "branch_free": 2,
+      "root_positions": [
+        0,
+        9
+      ],
+      "solve_seconds": 8.467202619005548,
+      "censored": [],
+      "work": {
+        "contractions": 1309,
+        "estimated_work": 450819
+      },
+      "family_counts": {
+        "cycle": {
+          "contractions": 1309,
+          "root_contractions": 528,
+          "useful": 26,
+          "removed": 1706
+        }
+      },
+      "rule_statistics": {}
+    },
+    "cycles8_rules": {
+      "solved": 16,
+      "dfs_nodes": 33,
+      "branch_free": 7,
+      "root_positions": [
+        0,
+        2,
+        5,
+        6,
+        10,
+        11,
+        13
+      ],
+      "solve_seconds": 8.770180977004202,
+      "censored": [],
+      "work": {
+        "contractions": 1063,
+        "estimated_work": 259732
+      },
+      "family_counts": {
+        "cycle": {
+          "contractions": 1022,
+          "root_contractions": 561,
+          "useful": 10,
+          "removed": 746
+        },
+        "overlap": {
+          "contractions": 37,
+          "root_contractions": 33,
+          "useful": 37,
+          "removed": 4040
+        },
+        "hall": {
+          "contractions": 4,
+          "root_contractions": 2,
+          "useful": 4,
+          "removed": 474
+        }
+      },
+      "rule_statistics": {
+        "catalog_support_entries": 839808,
+        "catalog_lookup_work": 839808,
+        "catalog_pairs_capped": 0,
+        "catalog_pairs": 69984,
+        "search_steps": 552190,
+        "emitted_overlap": 124,
+        "search_capped": 65,
+        "emitted_hall": 179
+      }
+    },
+    "expert51": {
+      "solved": 16,
+      "dfs_nodes": 17,
+      "branch_free": 15,
+      "root_positions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "solve_seconds": 16.877858775995264,
+      "censored": [],
+      "work": {
+        "contractions": 513,
+        "charged_work": 47257944
+      },
+      "family_counts": {},
+      "rule_statistics": {}
+    }
+  },
+  "rule_vs_cycle8": {
+    "fewer_nodes": [
+      13
+    ],
+    "equal_nodes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "more_nodes": [],
+    "new_root_positions": [
+      13
+    ],
+    "lost_root_positions": []
+  },
+  "actual_new_root_example": {
+    "position": 13,
+    "old_nodes": 2,
+    "new_nodes": 1,
+    "human_pattern": "Column3 digits1,3,6 confined to rows2,7,8; hidden triple",
+    "trace_core_counts": [
+      12,
+      4,
+      12
+    ],
+    "trace_removed": [
+      15,
+      15,
+      309
+    ],
+    "trace_outputs": [
+      [
+        "pos_0_1_0_2"
+      ],
+      [
+        "square_7_2_0"
+      ],
+      [
+        "pos_2_0_0_2"
+      ]
+    ]
+  },
+  "verification": {
+    "valid_assignments": 80,
+    "original_cores": 2916,
+    "exact_useful_rule_replays": 41,
+    "root_replays": 35,
+    "branch_replays": 6,
+    "contradiction_replays": 2,
+    "primary_removed_across_events": 834,
+    "primary_removed_at_root": 633
+  },
+  "limitations": [
+    "Reused small exploratory set; no new training or checkpoint selection.",
+    "All generic arms share refreshed schedule and64actualattempts/16384searchsteps; featureon dividessearchsteps between cycles and motifs.",
+    "Extra bounded support-catalog preparation is not included in generic estimated contraction work; equal caps do not equal computation.",
+    "The expert uses51Sudoku-specific families and larger bounds; charged work units differ.",
+    "Times sum concurrent CPU wall times, including setup/initialGAC/observer overhead but excluding network/state creation and final validation.",
+    "Generic applicability was verified on renamed and mixed-dimensional support fixtures, not established across every CSP family."
+  ],
+  "component_sha256": {
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/protocol.json": "d5dbc37ada9f1010bef796ae77ab2af134e0b71adcee812d0abd84e536b5eea8",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/summary.json": "c2ef48f41037cba0aae4a59c1ea84d6cda93d213f98f59294703d91137adae6d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/trace_audit.json": "487ba61e36289bcd3743a6bcc74348097616e031a56d47dcc327213578cabee7",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/verify_rule_traces.py": "83c7b84d767e14678060163b7ad6562a0d6d3894a81739282e3916c1007ee389",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_00.json": "9177b73cd56e9ab257abc225da7ecfaf05079ee2581070e519af979845bd6040",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_01.json": "12aefc8b2546904e3e0034a4fc7398943d901ccf69e7e6a02f96032e55704c43",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_02.json": "bfbcf5678558b0472aa70ecbf4fe49f18c7cfab8a3b25d93358bb52adb5fd70c",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_03.json": "096f7080d1dc519beee54014ecc340f3daf9133c433931d17e76ca878995593e",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_04.json": "f2635aff7c2c81117dfb90c136eb69c6acbdd93f3dac09ab944af2463c66212a",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_05.json": "ed67b52a62c3be843a8498a6c20c478e68a66df3ac141bf7f3e5f5d9d52623f7",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_06.json": "66661b2aee3a31fb6e2f6ae01c8ac4f5812452f7552688651aacd26b4a673e96",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_07.json": "17727c572f0ac5d48592dcf3bde41c3e26e11e2a51dea30e4be5c9cdc66a14b5",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_08.json": "7e4610aea85253973be4462488ca8caf99e8f2bb532ddf5f6b0de1cfc844f8fb",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_09.json": "6c53a612d09d5eb0a4ba75f7f3dfa309883e2caf8961b71fe0309e71739326fc",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_10.json": "cd93a12257c10190d62350aa852f88ad74765334132efd23ce5cf17757176b7c",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_11.json": "b927cfa4e7cfad576f67a9db6b6dffcf174b2a68d77cf197f3a4ed17455857c9",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_12.json": "056e64e3f1ba618fbf565e4047c1fd506327ffa30a43a7ee182e8ba002d0380b",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_13.json": "a2f5685f36fa062d8f56776b013205cf95f2238c1282cc784a4b5591b10ea70f",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_14.json": "19f5c89d8afc6243b9ac107d08d30de3ded566a41afc937a5b1819c4ddbdb674",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles12_15.json": "4e0ed4d6b272fe18af6dbed069b0a6087b4e66e822425a1c2e7fe6495e0d41ad",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_00.json": "89f3ed51a592d7d1a604b88492ddf362f892fba19754e002bd8731147f9c5505",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_01.json": "6b014aa5e8510c5ce020025fb0b431cba23c72b0fa594df72b650d901998ac34",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_02.json": "edf93bdbc3765b264a20f2f35cc0914fdc8aeb701ffd830f37ea58073a050b79",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_03.json": "d30b6e6b803a5163e48addc6f300a7174b6cd684030bd55b70c5d957d1c0bea2",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_04.json": "65068e4148e908049768d8ff133ba46a27fda4e4ff2fff9446e0cf0cf5ba66ad",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_05.json": "9ce1c3d89198b0d466cbeaad6d1f326ac199bf5bc703f112f0a6f6fead20e63e",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_06.json": "1c00ba9acd56e5f57ff0bd8ef1024014513fd031bf8ad842822e6c447e6c7350",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_07.json": "811a53a198c3ab2fa097e60ceff8e3ba906c084b02ff9f3353533d23000dd7e3",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_08.json": "6243797a5a55e26e28728991fb1c5e4fe1021d3927c6a69d0acc86ae483f6dd7",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_09.json": "a0e14ddbb6b4b3b6f8a2bb8e68b34ddbf1ebae204200615741fbf67bd6003be9",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_10.json": "3518a87ebab52c2e1af65f1f9877ff22cf8f0ccab82dbecb0a624c00d2716226",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_11.json": "be84c35879d00f8d82601586573b9fb1f130c5faf9d2887f8e709e7c0e2ba9c6",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_12.json": "763e1b355c9ef999fee357f3123daa6cb2d9953af9673b2132904a14ec1dea90",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_13.json": "0f41e49932afb471dc1e9d28d949b5deaac9118b678db48f993226860cde57fc",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_14.json": "47a1936038d3b727b5623ac61a4c61f3a2a359b46427299624d17187731e98d1",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_15.json": "afeeadc0ab9c93bd1f46b9e98c57d70f19ae86f87ff817de5d50d3d481cc5c9e",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_00.json": "c0a273acda174deee826204d906992902e1247b88016fad6832664548a50726a",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_01.json": "89393e092910370c6828c51ce98bf724bd9c6bfffdf2d457e2b0b60432bb8ed9",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_02.json": "e446ae8741f7b90f41c19d24fa7ddef895a258578c4990f25a39f7374a12c6b6",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_03.json": "507463fb8727fa8aa2cd702d435df5293f94207cb0b0ea7c4417a0ae92b0ce34",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_04.json": "44aafbf8f37f43df2833c27335c3240598146b9651132b17e02153ac9d9973c6",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_05.json": "d48daeeb461d1d4021a3ec37bf71b3e16fae61c7ba65d6d58c64b49bbf3c6c61",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_06.json": "78e8ee4a2f6879e7463c7c65bab88515c0bd6d1ff48adc5e3e512a34ba72e38d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_07.json": "11f87f758e494712f4b39578e9a087529232d531bf6dfd2ba565cd6f7fee7df3",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_08.json": "e933187bd9f539d36c1062c8a96f6177e5180b73a8a167c1d7aeaea0471ac6d0",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_09.json": "9172e8bac31a9a91ced026da82800e41f0a3011332028788663c342064e03ed2",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_10.json": "668678fbefeae7ca844ee5223a9769fc5ed7ea30e431f231996c80d9bf4278c4",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_11.json": "cd42ef1c59bfb61299b2e16c420da4381f7df1c6b7626214146386ecd6709efe",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_12.json": "52085effb959f29da01adb91b4b52cb43f29a0ab00cb15b06dd9dab36887df9d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_13.json": "33843547d176107f53f5731cf127adc4d0bd9a934a3b361fe83d4fa0cf2288bd",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_14.json": "2c954ac0455462830b9c0773f74702784c332d92f89cb0e1338969329077e72d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/cycles8_rules_15.json": "4a08f2a9122b38c385850af9609c6ca4a5d9f48c6ba092a56d7d334f04faa147",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_00.json": "05c0bab0b27be351525b3777293270b5c114a0534a3d33b144027df2df9b0779",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_01.json": "ffd6f42d4c3799c39d8bec587c4deeaffda5de18440f75dd1d3519cdd755ac14",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_02.json": "e2bd929a17c2890c2435666a27638f8a068f610f2926baf65ffb2ede3aeea410",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_03.json": "92298d57e8bef1367cdbd02d3adb6d03d5c7ef3592882bb1b96b2ad3fe5126ac",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_04.json": "898dd5ce2320e940688bb675150cb0edda26b210787d47e2c05261200d220393",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_05.json": "97480a0a526950eaa25796416d53658014addcca11aae8cbd798a4bf2138b983",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_06.json": "2567eb1a52e2f389de1a0b797dc84e47723ed2353c2290cc602ea96cf511eaa1",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_07.json": "93e775ca8f8306be6611f04575b602d9b44898519eba8880ae3ac19f65c71018",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_08.json": "8f21c67be7b91eb810bafee6038839f7af0be86e3871aa67adffc7a1563afbe8",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_09.json": "809cd5c64c16aa5f27dd9f85f365d452e2353fb0721cd6ba10e6fd7d1b8c54e8",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_10.json": "c09dfab84cdfd6ada06a7ff78e8356334a55985216ebce1a9dfc4bc001874e6a",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_11.json": "fa2eb1327c23eab3f9f5ab680914117ddc301f3117661132d04b5e95e211efbe",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_12.json": "48cef3713c18a5eb65d3bcc09cc3d6f3894f00f7fa2e26e1a2e85ef9fb64d3da",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_13.json": "8f1cc611cec206910a5da073e0c681a7b6e72c04e9055401f3832a5e523a6294",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_14.json": "bdee0357c36bfe6bbc1e9e9d33e7a4172ddf1863a78af5813973c8edff246a76",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/expert51_15.json": "a2e87886863ea08375479cfb0b6489687ca4fba5c4654b66260485a97a4e5314",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_00.json": "a42bae8f6580461adaafcebd3a0b17985a8f7d4f4e675c846f2101e4f1fcef43",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_01.json": "4587e45f98b64f6e485d66b3360dafc45e8be3e9483c41b6e6273a7ef6bbcaf2",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_02.json": "d32714426591fc42af323ee9b5f3eb42d1f8caa330e3c01e5746c8f3bcc2a059",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_03.json": "3fb5607d589a4bb36f6aef38c3959a18c1ef89a8fed9bff65b659935776a56d4",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_04.json": "264d50adb1b9930311cc9582cc4f43bb4c71370431fe93e42a7ce85758212a68",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_05.json": "4b5424609dd8d4ce8b0cb84a126778731ef2c8d9eade7ae1288e760edd9e222d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_06.json": "fd87ab7f10c5958686144b6a063c8db15ef5472f4c4d920caed158a82fb779a8",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_07.json": "a9c051bf36fb6af6a57f64799acba129821101600077a989656cf3be4b8d2365",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_08.json": "031ccc03e1f5c7e8d081fc686adcfed18b5a16650b78d9c3c1223e622242b545",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_09.json": "20feec85087ab2b3598e3f0575e200b8d21be5c83aaa7c12c9fac7f01a9eafa0",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_10.json": "67adf98df190734f8977ce4ece42aefe8df3f34a9de40de2162cfbf1e347cfc4",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_11.json": "4e350fad76639ea6e869070ff64e8a624fd6584c709e3f09ef13c92cf64160e5",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_12.json": "5e7c9769917b515fa5cc0dec5eec69865644bde0cdd540ed1591e0a89b3b5807",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_13.json": "be862a338d42b81226969d6d98bbced11c34c511ee789849ca566513fd9138fe",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_14.json": "8406dfbada810d752da072f4cdb40fa96e4f4229942bfc0628e58bd3fd3e0f40",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_heuristic_20261113.ev3ybbuu/rows/plain_15.json": "22761f9c5e06d883305d19f8951325d033381ab4c6243c8ab1334b98e7f74b17"
+  }
+}

@@ -1,0 +1,594 @@
+{
+  "puzzle": 454,
+  "draw": 2,
+  "seed": 454031,
+  "greedy": false,
+  "trace": [
+    [
+      "open",
+      919
+    ],
+    [
+      "core",
+      1714
+    ],
+    [
+      "core",
+      1063
+    ],
+    [
+      "core",
+      1070
+    ],
+    [
+      "core",
+      1718
+    ],
+    [
+      "core",
+      1712
+    ],
+    [
+      "core",
+      983
+    ],
+    [
+      "core",
+      94
+    ],
+    [
+      "core",
+      2521
+    ],
+    [
+      "core",
+      2449
+    ],
+    [
+      "core",
+      98
+    ],
+    [
+      "core",
+      2453
+    ],
+    [
+      "core",
+      2520
+    ],
+    [
+      "core",
+      2584
+    ],
+    [
+      "core",
+      85
+    ],
+    [
+      "core",
+      1069
+    ],
+    [
+      "core",
+      1705
+    ],
+    [
+      "core",
+      1054
+    ],
+    [
+      "core",
+      1387
+    ],
+    [
+      "core",
+      1960
+    ],
+    [
+      "core",
+      174
+    ],
+    [
+      "core",
+      1057
+    ],
+    [
+      "core",
+      1388
+    ],
+    [
+      "core",
+      328
+    ],
+    [
+      "core",
+      1709
+    ],
+    [
+      "core",
+      2845
+    ],
+    [
+      "core",
+      1786
+    ],
+    [
+      "core",
+      1788
+    ],
+    [
+      "core",
+      2547
+    ],
+    [
+      "core",
+      1393
+    ],
+    [
+      "core",
+      329
+    ],
+    [
+      "core",
+      661
+    ],
+    [
+      "core",
+      2586
+    ],
+    [
+      "core",
+      1386
+    ],
+    [
+      "core",
+      1019
+    ],
+    [
+      "core",
+      332
+    ],
+    [
+      "core",
+      1138
+    ],
+    [
+      "core",
+      984
+    ],
+    [
+      "core",
+      1876
+    ],
+    [
+      "core",
+      2844
+    ],
+    [
+      "core",
+      1789
+    ],
+    [
+      "core",
+      1879
+    ],
+    [
+      "core",
+      2871
+    ],
+    [
+      "core",
+      2553
+    ],
+    [
+      "core",
+      2575
+    ],
+    [
+      "core",
+      2874
+    ],
+    [
+      "core",
+      2848
+    ],
+    [
+      "core",
+      1088
+    ],
+    [
+      "core",
+      248
+    ],
+    [
+      "core",
+      2628
+    ],
+    [
+      "core",
+      249
+    ],
+    [
+      "core",
+      2700
+    ],
+    [
+      "core",
+      2619
+    ],
+    [
+      "core",
+      1877
+    ],
+    [
+      "core",
+      1137
+    ],
+    [
+      "core",
+      1961
+    ],
+    [
+      "core",
+      1136
+    ],
+    [
+      "core",
+      1959
+    ],
+    [
+      "core",
+      89
+    ],
+    [
+      "core",
+      179
+    ],
+    [
+      "core",
+      176
+    ],
+    [
+      "finish",
+      -1
+    ],
+    [
+      "open",
+      883
+    ],
+    [
+      "open",
+      191
+    ],
+    [
+      "open",
+      946
+    ],
+    [
+      "open",
+      937
+    ],
+    [
+      "finish",
+      -1
+    ]
+  ],
+  "candidate": {
+    "key": "rl_f534c10091ae79b99ea29952b12e13ba87dee459",
+    "core_keys": [
+      "col_0_0_1_a_1_1_0_1_0",
+      "col_0_0_1_a_2_2_0_1_0",
+      "col_1_0_1_a_1_1_0_1_1",
+      "col_1_0_1_a_2_2_0_1_1",
+      "col_1_0_2_a_1_0_0_2_1",
+      "col_1_0_2_a_1_2_0_2_1",
+      "col_1_0_2_a_2_2_0_2_1",
+      "col_0_1_0_a_1_2_1_0_0",
+      "col_0_1_0_a_2_0_1_0_0",
+      "col_0_1_1_a_1_1_1_1_0",
+      "col_0_1_1_a_1_2_1_1_0",
+      "col_0_1_1_a_2_2_1_1_0",
+      "col_1_2_2_a_1_1_2_2_1",
+      "row_1_1_0_a_1_0_0_2_1",
+      "row_1_1_0_a_1_0_1_0_1",
+      "row_5_1_0_a_1_0_0_2_5",
+      "row_0_1_1_a_1_1_0_1_0",
+      "row_0_1_1_a_1_1_1_1_0",
+      "row_1_1_1_a_1_1_0_1_1",
+      "row_1_1_1_a_1_1_2_1_1",
+      "row_1_1_1_a_1_1_2_2_1",
+      "row_3_1_1_a_1_1_2_2_3",
+      "row_0_1_2_a_1_2_0_2_0",
+      "row_0_1_2_a_1_2_1_0_0",
+      "row_0_1_2_a_1_2_1_1_0",
+      "row_1_2_2_a_2_2_0_0_1",
+      "row_1_2_2_a_2_2_0_1_1",
+      "row_1_2_2_a_2_2_0_2_1",
+      "row_1_2_2_a_2_2_2_1_1",
+      "square_0_1_0_a_1_1_0_1_0",
+      "square_0_1_0_a_1_2_0_2_0",
+      "square_1_1_0_a_1_0_0_2_1",
+      "square_1_1_0_a_1_1_0_1_1",
+      "square_1_1_0_a_1_2_0_2_1",
+      "square_0_1_1_a_1_1_1_1_0",
+      "square_0_1_1_a_1_2_1_0_0",
+      "square_0_1_1_a_1_2_1_1_0",
+      "square_1_1_2_a_1_1_2_1_1",
+      "square_1_1_2_a_1_1_2_2_1",
+      "square_1_1_2_a_1_2_2_1_1",
+      "square_1_2_0_a_2_2_0_0_1",
+      "square_1_2_0_a_2_2_0_1_1",
+      "square_1_2_0_a_2_2_0_2_1",
+      "pos_1_0_0_2_a_1_0_0_2_1",
+      "pos_1_0_0_2_a_1_0_0_2_5",
+      "pos_1_1_0_1_a_1_1_0_1_0",
+      "pos_1_1_0_1_a_1_1_0_1_1",
+      "pos_1_1_1_1_a_1_1_1_1_0",
+      "pos_1_1_1_1_a_1_1_1_1_6",
+      "pos_1_1_2_1_a_1_1_2_1_1",
+      "pos_1_1_2_2_a_1_1_2_2_1",
+      "pos_1_1_2_2_a_1_1_2_2_3",
+      "pos_1_2_1_0_a_1_2_1_0_0",
+      "pos_1_2_1_1_a_1_2_1_1_0",
+      "pos_2_0_1_0_a_2_0_1_0_0",
+      "pos_2_2_0_1_a_2_2_0_1_0",
+      "pos_2_2_0_1_a_2_2_0_1_1",
+      "pos_2_2_0_1_a_2_2_0_1_4",
+      "pos_2_2_1_1_a_2_2_1_1_0",
+      "pos_2_2_1_1_a_2_2_1_1_3"
+    ],
+    "open_colors": [
+      "col_1_0_2",
+      "row_1_2_2",
+      "square_1_1_0",
+      "square_1_1_2",
+      "square_1_2_0"
+    ]
+  },
+  "construction_s": 0.17731029099991247,
+  "trials": [
+    {
+      "variant": "same_outputs",
+      "cores": 38,
+      "outputs": 5,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.10604143399996246,
+      "status": "measured",
+      "work": 3052,
+      "max_size": 59049,
+      "evaluation_s": 0.005649552000022595,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "same_outputs",
+      "cores": 48,
+      "outputs": 5,
+      "finish_legal": true,
+      "construction_to_last_core_s": 0.1326552130001346,
+      "status": "measured",
+      "work": 3144,
+      "max_size": 59049,
+      "evaluation_s": 0.007165605999944091,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "same_outputs",
+      "cores": 60,
+      "outputs": 5,
+      "finish_legal": true,
+      "construction_to_last_core_s": 0.1633752469999763,
+      "status": "measured",
+      "work": 6424,
+      "max_size": 59049,
+      "evaluation_s": 0.01060805900010564,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 1,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.020336930999974356,
+      "status": "measured",
+      "work": 6,
+      "max_size": 9,
+      "evaluation_s": 0.00021154000000933593,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 2,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.02261605600006078,
+      "status": "measured",
+      "work": 18,
+      "max_size": 9,
+      "evaluation_s": 0.00019564699982765887,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 4,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.026711721000083344,
+      "status": "measured",
+      "work": 24,
+      "max_size": 9,
+      "evaluation_s": 0.00025949700011551613,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 8,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.03578608900011204,
+      "status": "measured",
+      "work": 49,
+      "max_size": 9,
+      "evaluation_s": 0.0003958240001793456,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 16,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.05386852500009809,
+      "status": "measured",
+      "work": 93,
+      "max_size": 9,
+      "evaluation_s": 0.0008431730000211246,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 32,
+      "outputs": 1,
+      "finish_legal": false,
+      "construction_to_last_core_s": 0.09134903299991493,
+      "status": "measured",
+      "work": 227,
+      "max_size": 10,
+      "evaluation_s": 0.002585026000133439,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 48,
+      "outputs": 1,
+      "finish_legal": true,
+      "construction_to_last_core_s": 0.1326552130001346,
+      "status": "measured",
+      "work": 363,
+      "max_size": 10,
+      "evaluation_s": 0.0056666210000457795,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    },
+    {
+      "variant": "anchor_only",
+      "cores": 60,
+      "outputs": 1,
+      "finish_legal": true,
+      "construction_to_last_core_s": 0.1633752469999763,
+      "status": "measured",
+      "work": 790,
+      "max_size": 20,
+      "evaluation_s": 0.008780594999961977,
+      "information": 0.0,
+      "reward": 0.0,
+      "removed_targets": 0,
+      "removed_all": 0,
+      "changed_domains": {},
+      "solved": false,
+      "dfs": {
+        "status": "solved",
+        "nodes": 3,
+        "solve_s": 0.0379030590002003
+      }
+    }
+  ],
+  "full_cores": 60
+}

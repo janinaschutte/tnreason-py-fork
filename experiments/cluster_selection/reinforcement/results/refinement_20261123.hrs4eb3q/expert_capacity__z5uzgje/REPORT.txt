@@ -1,0 +1,17 @@
+Existing-development expert proof capacity audit
+
+138 saved useful applications from16 expert trajectories. No new contraction or training.
+Saved contraction work244--37,683 (median793); saved intermediate size18--512 (median20).
+Original cores6--171 (median8); retained outputs1--8 (median1).
+78 proofs retain auxiliary outputs only,32 primary only,28 mixed.
+
+After removing only factors identically true on the recorded domains and vacuous output axes,
+119/138 proofs fit the learner limits and all119 have legal core/output construction traces
+when stopping is free. None of these exact constructions is emitted by sampling_grow:
+all119 require both a core-stop and an output-stop that growth filtering prohibits.
+53 locked-candidate proofs reduce from6 to4 cores; the reduced median is8 cores.
+The19 remaining limits are4 large core sets and15 expanded summary-output tensors.
+
+These are sequential expert states, not matched learner states. Exact construction failure
+does not establish deduction failure: affordable larger clusters containing a witness and
+retaining its outputs may reproduce its pruning. No solving improvement is measured here.

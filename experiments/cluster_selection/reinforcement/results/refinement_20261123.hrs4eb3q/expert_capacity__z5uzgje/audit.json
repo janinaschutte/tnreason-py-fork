@@ -1,0 +1,9 @@
+{
+  "model_source_sha256": "535532767944f598454ade7761d58cdec95a538dc1bf6beb69ad33c15bf990c6",
+  "summary_sha256": "6a92cfb386be41536b5fe0a15c0e6b69a169ed2604b2f34d37aebeaa07fd1bf9",
+  "all_families_count": true,
+  "all_reduced_affordable_representable": true,
+  "exact_growth_none": true,
+  "raw_proofs_unchanged": true,
+  "no_training_or_contraction_run": true
+}

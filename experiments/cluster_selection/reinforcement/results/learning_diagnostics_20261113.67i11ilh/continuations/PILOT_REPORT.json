@@ -1,0 +1,742 @@
+{
+  "protocol_sha256": "8250c0a66a4c76cdb4fd6e4ad14ddfa55fe99bbc9ca5239fdeb9ed8d12bd4faf",
+  "split": "Existing development validation; no newly held-out puzzles used.",
+  "train_indices": [
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38
+  ],
+  "validation_indices": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    13,
+    14
+  ],
+  "seed": 29,
+  "budget": {
+    "chunks": 6,
+    "puzzles_per_chunk": 8,
+    "train_indices": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13,
+      14
+    ],
+    "train_instances": 16,
+    "validation_instances": 8,
+    "planned_puzzle_visits": 48,
+    "planned_passes": 3,
+    "max_fresh_updates": 144,
+    "max_fresh_cluster_trials": 576,
+    "validation_rounds_including_initial": 4,
+    "scheduled_validation_dfs_solves": 32,
+    "gac_selection": [
+      {
+        "group": "training",
+        "index": 23,
+        "stalled": true,
+        "domains_sha256": "0da8c510a6910d582749fde8bed39009c9ddbdb9501ba8217826a81d5c061a94"
+      },
+      {
+        "group": "training",
+        "index": 24,
+        "stalled": true,
+        "domains_sha256": "3ca6465ee80e85bafe376d18356c496944575404265ae46788dc7054c0d25564"
+      },
+      {
+        "group": "training",
+        "index": 25,
+        "stalled": true,
+        "domains_sha256": "fe3544af7b3b5d5679f61087502f4b57ac4bba2fe2b971319140193a763153f6"
+      },
+      {
+        "group": "training",
+        "index": 26,
+        "stalled": true,
+        "domains_sha256": "8f50202add09c239245a669f7f76a53014e622b8c87b24fba5facebba6699396"
+      },
+      {
+        "group": "training",
+        "index": 27,
+        "stalled": true,
+        "domains_sha256": "743458a1727e4919e9dc47e9d91555e87f999636085bf5d694d3016d67022ecc"
+      },
+      {
+        "group": "training",
+        "index": 28,
+        "stalled": true,
+        "domains_sha256": "c8b6838459cee2c47adf9956c277ca037acdbb200d09cecfb651e6f1c6459c31"
+      },
+      {
+        "group": "training",
+        "index": 29,
+        "stalled": true,
+        "domains_sha256": "b4c20f1a9a47ebf746ee605c31402d5263f28b090f527c25f9727d6fcd19a6d4"
+      },
+      {
+        "group": "training",
+        "index": 30,
+        "stalled": true,
+        "domains_sha256": "035f28f2e92048a74fb8c0c29b94d9ba783fd04f8a00f55ab77de4e4020812bc"
+      },
+      {
+        "group": "training",
+        "index": 31,
+        "stalled": true,
+        "domains_sha256": "9ddccbf1419b6f882e9046e9727940a295b4aae008f8b060d3bffcc4e0de0255"
+      },
+      {
+        "group": "training",
+        "index": 32,
+        "stalled": true,
+        "domains_sha256": "5c6473d07faf2db021a00758ffc81fe2b305d1b271a28d215e822e0903238b41"
+      },
+      {
+        "group": "training",
+        "index": 33,
+        "stalled": true,
+        "domains_sha256": "80ae77e689876caf8cc2f38f837406790471f375dfdd650d9be54b9499cd576e"
+      },
+      {
+        "group": "training",
+        "index": 34,
+        "stalled": true,
+        "domains_sha256": "a7aecdc4c728aef3001e350248c14794f75cfa17ecf46aa5679aae98bdb94b64"
+      },
+      {
+        "group": "training",
+        "index": 35,
+        "stalled": true,
+        "domains_sha256": "ffef37b3505074b9fa38fb585f6fe5babafd9a4c35ad0c3c107cf33a427e8f74"
+      },
+      {
+        "group": "training",
+        "index": 36,
+        "stalled": true,
+        "domains_sha256": "b6482f03066617d5c31a8ca2c398ced371f7535fc6fd63f3ad93057b4bf5a71d"
+      },
+      {
+        "group": "training",
+        "index": 37,
+        "stalled": true,
+        "domains_sha256": "8d4003f7c3dbaa9883ed24d4c20c31f8ddaf4b95e0c3c50c9f245b993ac65286"
+      },
+      {
+        "group": "training",
+        "index": 38,
+        "stalled": true,
+        "domains_sha256": "5e6de25ac30859c1c72949fd95bb812f2cebeccd37181a309c54c2a1e7a9a163"
+      },
+      {
+        "group": "validation",
+        "index": 0,
+        "stalled": true,
+        "domains_sha256": "1d270dd8af8e1935cb8bf3c13df29540dcba56d9c12db72f84d124dad0b01ac1"
+      },
+      {
+        "group": "validation",
+        "index": 1,
+        "stalled": false,
+        "domains_sha256": "3154fd14bbc5fa51433d861ef31fa580022a0e2191f8bd27b36077c1b25a8fac"
+      },
+      {
+        "group": "validation",
+        "index": 2,
+        "stalled": true,
+        "domains_sha256": "96a8bc476ef849f8608180e331a356035af24321f6f0223b17e23580ec728df7"
+      },
+      {
+        "group": "validation",
+        "index": 3,
+        "stalled": false,
+        "domains_sha256": "4905d49acf6d445f7028c5d082b25dc5731965d46e0945eb75812e8e624fb482"
+      },
+      {
+        "group": "validation",
+        "index": 4,
+        "stalled": true,
+        "domains_sha256": "e605ad1ebe8cc3bfeb30ab79eb2b8ede88d3cbb21f6d5f248eb77cf20249650f"
+      },
+      {
+        "group": "validation",
+        "index": 5,
+        "stalled": false,
+        "domains_sha256": "ca558aab801e2bda6cf1762b51533d9e0a5ac9a51af235ba5fb1a0fb1349ae9c"
+      },
+      {
+        "group": "validation",
+        "index": 6,
+        "stalled": true,
+        "domains_sha256": "84228c77fee80649b4daf2a0c060b12bb5e214b44f24994b3aaf3594926de2cf"
+      },
+      {
+        "group": "validation",
+        "index": 7,
+        "stalled": false,
+        "domains_sha256": "1ce248832426bf2a6cd1ab2aec8bb3ce56d73f8a3898c97939177287621502f7"
+      },
+      {
+        "group": "validation",
+        "index": 8,
+        "stalled": true,
+        "domains_sha256": "9a9a4291ad11bab2b8053352f474679b4dbcaadb04e35071506629797e55226b"
+      },
+      {
+        "group": "validation",
+        "index": 9,
+        "stalled": false,
+        "domains_sha256": "c454ea3b07ed17ead7806ae26e60bc0dc9667e8c3bf9d2422a3cec117c80baf6"
+      },
+      {
+        "group": "validation",
+        "index": 10,
+        "stalled": true,
+        "domains_sha256": "b6b8d159ef75970e382b596b6cfc81a1100e1343b8b1f588ba93f7e438b0d241"
+      },
+      {
+        "group": "validation",
+        "index": 11,
+        "stalled": false,
+        "domains_sha256": "ac9012fc2d70aafb454ce03ab842e432bb1320b32f9053af2db084346b9cc3f2"
+      },
+      {
+        "group": "validation",
+        "index": 12,
+        "stalled": false,
+        "domains_sha256": "199c6562a43cd5cec24afe592a01104e5756f22fd88795fa64e85ffcef3757ee"
+      },
+      {
+        "group": "validation",
+        "index": 13,
+        "stalled": true,
+        "domains_sha256": "874c3a8d5c059f4ce81f71260f91f40d0ca8f40dfd58f5d9aaffc51fa03dce4d"
+      },
+      {
+        "group": "validation",
+        "index": 14,
+        "stalled": true,
+        "domains_sha256": "e1392493f90718c17c301f410f7e97b86d22bcf4f0cceee1ea09db8498b3a650"
+      }
+    ],
+    "selection": "First16 declared training indices; first8 ordinary-GAC-stalled OLD validation indices, chosen without evaluating any model.",
+    "cli": [
+      "--epochs",
+      "6",
+      "--puzzles-per-epoch",
+      "8",
+      "--validation-seconds",
+      "300",
+      "--validation-interval",
+      "2",
+      "--checkpoint-every",
+      "2",
+      "--progress-every",
+      "8",
+      "--train-indices",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "--validation-indices",
+      "0",
+      "2",
+      "4",
+      "6",
+      "8",
+      "10",
+      "13",
+      "14"
+    ]
+  },
+  "results": {
+    "reinforce": {
+      "lr": 0.0003,
+      "self_imitation_weight": 0.0,
+      "initial": {
+        "epoch": 0,
+        "nodes": 16,
+        "nodes_by_instance": [
+          2,
+          2,
+          3,
+          2,
+          3,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 2,
+        "root_progress": 0.28624499471373194,
+        "greedy_useful": 1
+      },
+      "best": {
+        "epoch": 4,
+        "nodes": 14,
+        "nodes_by_instance": [
+          3,
+          2,
+          3,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 4,
+        "root_progress": 0.533758646992058,
+        "greedy_useful": 1
+      },
+      "final": {
+        "epoch": 6,
+        "nodes": 14,
+        "nodes_by_instance": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 2,
+        "root_progress": 0.27092964317605917,
+        "greedy_useful": 1
+      },
+      "puzzle_visits": 48,
+      "fresh_optimizer_updates": 77,
+      "fresh_cluster_trials": 308,
+      "sampled_useful": 116,
+      "sampled_useful_fraction": 0.37662337662337664,
+      "self_imitation_terms": 0,
+      "self_imitation_scored_actions": 0,
+      "self_imitation_unique_successes": 0,
+      "self_imitation_mean_nll": 0.0,
+      "validation_curve": [
+        {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        {
+          "epoch": 2,
+          "nodes": 15,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            3,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.27805472479987137,
+          "greedy_useful": 2
+        },
+        {
+          "epoch": 4,
+          "nodes": 14,
+          "nodes_by_instance": [
+            3,
+            2,
+            3,
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 4,
+          "root_progress": 0.533758646992058,
+          "greedy_useful": 1
+        },
+        {
+          "epoch": 6,
+          "nodes": 14,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.27092964317605917,
+          "greedy_useful": 1
+        }
+      ],
+      "epochs_seconds": 920.1489458060023
+    },
+    "lower_lr": {
+      "lr": 0.0001,
+      "self_imitation_weight": 0.0,
+      "initial": {
+        "epoch": 0,
+        "nodes": 16,
+        "nodes_by_instance": [
+          2,
+          2,
+          3,
+          2,
+          3,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 2,
+        "root_progress": 0.28624499471373194,
+        "greedy_useful": 1
+      },
+      "best": {
+        "epoch": 2,
+        "nodes": 13,
+        "nodes_by_instance": [
+          2,
+          2,
+          1,
+          2,
+          2,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 3,
+        "root_progress": 0.4150532089343618,
+        "greedy_useful": 1
+      },
+      "final": {
+        "epoch": 6,
+        "nodes": 13,
+        "nodes_by_instance": [
+          2,
+          2,
+          2,
+          1,
+          3,
+          1,
+          1,
+          1
+        ],
+        "without_branching": 4,
+        "root_progress": 0.518063209667684,
+        "greedy_useful": 2
+      },
+      "puzzle_visits": 48,
+      "fresh_optimizer_updates": 78,
+      "fresh_cluster_trials": 312,
+      "sampled_useful": 113,
+      "sampled_useful_fraction": 0.36217948717948717,
+      "self_imitation_terms": 0,
+      "self_imitation_scored_actions": 0,
+      "self_imitation_unique_successes": 0,
+      "self_imitation_mean_nll": 0.0,
+      "validation_curve": [
+        {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        {
+          "epoch": 2,
+          "nodes": 13,
+          "nodes_by_instance": [
+            2,
+            2,
+            1,
+            2,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 3,
+          "root_progress": 0.4150532089343618,
+          "greedy_useful": 1
+        },
+        {
+          "epoch": 4,
+          "nodes": 14,
+          "nodes_by_instance": [
+            3,
+            2,
+            3,
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 4,
+          "root_progress": 0.514545149954831,
+          "greedy_useful": 2
+        },
+        {
+          "epoch": 6,
+          "nodes": 13,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            1,
+            3,
+            1,
+            1,
+            1
+          ],
+          "without_branching": 4,
+          "root_progress": 0.518063209667684,
+          "greedy_useful": 2
+        }
+      ],
+      "epochs_seconds": 919.009667454
+    },
+    "self_imitation": {
+      "lr": 0.0003,
+      "self_imitation_weight": 0.1,
+      "initial": {
+        "epoch": 0,
+        "nodes": 16,
+        "nodes_by_instance": [
+          2,
+          2,
+          3,
+          2,
+          3,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 2,
+        "root_progress": 0.28624499471373194,
+        "greedy_useful": 1
+      },
+      "best": {
+        "epoch": 4,
+        "nodes": 13,
+        "nodes_by_instance": [
+          3,
+          2,
+          2,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 4,
+        "root_progress": 0.5276569720260467,
+        "greedy_useful": 2
+      },
+      "final": {
+        "epoch": 6,
+        "nodes": 13,
+        "nodes_by_instance": [
+          2,
+          2,
+          2,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "without_branching": 3,
+        "root_progress": 0.38586053316074326,
+        "greedy_useful": 1
+      },
+      "puzzle_visits": 48,
+      "fresh_optimizer_updates": 86,
+      "fresh_cluster_trials": 344,
+      "sampled_useful": 125,
+      "sampled_useful_fraction": 0.3633720930232558,
+      "self_imitation_terms": 85,
+      "self_imitation_scored_actions": 5957,
+      "self_imitation_unique_successes": 125,
+      "self_imitation_mean_nll": 2.409330189929289,
+      "validation_curve": [
+        {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        {
+          "epoch": 2,
+          "nodes": 15,
+          "nodes_by_instance": [
+            3,
+            2,
+            3,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 3,
+          "root_progress": 0.39490185827253965,
+          "greedy_useful": 2
+        },
+        {
+          "epoch": 4,
+          "nodes": 13,
+          "nodes_by_instance": [
+            3,
+            2,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 4,
+          "root_progress": 0.5276569720260467,
+          "greedy_useful": 2
+        },
+        {
+          "epoch": 6,
+          "nodes": 13,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 3,
+          "root_progress": 0.38586053316074326,
+          "greedy_useful": 1
+        }
+      ],
+      "epochs_seconds": 1062.4715082599996
+    }
+  },
+  "gpu_status": "Prepared but not submitted; SSH authentication prevented submission from this session.",
+  "gpu_submission": "cd /Home/optimier/schuette/tnreasonproj/tnreason-py\ncondor_submit experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/train_gpu.sub",
+  "limitations": [
+    "Only16 training puzzles,8 old validation puzzles,one seed and48 visits per arm: mechanism pilot, not a retention or generalization conclusion.",
+    "Same prescribed visit budget and seed; on-policy states and actual updates differ. The shared training RNG can change later-pass ordering after policy-dependent consumption.",
+    "Replay adds scored model actions without fresh contractions; computational work is not identical across arms.",
+    "All initial weights/configurations match the trained parent. Current CPU initial16 nodes differ from historical saved selection on the same subset; current matched controls define this experiment.",
+    "Weights-only restarts reset Adam,RNG,pools,teacher cache,reward scale and replay memory; no exact optimizer resumption is claimed.",
+    "Teacher-imitation coefficient remains zero; teacher-assisted state advances remain active. Printed teacher imitation is diagnostic."
+  ],
+  "source_sha256": {
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/protocol.json": "8250c0a66a4c76cdb4fd6e4ad14ddfa55fe99bbc9ca5239fdeb9ed8d12bd4faf",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/inputs.json": "bd2dfc6aaab67735ffb47165f6d03de2142f710e4f71ed8c61da82d4edc6789a",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/cli_preflight.json": "01b0c414d462e4beafd0c3697078c99b961c3320ec3984aec40628fc71014564",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/initial_audit.json": "41a99e67212092a8f7da695aaefe55c3a2d5f0ee6075312dd8bcf2d08d410466",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/default_equivalence.json": "2d58c0700ca59e9c07f3a01b2a378ba4be41e83d92bc4ede1691f2f9b6fdc869",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_reinforce/policy.initial.pt": "55c61c9e6fe1805c875cb121a25b40dbc8d2812d2d81fb3033e63534acc6ee8e",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_reinforce/policy.best.pt": "e9ca9f7496030bba2e507755e87210fdc1eaad127561586aa0448a20758dd329",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_reinforce/policy.pt": "479329ea8b6c0062ca8976a2eacdf45199e1578da774ff69023529a870f41542",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.reinforce.out": "213dda3537d157d1016a1b93a20565c7101192ca3d7db56a75d1a1e0e4c655c5",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.reinforce.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_lower_lr/policy.initial.pt": "d46dd1c7bab7a3057a630eb82be3aeaeff2f0e030edc71276181e698469d95cd",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_lower_lr/policy.best.pt": "5bf83210193be86dd7173ac86841304804f090eb05b18a11202ee07a43d5f659",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_lower_lr/policy.pt": "4d279686a8ff2b98589c8225f2b046d97064ee5cdaed07d623ed7d9f4490f73d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.lower_lr.out": "530988a42d592e0323dfc007dfdced956e001d545f21b3cbc35828bc7765509d",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.lower_lr.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_self_imitation/policy.initial.pt": "c41183a9c1f6285b97a7b7fae3f3dd837e0f526eec732ab5c5c9aa77d216e110",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_self_imitation/policy.best.pt": "8341a6f29538658ac96173f31f9287c5815fdca9b1bdd8a5b5743df38eebbb8a",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_self_imitation/policy.pt": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.self_imitation.out": "ddda611837c997e060651ae6391231ba2b4c92b1cb140b2c3ff42f2287b06f65",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/pilot.retry1.self_imitation.err": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

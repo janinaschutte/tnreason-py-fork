@@ -1,0 +1,24 @@
+ROOT-ONLY EXPERT REFERENCE
+
+Same previously queried 16 unique Sudoku puzzles; exploratory evaluation.
+Four CPU workers; 51 expert families with unchanged RuleLimits defaults.
+Every case first runs ordinary GAC, then attaches the expert and starts its timer.
+No solver, DFS, branch assignment, probe, training or full-network retry is called.
+
+Solved without branching: 15/16. Position 8 stalled with 53 unresolved positions.
+Ordinary GAC phase, summed over 16 cases: 1.0121 seconds.
+Expert plus subsequent GAC, after that closure: 13.5655 seconds.
+Combined propagation phases: 14.5777 seconds.
+Position 8 alone used 11.0549 seconds of the expert phase.
+
+These are summed CPU wall times under concurrent execution, excluding network
+loading/setup and final validation. They replace the earlier full-DFS expert
+time when comparing root-only policies; they are not isolated speed benchmarks.
+
+All 16 known valid reference assignments satisfy the original givens and 2916
+cores and remain in every final domain. All 15 newly solved root assignments
+also satisfy every original constraint. Sources, data and reference hashes are
+unchanged, no cores were added, and all decision levels remain zero.
+
+Protocol, full baseline/final domains, root assignments, family counts, timings,
+summary and audit are preserved in this folder. All original results are intact.

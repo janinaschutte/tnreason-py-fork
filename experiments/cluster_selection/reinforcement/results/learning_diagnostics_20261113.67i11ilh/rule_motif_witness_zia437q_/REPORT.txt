@@ -1,0 +1,58 @@
+VERIFIED RULE-INSPIRED GENERIC HEURISTIC WITNESSES
+
+Concrete Sudoku example: a naked triple in row 1, columns 1, 4 and 7,
+with domains {1,2}, {2,3}, {1,3}. Ordinary GAC stalls. These three cells
+must collectively use digits 1,2,3, so those digits can be removed from the
+other cells in that row. This is an illustrative constructed domain state,
+not an additional held-out Sudoku solve.
+
+Checked through the existing generic joint-summary executor:
+  18 original link cores, retaining three row-digit category variables;
+  estimated work 2,916, maximum 729 tensor entries;
+  contraction plus GAC removes 90 domain values including auxiliaries.
+The original closed state is restored after every independent trial.
+
+Frozen old heuristic, same full 9x9 network:
+  cycle cap 8, 512 proposals, 131,072 search steps, core cap 64,
+  at most 6 outputs, work <=1e6 and tensor size <=1e5;
+  generated 512 candidates, contracted all 512, found ZERO useful candidates.
+On the isolated original triple region, it generates no cycle-8 candidates.
+Raising its cycle cap to 12 gives one useful proposal. This is a measured
+coverage gap under the stated bounds, not a claim that every larger search
+budget or every structural extension must miss the deduction.
+
+Independent generic witnesses use no Sudoku variable names or geometry:
+  Xi (i=0,1,2) has dimension 3; Yj (j=0,1,2) has dimension 4.
+  Each Boolean Bij is linked by original tensors to Xi=j and Yj=i.
+  Yj value 3 denotes an outside alternative. Boolean truth labels are
+  consistently flipped on alternating indicators, so their actual supports
+  matter. All 18 original cores and domains are in generic_variant.json.
+
+Sparse version: Xi domains {0,1}, {1,2}, {0,2}.
+  Hall projection removes outside value 3 from each Yj: 3 removals,
+  work 198, maximum 64 entries.
+  Old cycle-8 generator: 0 proposals; cycle-12: 1 useful proposal.
+
+Dense version: all Xi values {0,1,2} remain available.
+  Ordinary GAC leaves every Yj domain {0,1,2,3} unchanged.
+  Hall projection removes outside value 3 from each Yj: 3 removals,
+  work 2,108, maximum 128 entries.
+  Old cycle-8 generator: 33 proposals, all no-ops, largest cluster 14 cores.
+  Old cycle-12 generator: 49 proposals, one useful full 18-core cluster.
+
+Only source categories need complete coverage of their CURRENT alternatives.
+Target channels need only encode mutual exclusion: their outside alternative
+is precisely what the Hall deduction removes. Requiring every target category
+to have an indicator for every value would incorrectly discard this witness.
+
+No DFS, guessed assignments or rule-coded pruning was used. Generic witnesses
+were reproduced with search/assignment methods forbidden. All deductions came
+from original-tensor contraction and GAC. Production files, current checkpoints
+and old experiment results were not edited by this witness investigation.
+
+Reproduce generic sparse/dense results from tnreason-py with its Python env:
+  PYTHONPATH=. python experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/rule_motif_witness_zia437q_/generic_cases.py
+The script imports no Sudoku code and uses the archived old generator. The
+original Sudoku experiment runner is run.py. Raw full candidate results are
+preserved in result.json and dense_result.json; concise results and artifact
+hashes are in summary.json. No new optional selector performance is claimed here.

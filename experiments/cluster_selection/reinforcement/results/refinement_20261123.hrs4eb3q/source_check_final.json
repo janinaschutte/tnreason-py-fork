@@ -1,0 +1,7 @@
+{
+  "purpose": "Source-only integrity check; no test outcomes read",
+  "protocol_sha256": "e8f4d7b9c6d7fa78e382e69274ba15c22c7ea5f9de342f852b83da3418e49bf4",
+  "sources": 111,
+  "all_match": true,
+  "failures": []
+}

@@ -1,0 +1,67 @@
+development16_fixed32
+Method                  Roots     DFS Root(s) Residual(s) Deadline hits
+plain                   0/16    242     0.74        1.43             0
+expert                 14/16     32    28.94        0.30             0
+heuristic               2/16    228     1.86        1.35             0
+parent                  7/16     58   161.32        1.12             0
+untrained               5/16     67   173.19        1.30             0
+rms                     7/16     60   142.22        1.16             0
+group0                  6/16     68   151.00        1.08             0
+group1                  7/16     62   135.26        1.32             0
+global_context          8/16     51   142.33        0.98             0
+objective_rms           8/16     56   141.67        0.81             0
+objective_group         5/16     59   137.95        0.92             0
+context075_seed0        8/16     62   144.80        0.85             0
+context050_seed0        6/16     61   157.26        0.96             0
+global_rms_seed0        6/16    149    90.33        0.94             0
+
+development55_fixed32
+Method                  Roots     DFS Root(s) Residual(s) Deadline hits
+plain                   8/55    479     4.74        6.07             0
+expert                 52/55     74    85.53        1.47             0
+heuristic              16/55    357     5.73        2.46             0
+parent                 30/55    157   418.23        2.78             0
+global_context         33/55    145   412.66        2.71             0
+objective_rms          30/55    172   380.65        2.68             0
+untrained              22/55    249   438.68        3.51             0
+prior_gpu_replay       33/55    147   331.46        2.12             0
+
+development16_time30
+Method                  Roots     DFS Root(s) Residual(s) Deadline hits
+plain                   0/16    242     0.74        1.43             0
+expert                 14/16     32    28.94        0.30             0
+heuristic               6/16    194   310.16        2.23            10
+prior_gpu_replay       11/16     48   253.33        0.71             5
+context075_seed0       11/16     49   257.57        0.71             5
+context050_seed0       12/16     47   268.30        0.61             4
+global_rms_seed0       12/16     36   206.85        0.40             4
+parent                  9/16     50   277.93        0.93             7
+untrained              12/16     48   273.49        0.78             4
+global_context         11/16     48   234.65        0.69             5
+objective_rms          11/16     48   254.77        0.79             5
+
+development16_serial_time30_v4
+Method                  Roots     DFS Root(s) Residual(s) Deadline hits
+plain                   0/16    242     0.74        1.43             0
+expert                 14/16     32    28.94        0.30             0
+heuristic               6/16    194   310.16        2.23            10
+prior_gpu_replay       11/16     48   203.14        0.39             5
+untrained              12/16     48   207.43        0.38             4
+global_rms_seed0       12/16     36   204.25        0.34             4
+
+Pending: none
+
+All evaluations reuse existing development validation; no heldout100 data or results were read.
+Fixed32 limits generic application attempts; time30 has no attempt cap and a 30-second root wall ceiling.
+DFS is plain MAC after retaining root pruning, not a full search that continues applying clusters at every DFS node.
+The expert uses 51 Sudoku-specific rule families and larger cluster limits; it is a reference in every table.
+Common fixed32 neural rows were re-evaluated serially on CPU3; reused plain/heuristic/expert timings came from earlier runs.
+Context and global-RMS fixed32 endpoints use their audited training-end evaluations, not the earlier common serial re-evaluation.
+Prior GPU replay is a separate historical checkpoint, not the small CPU replay checkpoint in the ongoing100 benchmark.
+Prior GPU replay time16 was recovered from complete durable rows and independently audited after a post-evaluation reference-index error.
+Time-only neural rows run on distinct pinned CPUs with shared-host contention; equal ceilings do not guarantee equal operations.
+The final serial_time30_v4 scope re-evaluates only GPU replay, untrained and global-RMS, interleaved on CPU0; other rows there are reused references.
+Serial v4 uses the same optimized domain-feature implementation for all three models. Its paired baseline is the stronger GPU replay checkpoint.
+Root and residual times exclude model loading, setup, training and separate sampled single-cluster diagnostics.
+Root deadline hits are expected censoring under time30; residual incompleteness is reported separately and never counted as zero nodes.
+Paired puzzle bootstrap intervals exclude training-seed, checkpoint selection and evaluation-seed uncertainty; all puzzles remain included.

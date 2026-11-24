@@ -1,0 +1,17 @@
+Actual full MAC on16 reused development puzzles:32 cluster attempts per closure,300s whole solve,10000-node cap.
+Every method solved all16; MRV/degree/name branching. Times are indicative shared-host CPU observations.
+Method                 Roots   DFS   Solve(s)
+plain                   0/16   242       3.30
+structural_batch32      2/16   187      18.81
+untrained               5/16    45     217.23
+rf_parent               7/16    32     233.36
+global_group            8/16    36     278.02
+prior_gpu_replay        7/16    36     249.77
+global_rms              6/16    40     174.84
+RF/globalGroup times combine completed30s runs with only previously censored cases retried at300s.
+All other rows are direct runs. Loading/network setup excluded; timings do not establish a fair speed ranking.
+Separate protocol reference:51-family Sudoku expert 14/16 roots, 32 root+plain-residual DFS nodes, 29.24s; larger bounds, not full MAC.
+New global+RMS improves this untrained control (40 vs45DFS) but trails RF32 and globalGroup/GPUreplay36.
+The time-only root+plain global+RMS result12roots/36DFS is a different algorithm and budget.
+All112 completed assignments and16 cached references checked against original tensors, givens and input domains.
+No test100 inputs/results used. All16 puzzles remain included.

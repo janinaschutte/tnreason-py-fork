@@ -1,0 +1,440 @@
+One single-thread CPU process per puzzle; wall-clock budget includes initial ordinary GAC, proposal adapter/context setup, generation/decoding, planning, contraction and GAC. Model/network/state loading, source hashing, final validation, disk publication and residual DFS are excluded. Closed-domain snapshots are copied in RAM inside the timed interval. Completion timestamps are sampled after full contraction+GAC and lightweight accounting, before snapshot copying. Both wall and CPU timestamps are recorded. SIGALRM interrupts read-only proposals/planning; blocked during initial GAC and domain mutation/contraction+GAC. Atomic completion after a budget earns no earlier credit.
+
+Exploratory replication on all 100 previously evaluated puzzles, without performance-based selection. All nine methods rerun from the original domains, on the same worker per puzzle, with fixed checkpoints, decoders and per-cluster limits. One 300s trajectory supplies prefixes 1/5/15/60/120/300s; no saved trajectory is resumed or spliced into this replication. The generic mix shares one aggregate budget across heuristic/teacher/REINFORCE/replay/Q, restarting their iterators after useful pruning on shared updated domains. It targets equal cumulative wall shares with nonpreemptive one-candidate turns, not hard per-source quotas. Switching, proposal, planning, contraction and GAC are charged; no Sudoku expert or untrained control enters the mix. The expert remains a separate reference with its original larger limits. Model/network/state loading is excluded. Hardware is recorded per attempt; do not merge these timings with old runs.
+
+Residual DFS totals include each root and use identical, separately timed plain MAC. Censored totals are left blank and omitted from DFS plots. The Sudoku expert has larger per-cluster limits. Figures omit footer text for poster use; this protocol records exclusions.
+
+[
+  {
+    "method": "plain",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "plain",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "plain",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "plain",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "plain",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "plain",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 0,
+    "remaining_dfs_nodes": 356,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 19,
+    "remaining_dfs_nodes": 296,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 28,
+    "remaining_dfs_nodes": 275,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 33,
+    "remaining_dfs_nodes": 268,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 35,
+    "remaining_dfs_nodes": 261,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 36,
+    "remaining_dfs_nodes": 258,
+    "residual_censored": 0
+  },
+  {
+    "method": "heuristic",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 36,
+    "remaining_dfs_nodes": 255,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 13,
+    "remaining_dfs_nodes": 340,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 32,
+    "remaining_dfs_nodes": 299,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 55,
+    "remaining_dfs_nodes": 246,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 70,
+    "remaining_dfs_nodes": 198,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 74,
+    "remaining_dfs_nodes": 189,
+    "residual_censored": 0
+  },
+  {
+    "method": "initial",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 82,
+    "remaining_dfs_nodes": 164,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 24,
+    "remaining_dfs_nodes": 306,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 50,
+    "remaining_dfs_nodes": 251,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 64,
+    "remaining_dfs_nodes": 225,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 75,
+    "remaining_dfs_nodes": 193,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 80,
+    "remaining_dfs_nodes": 179,
+    "residual_censored": 0
+  },
+  {
+    "method": "teacher",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 88,
+    "remaining_dfs_nodes": 152,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 16,
+    "remaining_dfs_nodes": 332,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 50,
+    "remaining_dfs_nodes": 262,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 59,
+    "remaining_dfs_nodes": 222,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 76,
+    "remaining_dfs_nodes": 175,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 85,
+    "remaining_dfs_nodes": 155,
+    "residual_censored": 0
+  },
+  {
+    "method": "reinforce",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 87,
+    "remaining_dfs_nodes": 149,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 14,
+    "remaining_dfs_nodes": 322,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 49,
+    "remaining_dfs_nodes": 254,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 62,
+    "remaining_dfs_nodes": 214,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 77,
+    "remaining_dfs_nodes": 176,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 78,
+    "remaining_dfs_nodes": 168,
+    "residual_censored": 0
+  },
+  {
+    "method": "replay",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 85,
+    "remaining_dfs_nodes": 158,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 350,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 349,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 349,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 349,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 349,
+    "residual_censored": 0
+  },
+  {
+    "method": "q",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 5,
+    "remaining_dfs_nodes": 349,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 86,
+    "remaining_dfs_nodes": 148,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 94,
+    "remaining_dfs_nodes": 124,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 97,
+    "remaining_dfs_nodes": 120,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 97,
+    "remaining_dfs_nodes": 120,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 97,
+    "remaining_dfs_nodes": 120,
+    "residual_censored": 0
+  },
+  {
+    "method": "expert",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 97,
+    "remaining_dfs_nodes": 120,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 1,
+    "instances": 100,
+    "solved_without_branching": 24,
+    "remaining_dfs_nodes": 307,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 5,
+    "instances": 100,
+    "solved_without_branching": 46,
+    "remaining_dfs_nodes": 252,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 15,
+    "instances": 100,
+    "solved_without_branching": 65,
+    "remaining_dfs_nodes": 211,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 60,
+    "instances": 100,
+    "solved_without_branching": 76,
+    "remaining_dfs_nodes": 185,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 120,
+    "instances": 100,
+    "solved_without_branching": 83,
+    "remaining_dfs_nodes": 170,
+    "residual_censored": 0
+  },
+  {
+    "method": "combined",
+    "budget_s": 300,
+    "instances": 100,
+    "solved_without_branching": 87,
+    "remaining_dfs_nodes": 153,
+    "residual_censored": 0
+  }
+]

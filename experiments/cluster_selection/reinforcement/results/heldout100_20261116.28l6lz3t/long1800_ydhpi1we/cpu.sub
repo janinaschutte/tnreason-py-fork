@@ -1,0 +1,21 @@
+universe = vanilla
+initialdir = /home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py
+executable = /home/schuette/anaconda3/bin/python
+transfer_executable = False
+should_transfer_files = NO
+arguments = "-u '/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/extended_budget.py' task '/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_ydhpi1we' $(Process)"
+request_cpus = 1
+request_gpus = 0
+requirements = (TARGET.TotalGPUs == 0)
+request_memory = 4GB
+request_disk = 1GB
+getenv = PATH, LD_LIBRARY_PATH
+environment = "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/cluster-mpl-$(ClusterID)-$(Process) XDG_CACHE_HOME=/tmp/cluster-cache-$(ClusterID)-$(Process)"
+output = /home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_ydhpi1we/logs/$(ClusterID).$(Process).out
+error = /home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_ydhpi1we/logs/$(ClusterID).$(Process).err
+log = /home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_ydhpi1we/logs/$(ClusterID).$(Process).log
+stream_output = True
+stream_error = True
+on_exit_hold = (ExitBySignal =?= True) || (ExitCode =!= 0)
+max_materialize = 10
+queue 100

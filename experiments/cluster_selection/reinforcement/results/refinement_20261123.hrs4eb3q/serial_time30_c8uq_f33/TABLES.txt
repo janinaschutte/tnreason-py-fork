@@ -1,0 +1,9 @@
+Serial single-core time30, root propagation then separate plain residual MAC
+Method          Root solves  Residual DFS  Root seconds  Residual seconds
+prior_gpu       11/16             48        203.14              0.39
+untrained       12/16             48        207.43              0.38
+global_rms      12/16             36        204.25              0.34
+expert_reused   14/16             32         28.94              0.30
+
+One development set, one checkpoint/seed each. Expert reference reused with larger problem-specific limits.
+Shared-host activity outside this experiment remains uncontrolled.

@@ -636,7 +636,7 @@ class Policy(Encoder):
         return (following or [idx for idx, action in enumerate(actions) if action[0] == "finish"]
                 or list(range(len(actions))))
 
-    def rollout(self, domains, *, beta=None, greedy=False, trace=None, prefix=None):
+    def rollout(self, domains, *, beta=None, greedy=False, trace=None, prefix=None, policy_trace=False):
         """One state encoding; bounded growth followed by output selection.
 
         Return candidate (or skip), summed log probability, entropy, and actions.
@@ -644,9 +644,12 @@ class Policy(Encoder):
         completed and only its sampled suffix receives policy-gradient credit.
         Training samples; inference chooses argmax. Empty outputs are legal.
         Growth decoding filters free actions; forced teachers/prefixes bypass it.
+        Set policy_trace to score a sampled trace with the free-policy masks.
         """
         if trace is not None and prefix is not None:
             raise ValueError("Specify either a complete trace or a prefix")
+        if policy_trace and trace is None:
+            raise ValueError("Policy trace scoring requires a complete trace")
         forced = list(trace if trace is not None else prefix or ())
         complete_trace = trace is not None
         beta = 0. if self.config.get("q_learning") else self.beta if beta is None else beta
@@ -657,8 +660,8 @@ class Policy(Encoder):
         keys, opened, output_phase, decisions, log_probs, entropies = [], [], False, [], [], []
         while True:
             actions, distribution = self.distribution(encoded, sizes, keys, opened, output_phase, beta, targets)
-            if (self.config.get("decoder") == "sampling_grow" and not complete_trace
-                    and len(decisions) >= len(forced)):
+            if (self.config.get("decoder") == "sampling_grow" and
+                    (policy_trace or not complete_trace and len(decisions) >= len(forced))):
                 following = self._continuations(actions, keys, opened, output_phase)
                 actions = [actions[idx] for idx in following]
                 distribution = Categorical(logits=distribution.logits[following])

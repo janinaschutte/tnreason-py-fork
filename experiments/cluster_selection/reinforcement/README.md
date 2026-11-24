@@ -32,6 +32,24 @@ Run Python entry points with `python -m experiments.cluster_selection.reinforcem
 | [train.py](train.py) | Legacy REINFORCE with a treewidth penalty. Also supplies shared state/checkpoint helpers used by current learners. |
 | [submit_teacher_branches.sh](submit_teacher_branches.sh) | Prepare and optionally submit a shared-filesystem HTCondor warmup and three continuation branches. |
 
+`learn.py --teacher-quality-fraction 0.9` optionally restricts imitation to
+teachers whose measured reward is at least 90% of the best at that state.
+Filtering precedes both teacher-trace sampling and construction of compatible
+action targets; ties and alternative core orders remain supported. It can be
+combined with `--greedy-imitation`. The default `0` preserves the original
+objective. This is an experimental pruning-quality filter, not a demonstrated
+DFS improvement; it excludes repair and completion-value imitation. The bounded
+comparison found no DFS improvement over its unchanged parent after 240 updates;
+see [the diagnostic report](results/teacher_quality_20261111.zAq3x3X8/REPORT.txt).
+
+`learn.py --self-imitation-weight 0.1 --self-imitation-capacity 2048` adds one
+past successful construction to each REINFORCE update. Only unprefixed trials
+with verified pruning or contradiction and positive valid reward enter the
+bounded buffer. Replay retains the original domains and sampled action order,
+and minimizes mean action negative log likelihood using the free policy's masks.
+Teacher imitation remains controlled separately by `--imitation-weight`.
+Self-imitation defaults to zero; its buffer starts empty on a weights-only restart.
+
 ## Current findings and data preparation
 
 The 6 November diagnostic (`results/constructive_improvement_20261106.903639e9/REPORT.md`)

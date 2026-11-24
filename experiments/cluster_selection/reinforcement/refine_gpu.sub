@@ -1,0 +1,54 @@
+# Paired experimental continuations: two reward scalings, three seeds each.
+repo_root = /Home/optimier/schuette/tnreasonproj/tnreason-py
+python_exec = /Home/optimier/schuette/.conda/envs/alphareason/bin/python
+data_file = $(repo_root)/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json
+parent_checkpoint = $(repo_root)/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/gpu_self_imitation_8051.2/policy.best.pt
+run_base = $(repo_root)/experiments/cluster_selection/reinforcement/results/refine_gpu_$(ClusterId)
+trials = 262144
+learning_rate = 0.0001
+groups = 4
+rollouts = 4
+root_fraction = 0.5
+context_capacity = 3
+validation_every = 16384
+validation_attempts = 0
+validation_seconds = 30
+validation_samples = 8
+checkpoint_every = 1024
+solve_bonus = 0
+global_flag = --global-context
+distance_flag =
+objective_flag =
+memory_flag =
+extra_args =
+
+universe = vanilla
+initialdir = $(repo_root)
+executable = $(repo_root)/experiments/cluster_selection/reinforcement/refine_gpu.sh
+transfer_executable = False
+should_transfer_files = NO
+arguments = "'$(python_exec)' '$(run_base)/$(normalization)/seed$(seed)' '$(data_file)' --initial '$(parent_checkpoint)' --device cuda --seed $(seed) --trials $(trials) --normalization $(normalization) --lr $(learning_rate) --groups $(groups) --rollouts $(rollouts) --root-fraction $(root_fraction) --context-capacity $(context_capacity) --validation-every $(validation_every) --validation-attempts $(validation_attempts) --validation-seconds $(validation_seconds) --validation-samples $(validation_samples) --checkpoint-every $(checkpoint_every) --solve-bonus $(solve_bonus) $(global_flag) $(distance_flag) $(objective_flag) $(memory_flag) $(extra_args)"
+request_gpus = 1
+require_gpus = Capability >= 7.5
+request_cpus = 1
+request_memory = 32GB
+request_disk = 4GB
+getenv = PATH, LD_LIBRARY_PATH
+environment = "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONUNBUFFERED=1"
+output = $(repo_root)/experiments/cluster_selection/reinforcement/refine_gpu.$(ClusterId).$(ProcId).out
+error = $(repo_root)/experiments/cluster_selection/reinforcement/refine_gpu.$(ClusterId).$(ProcId).err
+log = $(repo_root)/experiments/cluster_selection/reinforcement/refine_gpu.$(ClusterId).$(ProcId).log
+stream_output = True
+stream_error = True
+kill_sig = SIGTERM
+job_max_vacate_time = 120
+want_graceful_removal = True
+on_exit_hold = (ExitBySignal =?= True) || (ExitCode =!= 0)
+queue normalization,seed from (
+rms,0
+group,0
+rms,1
+group,1
+rms,2
+group,2
+)

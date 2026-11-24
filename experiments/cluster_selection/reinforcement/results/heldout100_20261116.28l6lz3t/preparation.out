@@ -1,0 +1,22 @@
+Reserved 2/100; checked 64; GAC-solved 58; multiple 4; unknown 0
+Reserved 4/100; checked 128; GAC-solved 117; multiple 7; unknown 0
+Reserved 6/100; checked 192; GAC-solved 176; multiple 10; unknown 0
+Reserved 9/100; checked 256; GAC-solved 234; multiple 13; unknown 0
+Reserved 12/100; checked 320; GAC-solved 290; multiple 18; unknown 0
+Reserved 13/100; checked 384; GAC-solved 345; multiple 26; unknown 0
+Reserved 14/100; checked 448; GAC-solved 402; multiple 32; unknown 0
+Reserved 14/100; checked 512; GAC-solved 464; multiple 34; unknown 0
+Reserved 15/100; checked 576; GAC-solved 523; multiple 38; unknown 0
+Reserved 18/100; checked 640; GAC-solved 580; multiple 42; unknown 0
+Reserved 18/100; checked 704; GAC-solved 640; multiple 46; unknown 0
+Reserved 18/100; checked 768; GAC-solved 694; multiple 56; unknown 0
+Reserved 21/100; checked 832; GAC-solved 750; multiple 61; unknown 0
+Reserved 23/100; checked 896; GAC-solved 809; multiple 64; unknown 0
+Reserved 23/100; checked 960; GAC-solved 870; multiple 67; unknown 0
+Reserved 23/100; checked 1024; GAC-solved 931; multiple 70; unknown 0
+Reserved 24/100; checked 1088; GAC-solved 991; multiple 73; unknown 0
+Reserved 39/100; checked 1152; GAC-solved 1036; multiple 77; unknown 0
+Reserved 66/100; checked 1216; GAC-solved 1066; multiple 84; unknown 0
+Reserved 95/100; checked 1280; GAC-solved 1090; multiple 95; unknown 0
+Reserved 100/100; checked 1344; GAC-solved 1114; multiple 108; unknown 0
+COMPLETE: 100 fresh, proven-unique, GAC-stalled roots and validated references

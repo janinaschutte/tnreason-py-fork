@@ -1,0 +1,413 @@
+{
+  "created_utc": "2026-11-13T10:09:37.726313+00:00",
+  "data": {
+    "relative": "experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json",
+    "sha256": "203d57dcc7d11f6915ba881a2e9674f42a10795251b6a20c2e2840848e3045db"
+  },
+  "parent": {
+    "relative": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+    "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+    "source_relative": "experiments/cluster_selection/reinforcement/results/hybrid_late_20261113.eed1ut6f/reinforce.pt",
+    "epoch": 52,
+    "source_seed": 0,
+    "validation_instances": 55,
+    "validation_nodes": 105,
+    "validation_root_solves": 30
+  },
+  "common_cli": [
+    "--decoder",
+    "sampling_grow",
+    "--objective",
+    "pruning",
+    "--warmup",
+    "0",
+    "--imitation-weight",
+    "0",
+    "--seed",
+    "29",
+    "--cycle-puzzles",
+    "--rollouts",
+    "4",
+    "--steps",
+    "3",
+    "--width",
+    "32",
+    "--rounds",
+    "2",
+    "--entropy-weight",
+    "0.001",
+    "--teacher-candidates",
+    "64",
+    "--teacher-max-steps",
+    "16384",
+    "--teacher-probes",
+    "16",
+    "--teacher-mutations",
+    "8",
+    "--teacher-cache-size",
+    "256",
+    "--max-cores",
+    "64",
+    "--max-open-colors",
+    "6",
+    "--max-work",
+    "1000000",
+    "--max-size",
+    "100000",
+    "--cluster-attempts",
+    "32",
+    "--search-nodes",
+    "10000",
+    "--target-first",
+    "--no-curriculum",
+    "--no-total-work-limit"
+  ],
+  "arms": {
+    "reinforce": {
+      "lr": 0.0003,
+      "self_imitation_weight": 0.0,
+      "self_imitation_capacity": 2048,
+      "cli": [
+        "--lr",
+        "0.0003",
+        "--self-imitation-weight",
+        "0.0",
+        "--self-imitation-capacity",
+        "2048"
+      ]
+    },
+    "lower_lr": {
+      "lr": 0.0001,
+      "self_imitation_weight": 0.0,
+      "self_imitation_capacity": 2048,
+      "cli": [
+        "--lr",
+        "0.0001",
+        "--self-imitation-weight",
+        "0.0",
+        "--self-imitation-capacity",
+        "2048"
+      ]
+    },
+    "self_imitation": {
+      "lr": 0.0003,
+      "self_imitation_weight": 0.1,
+      "self_imitation_capacity": 2048,
+      "cli": [
+        "--lr",
+        "0.0003",
+        "--self-imitation-weight",
+        "0.1",
+        "--self-imitation-capacity",
+        "2048"
+      ]
+    }
+  },
+  "gpu": {
+    "chunks": 20,
+    "puzzles_per_chunk": 500,
+    "train_instances": 10000,
+    "validation_instances": 55,
+    "planned_puzzle_visits": 10000,
+    "planned_passes": 1,
+    "max_fresh_updates": 30000,
+    "max_fresh_cluster_trials": 120000,
+    "validation_rounds_including_initial": 6,
+    "scheduled_validation_dfs_solves": 330,
+    "cli": [
+      "--epochs",
+      "20",
+      "--puzzles-per-epoch",
+      "500",
+      "--validation-seconds",
+      "600",
+      "--validation-interval",
+      "4",
+      "--checkpoint-every",
+      "5",
+      "--progress-every",
+      "100"
+    ]
+  },
+  "pilot": {
+    "chunks": 6,
+    "puzzles_per_chunk": 8,
+    "train_indices": [
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "validation_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13,
+      14
+    ],
+    "train_instances": 16,
+    "validation_instances": 8,
+    "planned_puzzle_visits": 48,
+    "planned_passes": 3,
+    "max_fresh_updates": 144,
+    "max_fresh_cluster_trials": 576,
+    "validation_rounds_including_initial": 4,
+    "scheduled_validation_dfs_solves": 32,
+    "gac_selection": [
+      {
+        "group": "training",
+        "index": 23,
+        "stalled": true,
+        "domains_sha256": "0da8c510a6910d582749fde8bed39009c9ddbdb9501ba8217826a81d5c061a94"
+      },
+      {
+        "group": "training",
+        "index": 24,
+        "stalled": true,
+        "domains_sha256": "3ca6465ee80e85bafe376d18356c496944575404265ae46788dc7054c0d25564"
+      },
+      {
+        "group": "training",
+        "index": 25,
+        "stalled": true,
+        "domains_sha256": "fe3544af7b3b5d5679f61087502f4b57ac4bba2fe2b971319140193a763153f6"
+      },
+      {
+        "group": "training",
+        "index": 26,
+        "stalled": true,
+        "domains_sha256": "8f50202add09c239245a669f7f76a53014e622b8c87b24fba5facebba6699396"
+      },
+      {
+        "group": "training",
+        "index": 27,
+        "stalled": true,
+        "domains_sha256": "743458a1727e4919e9dc47e9d91555e87f999636085bf5d694d3016d67022ecc"
+      },
+      {
+        "group": "training",
+        "index": 28,
+        "stalled": true,
+        "domains_sha256": "c8b6838459cee2c47adf9956c277ca037acdbb200d09cecfb651e6f1c6459c31"
+      },
+      {
+        "group": "training",
+        "index": 29,
+        "stalled": true,
+        "domains_sha256": "b4c20f1a9a47ebf746ee605c31402d5263f28b090f527c25f9727d6fcd19a6d4"
+      },
+      {
+        "group": "training",
+        "index": 30,
+        "stalled": true,
+        "domains_sha256": "035f28f2e92048a74fb8c0c29b94d9ba783fd04f8a00f55ab77de4e4020812bc"
+      },
+      {
+        "group": "training",
+        "index": 31,
+        "stalled": true,
+        "domains_sha256": "9ddccbf1419b6f882e9046e9727940a295b4aae008f8b060d3bffcc4e0de0255"
+      },
+      {
+        "group": "training",
+        "index": 32,
+        "stalled": true,
+        "domains_sha256": "5c6473d07faf2db021a00758ffc81fe2b305d1b271a28d215e822e0903238b41"
+      },
+      {
+        "group": "training",
+        "index": 33,
+        "stalled": true,
+        "domains_sha256": "80ae77e689876caf8cc2f38f837406790471f375dfdd650d9be54b9499cd576e"
+      },
+      {
+        "group": "training",
+        "index": 34,
+        "stalled": true,
+        "domains_sha256": "a7aecdc4c728aef3001e350248c14794f75cfa17ecf46aa5679aae98bdb94b64"
+      },
+      {
+        "group": "training",
+        "index": 35,
+        "stalled": true,
+        "domains_sha256": "ffef37b3505074b9fa38fb585f6fe5babafd9a4c35ad0c3c107cf33a427e8f74"
+      },
+      {
+        "group": "training",
+        "index": 36,
+        "stalled": true,
+        "domains_sha256": "b6482f03066617d5c31a8ca2c398ced371f7535fc6fd63f3ad93057b4bf5a71d"
+      },
+      {
+        "group": "training",
+        "index": 37,
+        "stalled": true,
+        "domains_sha256": "8d4003f7c3dbaa9883ed24d4c20c31f8ddaf4b95e0c3c50c9f245b993ac65286"
+      },
+      {
+        "group": "training",
+        "index": 38,
+        "stalled": true,
+        "domains_sha256": "5e6de25ac30859c1c72949fd95bb812f2cebeccd37181a309c54c2a1e7a9a163"
+      },
+      {
+        "group": "validation",
+        "index": 0,
+        "stalled": true,
+        "domains_sha256": "1d270dd8af8e1935cb8bf3c13df29540dcba56d9c12db72f84d124dad0b01ac1"
+      },
+      {
+        "group": "validation",
+        "index": 1,
+        "stalled": false,
+        "domains_sha256": "3154fd14bbc5fa51433d861ef31fa580022a0e2191f8bd27b36077c1b25a8fac"
+      },
+      {
+        "group": "validation",
+        "index": 2,
+        "stalled": true,
+        "domains_sha256": "96a8bc476ef849f8608180e331a356035af24321f6f0223b17e23580ec728df7"
+      },
+      {
+        "group": "validation",
+        "index": 3,
+        "stalled": false,
+        "domains_sha256": "4905d49acf6d445f7028c5d082b25dc5731965d46e0945eb75812e8e624fb482"
+      },
+      {
+        "group": "validation",
+        "index": 4,
+        "stalled": true,
+        "domains_sha256": "e605ad1ebe8cc3bfeb30ab79eb2b8ede88d3cbb21f6d5f248eb77cf20249650f"
+      },
+      {
+        "group": "validation",
+        "index": 5,
+        "stalled": false,
+        "domains_sha256": "ca558aab801e2bda6cf1762b51533d9e0a5ac9a51af235ba5fb1a0fb1349ae9c"
+      },
+      {
+        "group": "validation",
+        "index": 6,
+        "stalled": true,
+        "domains_sha256": "84228c77fee80649b4daf2a0c060b12bb5e214b44f24994b3aaf3594926de2cf"
+      },
+      {
+        "group": "validation",
+        "index": 7,
+        "stalled": false,
+        "domains_sha256": "1ce248832426bf2a6cd1ab2aec8bb3ce56d73f8a3898c97939177287621502f7"
+      },
+      {
+        "group": "validation",
+        "index": 8,
+        "stalled": true,
+        "domains_sha256": "9a9a4291ad11bab2b8053352f474679b4dbcaadb04e35071506629797e55226b"
+      },
+      {
+        "group": "validation",
+        "index": 9,
+        "stalled": false,
+        "domains_sha256": "c454ea3b07ed17ead7806ae26e60bc0dc9667e8c3bf9d2422a3cec117c80baf6"
+      },
+      {
+        "group": "validation",
+        "index": 10,
+        "stalled": true,
+        "domains_sha256": "b6b8d159ef75970e382b596b6cfc81a1100e1343b8b1f588ba93f7e438b0d241"
+      },
+      {
+        "group": "validation",
+        "index": 11,
+        "stalled": false,
+        "domains_sha256": "ac9012fc2d70aafb454ce03ab842e432bb1320b32f9053af2db084346b9cc3f2"
+      },
+      {
+        "group": "validation",
+        "index": 12,
+        "stalled": false,
+        "domains_sha256": "199c6562a43cd5cec24afe592a01104e5756f22fd88795fa64e85ffcef3757ee"
+      },
+      {
+        "group": "validation",
+        "index": 13,
+        "stalled": true,
+        "domains_sha256": "874c3a8d5c059f4ce81f71260f91f40d0ca8f40dfd58f5d9aaffc51fa03dce4d"
+      },
+      {
+        "group": "validation",
+        "index": 14,
+        "stalled": true,
+        "domains_sha256": "e1392493f90718c17c301f410f7e97b86d22bcf4f0cceee1ea09db8498b3a650"
+      }
+    ],
+    "selection": "First16 declared training indices; first8 ordinary-GAC-stalled OLD validation indices, chosen without evaluating any model.",
+    "cli": [
+      "--epochs",
+      "6",
+      "--puzzles-per-epoch",
+      "8",
+      "--validation-seconds",
+      "300",
+      "--validation-interval",
+      "2",
+      "--checkpoint-every",
+      "2",
+      "--progress-every",
+      "8",
+      "--train-indices",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "--validation-indices",
+      "0",
+      "2",
+      "4",
+      "6",
+      "8",
+      "10",
+      "13",
+      "14"
+    ]
+  },
+  "resources_per_gpu_job": {
+    "gpus": 1,
+    "minimum_capability": 7.5,
+    "cpus": 1,
+    "memory_gb": 32,
+    "disk_gb": 4,
+    "threads": 1
+  },
+  "continuation_semantics": "Identical parent weights; fresh Adam, RNG, teacher cache, pools, reward scale, history and puzzle cycle in each arm. Not exact optimizer resumption.",
+  "self_imitation": "One older verified useful positive-reward unprefixed student trajectory per fresh optimizer update, uniform deduplicated FIFO capacity2048, independent replay RNG, original domains and actual actions, mean-token negative log likelihood with the generating growth masks. No teacher-imitation gradients.",
+  "budget_note": "Same prescribed fresh puzzle-visit budget; on-policy states and early stopping can yield different actual updates/trials. Replay adds model work, not fresh contractions. Teacher-assisted state advances retained in every arm.",
+  "evaluation_note": "Both datasets use existing development validation, never the newly held-out test. Pilot is a mechanism check, not a retention or generalization result. GPU plan is unsubmitted."
+}

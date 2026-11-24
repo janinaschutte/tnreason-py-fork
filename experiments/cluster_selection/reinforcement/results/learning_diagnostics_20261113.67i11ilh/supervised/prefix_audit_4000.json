@@ -1,0 +1,1251 @@
+{
+  "kind": "first_unsupported_free_greedy_action",
+  "update": 4000,
+  "groups": {
+    "nearbest_pool": {
+      "all": {
+        "states": 24,
+        "useful": 7,
+        "buckets": {
+          "anchor": 15,
+          "supported_completion": 3,
+          "core": 5,
+          "early_finish": 1
+        },
+        "mean_first_unsupported_step": 6.238095238095238
+      },
+      "root": {
+        "states": 13,
+        "useful": 4,
+        "buckets": {
+          "anchor": 8,
+          "core": 4,
+          "early_finish": 1
+        },
+        "mean_first_unsupported_step": 8.538461538461538
+      },
+      "branch": {
+        "states": 11,
+        "useful": 3,
+        "buckets": {
+          "supported_completion": 3,
+          "anchor": 7,
+          "core": 1
+        },
+        "mean_first_unsupported_step": 2.5
+      }
+    },
+    "shortest_teacher": {
+      "all": {
+        "states": 24,
+        "useful": 5,
+        "buckets": {
+          "anchor": 19,
+          "core": 1,
+          "supported_completion": 3,
+          "early_finish": 1
+        },
+        "mean_first_unsupported_step": 0.5714285714285714
+      },
+      "root": {
+        "states": 13,
+        "useful": 1,
+        "buckets": {
+          "anchor": 11,
+          "core": 1,
+          "supported_completion": 1
+        },
+        "mean_first_unsupported_step": 0.16666666666666666
+      },
+      "branch": {
+        "states": 11,
+        "useful": 4,
+        "buckets": {
+          "anchor": 8,
+          "supported_completion": 2,
+          "early_finish": 1
+        },
+        "mean_first_unsupported_step": 1.1111111111111112
+      }
+    }
+  },
+  "rows": [
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 0,
+      "puzzle": 53,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 5,
+      "steps": 49,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          191
+        ],
+        "name": "col_1_0_2",
+        "compatible_teachers": 5,
+        "known_supported_legal_actions": 3,
+        "selected_probability": 0.4998212456703186,
+        "best_supported_probability": 0.13829405605793,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 1,
+      "puzzle": 16,
+      "root": false,
+      "useful": 1,
+      "contradiction": 1,
+      "teacher_count": 25,
+      "steps": 11,
+      "first_unsupported": null
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 2,
+      "puzzle": 63,
+      "root": true,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 35,
+      "first_unsupported": {
+        "step": 23,
+        "bucket": "core",
+        "action": [
+          "core",
+          2860
+        ],
+        "name": "pos_2_2_0_2_a_2_2_0_2_7",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.4605093002319336,
+        "best_supported_probability": 0.12094640731811523,
+        "cores_before": 22,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 3,
+      "puzzle": 100,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 5,
+      "steps": 16,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          181
+        ],
+        "name": "col_0_0_2",
+        "compatible_teachers": 5,
+        "known_supported_legal_actions": 11,
+        "selected_probability": 0.32773250341415405,
+        "best_supported_probability": 0.049353718757629395,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 4,
+      "puzzle": 13,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 9,
+      "steps": 19,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          511
+        ],
+        "name": "col_6_1_2",
+        "compatible_teachers": 9,
+        "known_supported_legal_actions": 5,
+        "selected_probability": 0.14616620540618896,
+        "best_supported_probability": 0.031932197511196136,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 5,
+      "puzzle": 7,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 5,
+      "steps": 25,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          857
+        ],
+        "name": "row_2_1_2",
+        "compatible_teachers": 5,
+        "known_supported_legal_actions": 5,
+        "selected_probability": 0.4066062867641449,
+        "best_supported_probability": 0.012118211947381496,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 6,
+      "puzzle": 73,
+      "root": true,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 12,
+      "steps": 49,
+      "first_unsupported": {
+        "step": 30,
+        "bucket": "core",
+        "action": [
+          "core",
+          1863
+        ],
+        "name": "square_0_1_2_a_1_0_2_0_0",
+        "compatible_teachers": 2,
+        "known_supported_legal_actions": 11,
+        "selected_probability": 0.5473632216453552,
+        "best_supported_probability": 0.3016669452190399,
+        "cores_before": 29,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 7,
+      "puzzle": 109,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 4,
+      "steps": 34,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          897
+        ],
+        "name": "square_6_0_0",
+        "compatible_teachers": 4,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.298387736082077,
+        "best_supported_probability": 0.03878691419959068,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 8,
+      "puzzle": 71,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 2,
+      "steps": 51,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          905
+        ],
+        "name": "square_5_0_1",
+        "compatible_teachers": 2,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.9662985801696777,
+        "best_supported_probability": 0.008232762105762959,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 9,
+      "puzzle": 9,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 19,
+      "steps": 34,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          976
+        ],
+        "name": "pos_0_0_1_1",
+        "compatible_teachers": 19,
+        "known_supported_legal_actions": 17,
+        "selected_probability": 0.36807578802108765,
+        "best_supported_probability": 0.1012079119682312,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 10,
+      "puzzle": 78,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 9,
+      "steps": 59,
+      "first_unsupported": {
+        "step": 37,
+        "bucket": "core",
+        "action": [
+          "core",
+          414
+        ],
+        "name": "col_1_1_2_a_0_0_1_2_1",
+        "compatible_teachers": 2,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.767479419708252,
+        "best_supported_probability": 0.011558261699974537,
+        "cores_before": 36,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 11,
+      "puzzle": 102,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 7,
+      "steps": 11,
+      "first_unsupported": null
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 12,
+      "puzzle": 15,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 18,
+      "steps": 8,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          978
+        ],
+        "name": "pos_0_0_2_0",
+        "compatible_teachers": 18,
+        "known_supported_legal_actions": 22,
+        "selected_probability": 0.5132655501365662,
+        "best_supported_probability": 0.16069281101226807,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 13,
+      "puzzle": 51,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 43,
+      "steps": 8,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          826
+        ],
+        "name": "row_7_0_1",
+        "compatible_teachers": 43,
+        "known_supported_legal_actions": 48,
+        "selected_probability": 0.5605854988098145,
+        "best_supported_probability": 0.045168437063694,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 14,
+      "puzzle": 106,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 67,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          873
+        ],
+        "name": "row_0_2_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.5592965483665466,
+        "best_supported_probability": 0.046001192182302475,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 15,
+      "puzzle": 105,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 4,
+      "steps": 14,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          978
+        ],
+        "name": "pos_0_0_2_0",
+        "compatible_teachers": 4,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.4477991759777069,
+        "best_supported_probability": 0.12311436235904694,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 16,
+      "puzzle": 108,
+      "root": true,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 3,
+      "steps": 29,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          927
+        ],
+        "name": "square_0_1_1",
+        "compatible_teachers": 3,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.2288244664669037,
+        "best_supported_probability": 0.17368878424167633,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 17,
+      "puzzle": 45,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 12,
+      "steps": 47,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          962
+        ],
+        "name": "square_8_2_1",
+        "compatible_teachers": 12,
+        "known_supported_legal_actions": 18,
+        "selected_probability": 0.9450788497924805,
+        "best_supported_probability": 0.0006009397329762578,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 18,
+      "puzzle": 103,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 5,
+      "steps": 21,
+      "first_unsupported": {
+        "step": 17,
+        "bucket": "early_finish",
+        "action": [
+          "finish",
+          -1
+        ],
+        "name": null,
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.7925877571105957,
+        "best_supported_probability": 0.13903634250164032,
+        "cores_before": 16,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 19,
+      "puzzle": 64,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 41,
+      "steps": 42,
+      "first_unsupported": {
+        "step": 20,
+        "bucket": "core",
+        "action": [
+          "core",
+          199
+        ],
+        "name": "col_4_0_2_a_0_1_0_2_4",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 3,
+        "selected_probability": 0.5555976033210754,
+        "best_supported_probability": 0.4371136724948883,
+        "cores_before": 19,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 20,
+      "puzzle": 66,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 12,
+      "steps": 26,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          1007
+        ],
+        "name": "pos_1_0_2_2",
+        "compatible_teachers": 12,
+        "known_supported_legal_actions": 12,
+        "selected_probability": 0.36103954911231995,
+        "best_supported_probability": 0.06340578943490982,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 21,
+      "puzzle": 18,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 2,
+      "steps": 11,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          992
+        ],
+        "name": "pos_0_2_0_2",
+        "compatible_teachers": 2,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.3495073914527893,
+        "best_supported_probability": 0.15272386372089386,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 22,
+      "puzzle": 104,
+      "root": true,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 4,
+      "steps": 43,
+      "first_unsupported": {
+        "step": 4,
+        "bucket": "core",
+        "action": [
+          "core",
+          1351
+        ],
+        "name": "row_6_2_1_a_2_1_0_1_6",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 3,
+        "selected_probability": 0.6913878917694092,
+        "best_supported_probability": 0.3085891604423523,
+        "cores_before": 3,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "nearbest_pool",
+      "update": 4000,
+      "state": 23,
+      "puzzle": 48,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 18,
+      "steps": 66,
+      "first_unsupported": null
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 0,
+      "puzzle": 53,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 58,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          471
+        ],
+        "name": "col_2_1_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.23985165357589722,
+        "best_supported_probability": 0.1581648588180542,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 1,
+      "puzzle": 16,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 59,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          892
+        ],
+        "name": "square_1_0_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.23296664655208588,
+        "best_supported_probability": 0.13753530383110046,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 2,
+      "puzzle": 63,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 63,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          991
+        ],
+        "name": "pos_0_2_0_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 2,
+        "selected_probability": 0.1492687165737152,
+        "best_supported_probability": 0.1486588418483734,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 3,
+      "puzzle": 100,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 14,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          1038
+        ],
+        "name": "pos_2_1_1_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 2,
+        "selected_probability": 0.24358083307743073,
+        "best_supported_probability": 0.04528697580099106,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 4,
+      "puzzle": 13,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 34,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          331
+        ],
+        "name": "col_6_1_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.18736520409584045,
+        "best_supported_probability": 0.08794151246547699,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 5,
+      "puzzle": 7,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 58,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          885
+        ],
+        "name": "row_3_2_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.2814939022064209,
+        "best_supported_probability": 0.08995343744754791,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 6,
+      "puzzle": 73,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 61,
+      "first_unsupported": {
+        "step": 2,
+        "bucket": "core",
+        "action": [
+          "core",
+          1205
+        ],
+        "name": "row_7_1_2_a_1_2_2_2_7",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.4945782423019409,
+        "best_supported_probability": 0.01418194267898798,
+        "cores_before": 1,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 7,
+      "puzzle": 109,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 64,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          912
+        ],
+        "name": "square_3_0_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.18852531909942627,
+        "best_supported_probability": 0.03673316165804863,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 8,
+      "puzzle": 71,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 64,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          892
+        ],
+        "name": "square_1_0_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.22036461532115936,
+        "best_supported_probability": 0.13281142711639404,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 9,
+      "puzzle": 9,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 61,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          811
+        ],
+        "name": "row_1_0_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.1393851786851883,
+        "best_supported_probability": 0.13453617691993713,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 10,
+      "puzzle": 78,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 58,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          843
+        ],
+        "name": "row_6_1_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.21288205683231354,
+        "best_supported_probability": 0.013875260017812252,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 11,
+      "puzzle": 102,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 11,
+      "first_unsupported": null
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 12,
+      "puzzle": 15,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 66,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          441
+        ],
+        "name": "col_8_1_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.1572342813014984,
+        "best_supported_probability": 0.06988103687763214,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 13,
+      "puzzle": 51,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 23,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          826
+        ],
+        "name": "row_7_0_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 2,
+        "selected_probability": 0.4690059721469879,
+        "best_supported_probability": 0.08271250128746033,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 14,
+      "puzzle": 106,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 63,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          1047
+        ],
+        "name": "pos_2_2_1_0",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.15607574582099915,
+        "best_supported_probability": 0.08570992201566696,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 15,
+      "puzzle": 105,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 8,
+      "first_unsupported": null
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 16,
+      "puzzle": 108,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 58,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          974
+        ],
+        "name": "pos_0_0_0_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.2762041687965393,
+        "best_supported_probability": 0.03078288584947586,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 17,
+      "puzzle": 45,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 62,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          181
+        ],
+        "name": "col_0_0_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 4,
+        "selected_probability": 0.18945346772670746,
+        "best_supported_probability": 0.13018985092639923,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 18,
+      "puzzle": 103,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 30,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          911
+        ],
+        "name": "square_2_0_2",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.3104655146598816,
+        "best_supported_probability": 0.015612823888659477,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 19,
+      "puzzle": 64,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 17,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          957
+        ],
+        "name": "square_3_2_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.24443821609020233,
+        "best_supported_probability": 0.23956318199634552,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 20,
+      "puzzle": 66,
+      "root": true,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 14,
+      "first_unsupported": null
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 21,
+      "puzzle": 18,
+      "root": false,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 12,
+      "first_unsupported": {
+        "step": 10,
+        "bucket": "early_finish",
+        "action": [
+          "finish",
+          -1
+        ],
+        "name": null,
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 5,
+        "selected_probability": 0.5081853270530701,
+        "best_supported_probability": 0.39840126037597656,
+        "cores_before": 9,
+        "outputs_before": 1
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 22,
+      "puzzle": 104,
+      "root": true,
+      "useful": 0,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 63,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          1009
+        ],
+        "name": "pos_1_1_0_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.3161740303039551,
+        "best_supported_probability": 0.02620248682796955,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    },
+    {
+      "arm": "shortest_teacher",
+      "update": 4000,
+      "state": 23,
+      "puzzle": 48,
+      "root": false,
+      "useful": 1,
+      "contradiction": 0,
+      "teacher_count": 1,
+      "steps": 37,
+      "first_unsupported": {
+        "step": 0,
+        "bucket": "anchor",
+        "action": [
+          "open",
+          851
+        ],
+        "name": "row_5_1_1",
+        "compatible_teachers": 1,
+        "known_supported_legal_actions": 1,
+        "selected_probability": 0.1957966685295105,
+        "best_supported_probability": 0.021404506638646126,
+        "cores_before": 0,
+        "outputs_before": 0
+      }
+    }
+  ],
+  "input_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/protocol.json": "b28d3978d5eca6dd10b521627218afdc32133892d678509df27c69128af17ed3",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/nearbest_pool/policy_4000.pt": "6455c0eea186f0487b2701c89d584ff961ada093819b16337361c10e90077891",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/nearbest_pool/utility_4000.json": "aa022fded0f73b736d17e0a2401164b7f4f0b1611a082458e619ea226855cbc7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/shortest_teacher/policy_4000.pt": "427b53b87c8ed0ecb7d872581f7fc610c25d9b1450fdb239b85c225d50144c65",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/shortest_teacher/utility_4000.json": "d3aa4ee5aa1fd190350e9f28f5fd2a2ff6f3cb76bc7c7a302cb2333a3e9fe291"
+  },
+  "audit_source_sha256": "d9d46f7098296096ba74fc11a8f09c28e474bb9c1a7aeea6a5e22fea2108614c",
+  "additional_contractions": 0,
+  "additional_dfs_solves": 0,
+  "additional_training_updates": 0,
+  "definition": "First zero-based action outside every compatible verified teacher continuation for that arm. Unsupported does not mean wrong or useless; useful novel constructions can leave the finite teacher pool.",
+  "verification": "Every unforced construction signature and trace length reproduces its saved utility probe; no teacher-forced action or prefix is used."
+}

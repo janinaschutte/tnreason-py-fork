@@ -1,0 +1,27 @@
+{
+  "frozen_code_and_input_provenance_valid": true,
+  "comparison_sources_valid": true,
+  "all_161_final_assignments_valid": true,
+  "resume_idempotent": true,
+  "protected_file_sha256": {
+    "nested256_uniformmass.pt": "e8db07d548912bbf387e7b3f31420cb79ad3e60c9d8c8fcce615284b29a814e1",
+    "direct64_uniformmass.pt": "202d89eab8fbc2f917283c8918326d63e1125dc2864e0e288a64df3c5dd09cd1",
+    "nested256_nearbest_greedy.pt": "592b6d1a4dc447a6a39e699e8c384cb40a4d2940613a58e6375c4730c41a8214",
+    "nested256_nearbest_mass.pt": "34915a01adbea5c9710ca2875bf1df73d620ca9176e1a085e76b0c58369e7cd2",
+    "evaluation_plain.json": "0b7e2706e7fef543c4d4f54e5135ca523fa3ddb8e8c1abe13af4b7bd3db103ca",
+    "evaluation_heuristic32.json": "62c2d02f28b6b40fde8691a0ac710479657ae4e45e85266c577cd3a0a978d443",
+    "evaluation_parent.json": "e5465de9c101cc45ba4f3fa917fed96a94031fa58ff277f96f7440082563bf8d",
+    "evaluation_nested256_uniformmass.json": "a16feff5e6cf74e05eda9ffb1b5dd319055e2620c221e976eecb5995108c322a",
+    "evaluation_direct64_uniformmass.json": "866e552e66fece913dc2f66621c3484245c5fff9991cf1bf8582e27aab539353",
+    "evaluation_nested256_nearbest_greedy.json": "675bcfcc15ebb924aaa6bed6c82ce30329d148f57b6445619de1f9557c8d719c",
+    "evaluation_nested256_nearbest_mass.json": "ef8c397a42633be9b2f5bbd67e36dd528be5be9770eeb34a11674e2e8d8287a7",
+    "history_nested256_uniformmass.json": "bb7fe8856e81ffd96ad941de6c8b7c60448e350f9ebc9663e60942416eea5a89",
+    "history_direct64_uniformmass.json": "dfa7cd7e898545efbc14831e89aff8ec5d2f62dd2bcc45f4ea4afe5ea9767e0d",
+    "history_nested256_nearbest_greedy.json": "c348a9d358fdbdcb533bbfff25ecec0f53d6a6d019d02040417a384e679fdbe6",
+    "history_nested256_nearbest_mass.json": "ae23d599fcebbf352e8195d95251b8af0bac516aab7ddb8d713d8cc51be7eb8d",
+    "protocol.json": "823b8caad0e541eb955109c159e9c355e5ea198e98634d16001e2edd0127a7e3",
+    "training_plan.json": "967bb88571bb5c8bdff6edd9e3335d888e6c5a2e0a8168214ba0c5f082267826",
+    "summary.json": "69d25564a15041ad0183e3b7c2928400bd29a5f5086b9bda1cc2d9aac58303bf",
+    "summary_extended.json": "a7516d322a90437f7ffad2e59eebfb9fb64ef1976c0df10dd4f11a5818947a2e"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "declared_utc": "2026-11-12T10:15:40.784252+00:00",
+  "seconds_guard": 600,
+  "node_guard": 10000,
+  "original_protocol_sha256": "823b8caad0e541eb955109c159e9c355e5ea198e98634d16001e2edd0127a7e3",
+  "code_sha256": "817f1420c8847eb90652850b415d623f1408474191fbf9784fb4fa7a16949b44",
+  "trigger": {
+    "model": "direct64_uniformmass",
+    "puzzle": 113,
+    "status": "wall_timeout",
+    "seconds_guard": 120
+  },
+  "rule": "After all original evaluations, retry every wall_timeout from original domains with unchanged weights, decoder and node/cluster limits. Reuse valid completed original solves. Preserve all original rows. No partial node totals or model selection.",
+  "applies_to": "Every method in the original frozen comparison, including baselines",
+  "note": "Declared after observing the direct64 guard hit and before either filtered-arm evaluation. This is an explicit extension of the original time budget, not a change to training."
+}

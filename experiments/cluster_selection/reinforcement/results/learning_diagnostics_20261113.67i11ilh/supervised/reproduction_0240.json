@@ -1,0 +1,8 @@
+{
+  "old_history": "experiments/cluster_selection/reinforcement/results/teacher_quality_20261111.zAq3x3X8/history_nested256_nearbest_greedy.json",
+  "new_checkpoint": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/nearbest_pool/policy_0240.pt",
+  "updates": 240,
+  "exact_equal_histories": true,
+  "first_difference": [],
+  "note": "Reproduces old near-best greedy arm despite current additive default-disabled self-replay options; no old source/result changed."
+}

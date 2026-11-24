@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-11-13T10:27:50.888159+00:00",
+  "source_sha256": {
+    "experiments/cluster_selection/reinforcement/model.py": "535532767944f598454ade7761d58cdec95a538dc1bf6beb69ad33c15bf990c6",
+    "experiments/cluster_selection/reinforcement/learn.py": "90bf8f4669e3494c7e1664debe0ad62cc01f7fac24ea724cbfc3fe8c017139f2",
+    "experiments/cluster_selection/tests/test_useful_learning.py": "707ae74e9d9d5e7270b3cd0cc2e75b866fd4e2d586f41d7403a7a4cf795b491d",
+    "experiments/cluster_selection/reinforcement/README.md": "544b37a6ac474c4146ac9ce394c79046e6607a2396bcfbee3bda21c06c3fd036"
+  },
+  "tests": {
+    "command": "python -m pytest -q experiments/cluster_selection/tests/test_useful_learning.py experiments/cluster_selection/tests/test_reinforcement.py",
+    "passed": 248,
+    "skipped": 2,
+    "seconds": 73.69,
+    "skip_reason": "CUDA unavailable locally; CUDA-only tests skipped"
+  },
+  "default_equivalence": "continuations/default_equivalence.json",
+  "replay": {
+    "default_weight": 0.0,
+    "experiment_weight": 0.1,
+    "capacity": 2048,
+    "loss": "mean negative log probability of a past successful complete sampled trace, with the free policy action masks",
+    "one_replay_term_per_fresh_update": true,
+    "separate_replay_rng": true,
+    "optimizer_steps_not_added": true
+  },
+  "gpu_submission": {
+    "submitted_by_agent": false,
+    "reason": "SSH gateway authentication failed: Permission denied (publickey,keyboard-interactive)",
+    "submit_command": "cd /Home/optimier/schuette/tnreasonproj/tnreason-py && condor_submit experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/train_gpu.sub"
+  },
+  "supervised_production_unchanged": true,
+  "preexisting_checkpoints_and_results_preserved": true,
+  "failed_cli_inputs_protocol_and_logs_archived_before_retry": true
+}

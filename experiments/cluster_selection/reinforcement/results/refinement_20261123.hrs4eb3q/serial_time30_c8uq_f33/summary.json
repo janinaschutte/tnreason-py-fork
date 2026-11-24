@@ -1,0 +1,193 @@
+{
+  "methods": {
+    "prior_gpu": {
+      "totals": {
+        "instances": 16,
+        "root_solved": 11,
+        "dfs_nodes": 48,
+        "dfs_complete": 16,
+        "root_seconds": 203.14296261200798,
+        "residual_seconds": 0.39069451200339245
+      },
+      "work": {
+        "root_statuses": {
+          "wall_timeout": 5,
+          "solved": 11
+        },
+        "candidates": 1106,
+        "selected": 1080,
+        "useful": 86,
+        "estimated_work": 7651546,
+        "cores": {
+          "mean": 61.95185185185185,
+          "median": 63.0,
+          "min": 54,
+          "max": 64
+        },
+        "outputs": {
+          "mean": 5.150925925925926,
+          "median": 5.0,
+          "min": 5,
+          "max": 6
+        }
+      }
+    },
+    "untrained": {
+      "totals": {
+        "instances": 16,
+        "root_solved": 12,
+        "dfs_nodes": 48,
+        "dfs_complete": 16,
+        "root_seconds": 207.43042324599446,
+        "residual_seconds": 0.3814933620051306
+      },
+      "work": {
+        "root_statuses": {
+          "solved": 12,
+          "wall_timeout": 4
+        },
+        "candidates": 1095,
+        "selected": 1062,
+        "useful": 94,
+        "estimated_work": 8081663,
+        "cores": {
+          "mean": 62.84934086629002,
+          "median": 64.0,
+          "min": 54,
+          "max": 64
+        },
+        "outputs": {
+          "mean": 5.906779661016949,
+          "median": 6.0,
+          "min": 5,
+          "max": 6
+        }
+      }
+    },
+    "global_rms": {
+      "totals": {
+        "instances": 16,
+        "root_solved": 12,
+        "dfs_nodes": 36,
+        "dfs_complete": 16,
+        "root_seconds": 204.25246486800097,
+        "residual_seconds": 0.33972627699768054
+      },
+      "work": {
+        "root_statuses": {
+          "solved": 12,
+          "wall_timeout": 4
+        },
+        "candidates": 1093,
+        "selected": 1054,
+        "useful": 109,
+        "estimated_work": 16725276,
+        "cores": {
+          "mean": 62.596774193548384,
+          "median": 63.0,
+          "min": 53,
+          "max": 64
+        },
+        "outputs": {
+          "mean": 5.151802656546489,
+          "median": 5.0,
+          "min": 5,
+          "max": 6
+        }
+      }
+    }
+  },
+  "paired_vs_untrained": {
+    "prior_gpu": {
+      "paired_puzzles": 16,
+      "complete_node_pairs": 16,
+      "censored_node_pairs": 0,
+      "nodes_improved": 1,
+      "nodes_equal": 14,
+      "nodes_worsened": 1,
+      "paired_baseline_nodes": 48,
+      "paired_method_nodes": 48,
+      "total_node_delta": 0,
+      "mean_node_delta": 0,
+      "median_node_delta": 0.0,
+      "mean_node_delta_ci95": [
+        -0.1875,
+        0.1875
+      ],
+      "geometric_node_ratio": 1.0181427452121228,
+      "root_wins": 0,
+      "root_ties": 15,
+      "root_losses": 1,
+      "root_delta": -1,
+      "mean_root_delta": -0.0625,
+      "mean_root_delta_ci95": [
+        -0.1875,
+        0.0
+      ],
+      "largest_node_difference": {
+        "index": 32,
+        "original_index": 831,
+        "baseline_nodes": 1,
+        "method_nodes": 2,
+        "delta": 1,
+        "absolute_delta_share": 0.5,
+        "total_delta_without_this_puzzle": -1,
+        "note": "Largest absolute paired node difference; descriptive only. All puzzles remain in the criterion."
+      }
+    },
+    "global_rms": {
+      "paired_puzzles": 16,
+      "complete_node_pairs": 16,
+      "censored_node_pairs": 0,
+      "nodes_improved": 2,
+      "nodes_equal": 14,
+      "nodes_worsened": 0,
+      "paired_baseline_nodes": 48,
+      "paired_method_nodes": 36,
+      "total_node_delta": -12,
+      "mean_node_delta": -0.75,
+      "median_node_delta": 0.0,
+      "mean_node_delta_ci95": [
+        -2.1875,
+        0.0
+      ],
+      "geometric_node_ratio": 0.9383234135737649,
+      "root_wins": 0,
+      "root_ties": 16,
+      "root_losses": 0,
+      "root_delta": 0,
+      "mean_root_delta": 0,
+      "mean_root_delta_ci95": [
+        0.0,
+        0.0
+      ],
+      "largest_node_difference": {
+        "index": 33,
+        "original_index": 20,
+        "baseline_nodes": 24,
+        "method_nodes": 13,
+        "delta": -11,
+        "absolute_delta_share": 0.9166666666666666,
+        "total_delta_without_this_puzzle": -1,
+        "note": "Largest absolute paired node difference; descriptive only. All puzzles remain in the criterion."
+      }
+    }
+  },
+  "expert_reference": {
+    "instances": 16,
+    "root_solved": 14,
+    "mean_progress": 0.8876307687635976,
+    "root_seconds": 28.940258854001513,
+    "dfs_complete": 16,
+    "dfs_nodes": 32,
+    "residual_seconds": 0.30019643300147436
+  },
+  "audit": {
+    "sources_inputs_checkpoints_unchanged": true,
+    "valid_assignments": 48,
+    "original_tensor_entries_checked": 139968,
+    "original_givens_checked": 1173,
+    "reference_assignments_retained": 48
+  },
+  "caveat": "One development set, one checkpoint/seed each. Expert reference reused with larger problem-specific limits."
+}

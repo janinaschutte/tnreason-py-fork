@@ -1,0 +1,293 @@
+{
+  "cases": 64,
+  "skipped": 0,
+  "groups": {
+    "same_outputs": {
+      "constructions": 64,
+      "full_useful": 15,
+      "shorter_legal_useful": 15,
+      "shorter_legal_identical_domains": 14,
+      "shortest_tested_useful_vs_full_dfs": {
+        "better": 0,
+        "equal": 14,
+        "worse": 1,
+        "comparable": 15,
+        "censored": 0
+      },
+      "rejected": 0,
+      "full_rejected": 0,
+      "earlier": [
+        {
+          "puzzle": 238,
+          "draw": 0,
+          "cores": 56,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.010462991999929727,
+          "full_evaluation_s": 0.011973986999919362
+        },
+        {
+          "puzzle": 238,
+          "draw": 3,
+          "cores": 56,
+          "full_cores": 63,
+          "retained_information": 0.15655839516470213,
+          "evaluation_s": 0.009672207999983584,
+          "full_evaluation_s": 0.01943052400019951
+        },
+        {
+          "puzzle": 682,
+          "draw": 0,
+          "cores": 58,
+          "full_cores": 63,
+          "retained_information": 1.0,
+          "evaluation_s": 0.01998950799998056,
+          "full_evaluation_s": 0.01241084299999784
+        },
+        {
+          "puzzle": 682,
+          "draw": 3,
+          "cores": 57,
+          "full_cores": 62,
+          "retained_information": 1.0,
+          "evaluation_s": 0.020978822999950353,
+          "full_evaluation_s": 0.08845643900008326
+        },
+        {
+          "puzzle": 817,
+          "draw": 1,
+          "cores": 53,
+          "full_cores": 61,
+          "retained_information": 1.0,
+          "evaluation_s": 0.009030240000129197,
+          "full_evaluation_s": 0.011792306000188546
+        },
+        {
+          "puzzle": 817,
+          "draw": 3,
+          "cores": 53,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.008791322000206492,
+          "full_evaluation_s": 0.012512032999893563
+        },
+        {
+          "puzzle": 139,
+          "draw": 1,
+          "cores": 62,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.013755936000052316,
+          "full_evaluation_s": 0.012544527999807542
+        },
+        {
+          "puzzle": 139,
+          "draw": 2,
+          "cores": 60,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.011313983999798438,
+          "full_evaluation_s": 0.014891807999902085
+        },
+        {
+          "puzzle": 20,
+          "draw": 3,
+          "cores": 59,
+          "full_cores": 61,
+          "retained_information": 1.0,
+          "evaluation_s": 0.010868956000194885,
+          "full_evaluation_s": 0.011524949999966339
+        },
+        {
+          "puzzle": 892,
+          "draw": 2,
+          "cores": 59,
+          "full_cores": 60,
+          "retained_information": 1.0,
+          "evaluation_s": 0.039010300999962055,
+          "full_evaluation_s": 0.03873178000003463
+        },
+        {
+          "puzzle": 745,
+          "draw": 0,
+          "cores": 55,
+          "full_cores": 59,
+          "retained_information": 1.0,
+          "evaluation_s": 0.010480600999926537,
+          "full_evaluation_s": 0.012088999000070544
+        },
+        {
+          "puzzle": 19,
+          "draw": 0,
+          "cores": 58,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.011707583000088562,
+          "full_evaluation_s": 0.013778255000033823
+        },
+        {
+          "puzzle": 19,
+          "draw": 2,
+          "cores": 63,
+          "full_cores": 64,
+          "retained_information": 1.0,
+          "evaluation_s": 0.013421595000181696,
+          "full_evaluation_s": 0.014967547999958697
+        },
+        {
+          "puzzle": 869,
+          "draw": 0,
+          "cores": 56,
+          "full_cores": 60,
+          "retained_information": 1.0,
+          "evaluation_s": 0.009508471999879475,
+          "full_evaluation_s": 0.018281103000163057
+        },
+        {
+          "puzzle": 869,
+          "draw": 1,
+          "cores": 56,
+          "full_cores": 64,
+          "retained_information": 0.7915634585904329,
+          "evaluation_s": 0.012664094000001569,
+          "full_evaluation_s": 0.021588854999890827
+        }
+      ],
+      "equivalent": [
+        {
+          "puzzle": 238,
+          "draw": 0,
+          "cores": 56,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 682,
+          "draw": 0,
+          "cores": 58,
+          "full_cores": 63
+        },
+        {
+          "puzzle": 682,
+          "draw": 3,
+          "cores": 57,
+          "full_cores": 62
+        },
+        {
+          "puzzle": 817,
+          "draw": 1,
+          "cores": 53,
+          "full_cores": 61
+        },
+        {
+          "puzzle": 817,
+          "draw": 3,
+          "cores": 53,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 139,
+          "draw": 1,
+          "cores": 62,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 139,
+          "draw": 2,
+          "cores": 60,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 20,
+          "draw": 3,
+          "cores": 59,
+          "full_cores": 61
+        },
+        {
+          "puzzle": 892,
+          "draw": 2,
+          "cores": 59,
+          "full_cores": 60
+        },
+        {
+          "puzzle": 745,
+          "draw": 0,
+          "cores": 55,
+          "full_cores": 59
+        },
+        {
+          "puzzle": 19,
+          "draw": 0,
+          "cores": 58,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 19,
+          "draw": 2,
+          "cores": 63,
+          "full_cores": 64
+        },
+        {
+          "puzzle": 869,
+          "draw": 0,
+          "cores": 56,
+          "full_cores": 60
+        },
+        {
+          "puzzle": 869,
+          "draw": 1,
+          "cores": 62,
+          "full_cores": 64
+        }
+      ]
+    },
+    "anchor_only": {
+      "constructions": 64,
+      "full_useful": 2,
+      "shorter_legal_useful": 2,
+      "shorter_legal_identical_domains": 2,
+      "shortest_tested_useful_vs_full_dfs": {
+        "better": 0,
+        "equal": 2,
+        "worse": 0,
+        "comparable": 2,
+        "censored": 0
+      },
+      "rejected": 0,
+      "full_rejected": 0,
+      "earlier": [
+        {
+          "puzzle": 238,
+          "draw": 3,
+          "cores": 56,
+          "full_cores": 63,
+          "retained_information": 1.0,
+          "evaluation_s": 0.0076931829999011825,
+          "full_evaluation_s": 0.010947283000177777
+        },
+        {
+          "puzzle": 682,
+          "draw": 3,
+          "cores": 57,
+          "full_cores": 62,
+          "retained_information": 1.0,
+          "evaluation_s": 0.014469306000137294,
+          "full_evaluation_s": 0.016840416999912122
+        }
+      ],
+      "equivalent": [
+        {
+          "puzzle": 238,
+          "draw": 3,
+          "cores": 56,
+          "full_cores": 63
+        },
+        {
+          "puzzle": 682,
+          "draw": 3,
+          "cores": 57,
+          "full_cores": 62
+        }
+      ]
+    }
+  }
+}

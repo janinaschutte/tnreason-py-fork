@@ -1,0 +1,49 @@
+Controlled teacher-quality diagnostic — completed 12 November 2026
+
+Outcome: none of the four 240-update continuations beats the unchanged warm-up parent on total validation DFS nodes. Filtering alone is not supported as a fix at this training budget. The larger unfiltered teacher actually beats the smaller unfiltered teacher in this controlled pilot, so this does not establish that larger teacher search caused the historical regression.
+
+Final solving results (23 old development-validation puzzles; all 161 final assignments valid):
+
+Method | DFS nodes | Without branching | Greedy useful train/24 | Greedy useful validation roots/15 | Wins/ties/losses vs parent
+Plain MAC | 315 | 8/23 | — | — | 1/17/5
+Structural heuristic | 188 | 9/23 | — | — | 6/16/1
+Unchanged warm-up parent | 117 | 8/23 | 1 | 2 | 0/23/0
+Direct64 teacher, original loss | 179 | 9/23 | 1 | 2 | 2/16/5
+Nested256 teacher, original loss | 158 | 9/23 | 1 | 0 | 3/17/3
+Nested256 near-best, mass loss | 225 | 9/23 | 0 | 0 | 3/16/4
+Nested256 near-best, greedy loss | 195 | 10/23 | 4 | 1 | 5/15/3
+
+The parent here is warmup/policy.best.pt from teacher_forks_scaled_20261028.q9m8bpg9, not the stronger continued-teacher checkpoint. The earlier continued-teacher weights with discrepancy decoding achieved 56 nodes and 13/23 without branching in a prior evaluation (constructive_improvement_20261106.903639e9/REPORT.md). That historical result used different guards and is context, not a fresh matched 240-update arm. This experiment establishes no new overall best.
+
+What was held fixed
+All four arms start from exactly the same parent weights with fresh Adam, learning rate0.0003, seed29, the same frozen state/update order, and exactly240 gradient updates (10 visits to each of24 states). No validation-dependent early stopping or model selection. Complete measured positive teacher pools are used; no top-eight truncation. Nested uniform and both quality arms share the same nested pool. Direct/nested share80 failed-value probes, but mutations depend on the pool, so direct/nested is not a pure structural-cap or strict-superset ablation.
+All learned solves use discrepancy decoding, allowance32 per propagation episode, max64 cores, six outputs, estimated contraction work1,000,000 and tensor size100,000 per cluster, and no cumulative work cap. Decoder/heuristic search caps are8,192 operations of different kinds, not matched CPU work. No timing advantage is claimed. Temporary summaries, retained pruning, and backtracking behavior are unchanged.
+
+Teacher evidence
+All24 states have positive measured teachers in both pools. Direct structural search produced43.96 proposals per state on average; nested produced256. Positive pools contain1,488 and1,580 teachers. Best measured pruning reward is identical between pools on every state. The90% quality threshold retains266 nested teachers (11.08/state); these are verified under original domains by contraction and GAC. Reward1 includes both completed solutions and contradiction proofs on branch states; it does not mean every such example solves the original puzzle.
+Uniform teacher sampling credits weaker positive teachers equally in the original imitation objective. Quality filtering removes them before trace sampling and compatible-action targets. The greedy variant also changes the loss and prefix trajectory. Absolute losses across these different objectives are not quality comparisons.
+
+Free-construction fitting check
+Each training state has a known useful teacher, yet free greedy usefulness is1/24 for the parent and both unfiltered arms,0/24 for filtered mass, and4/24 for filtered greedy. All four filtered-greedy successes are on the11 branch states; none is on the13 roots. Every reported greedy count uses one unforced construction and contraction/GAC. It is distinct from full solving with discrepancy search over multiple proposals.
+This shows poor fitting after240 updates, not proof of convergence or that more training/data cannot help. A read-only complexity audit found that shortest near-best teachers would average21.38 construction decisions, versus32.48 when averaging the complete near-best pool per state. No such simplified-teacher training was run.
+
+Interruption and recovery
+The original log ended during direct64 validation without a traceback or a recorded timeout result. The old execution session was unavailable; its exact interruption cause is unknown. Four completed evaluations and two240-update checkpoints were preserved. resume.py verifies frozen source/data/parent hashes, reuses completed checkpoints, recreates pending arms from fresh prescribed starting states, and atomically saves each completed puzzle with provenance. Eight regenerated original direct64 training updates reproduced losses and gradient norms exactly.
+Three original120-second evaluations were censored, all puzzle113: direct64 and the two filtered variants. guard_extension_protocol.json declared a common600-second guard for every censored method before either filtered final result. Censored puzzles were rerun from original domains with unchanged weights/decoder/node limits; completed rows were reused. All retries finished. Original evaluations and checkpoints were not overwritten; extended rows and summaries are separate. Reused/retried timings are not a fresh uniformly measured timing comparison.
+The inherited training exposure is retained in train_instance_hashes (10,051 parent instances); train_puzzles in these diagnostic checkpoints lists only the24 fine-tuning puzzle IDs. Training/validation indices and fingerprints were checked disjoint. No final test was read.
+
+Next diagnostic
+Keep these24 verified-positive states fixed and train near-best greedy imitation to predetermined larger update counts, initially1,000 and4,000, recording imitation loss and free construction usefulness separately for roots and branches. If training usefulness rises,240 updates were insufficient; if training fitting becomes strong but unseen usefulness remains weak, focus on data/state coverage. If loss falls substantially while free training constructions stay useless, inspect objective/decoding; if both stall, inspect optimization, capacity or missing state information. A subsequent training-only ablation can choose one strong, shorter teacher per state while preserving legal core orders. Do not promote the filter or launch another large run merely because its imitation loss falls.
+
+Separate completed mask-model run
+Job8000 (mask_sudoku_300ep.6lb43_yj) exited normally with code0 after300 epochs. On its separate55-puzzle validation, the selected checkpoint is epoch_0020.pt:348 DFS nodes,15 without branching. The final epoch uses445 nodes. Training loss decreases from4.1049 at20 to2.6169 at300, while exact teacher-mask accuracy rises from0.79% to23.21%; later epochs do not beat the epoch20 DFS result. These are a different model and validation set, not rows in the table above. See mask300_observation.json and the job selection.json. No final test was queried.
+
+Verification and files
+The regression run passed359 tests with9 skipped before the interruption; 17 focused filter tests also passed, including the final additional case. Frozen source hashes still match. All final solve assignments, teacher-state restoration checks and checkpoint compatibility checks passed. The optional teacher-quality fraction defaults to0, preserving the original training behavior.
+A final audit also reran the continuation in reuse mode: no protected checkpoint, history, protocol or evaluation file changed. See final_audit.json.
+Primary: comparison.json, summary_extended.json, train_greedy_probe.json. Protocol: protocol.json, training_plan.json, resume_20261112.json, guard_extension_protocol.json. Code: run.py (unchanged frozen source), resume.py, extend_guards.py, probe_train.py. Raw per-puzzle assignments, teacher pools and checkpoints remain alongside these compact reports, outside the normal edited-file diff.
+
+Recovery commands (OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1; use the same Python environment):
+python -u experiments/cluster_selection/reinforcement/results/teacher_quality_20261111.zAq3x3X8/resume.py
+python -u experiments/cluster_selection/reinforcement/results/teacher_quality_20261111.zAq3x3X8/extend_guards.py
+Both reuse already completed results. The training-state probe is already complete; do not rerun it over its existing output.

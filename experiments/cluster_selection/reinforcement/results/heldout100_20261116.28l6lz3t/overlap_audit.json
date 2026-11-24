@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "data_sha256": "6cf3767147741007c606e1cb50498d19ec1bc7cc8ff335df337f181c94e228e5",
+  "preparation_sha256": "760e4ceb92c3dd6c236d0104683416399e448ca3f6bc2e7826501005642c8977",
+  "predeclaration_sha256": "eed82ece6e51a83c70d23db3587d1289dddbf7129dac215173b02ac5dd99ae4a",
+  "instances": 100,
+  "data_hash_definition": "sha256(json.dumps(data, sort_keys=True, separators=(',', ':')).encode()) as saved by learn.py:823 and qlearn.py:199; distinct from raw-file SHA256",
+  "datasets": {
+    "180951003abc434cee01c2d7d18e154b9340c1384241ee1d3b17909c77e90662": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json",
+      "raw_file_sha256": "203d57dcc7d11f6915ba881a2e9674f42a10795251b6a20c2e2840848e3045db",
+      "canonical_json_sha256": "180951003abc434cee01c2d7d18e154b9340c1384241ee1d3b17909c77e90662",
+      "puzzles": 10055,
+      "train_indices": 10000,
+      "validation_indices": 55,
+      "all_puzzle_overlap": 0,
+      "train_overlap": 0,
+      "validation_overlap": 0
+    },
+    "581944fd1c82bc7c2ab2c9fc2982bc15de9ded50020d8e6ed3a54dd996626389": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/scaled_sudoku_20261028_seed29/development.json",
+      "raw_file_sha256": "9f56c35b058e9f1a16419a290584b501eb3a2fc9fbbecda27cbd46cc5a9586ba",
+      "canonical_json_sha256": "581944fd1c82bc7c2ab2c9fc2982bc15de9ded50020d8e6ed3a54dd996626389",
+      "puzzles": 10115,
+      "train_indices": 10092,
+      "validation_indices": 23,
+      "all_puzzle_overlap": 0,
+      "train_overlap": 0,
+      "validation_overlap": 0
+    }
+  },
+  "checkpoints": {
+    "initial": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/initial.pt",
+      "sha256": "024d5a176c8fe80b15640e03e8d4c9bf4b31676822a19a13d23bc0dc61373670",
+      "data_sha256": "180951003abc434cee01c2d7d18e154b9340c1384241ee1d3b17909c77e90662",
+      "matched_dataset": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json",
+      "declared_train_fingerprints": 10000,
+      "declared_validation_instances": 55,
+      "train_fingerprint_overlap": 0,
+      "all_validation_candidates_excluded": true
+    },
+    "teacher": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/teacher.pt",
+      "sha256": "d340b2f7167079baa5702f739d555afe2213dd450341d19de6b6c0cf45633a4c",
+      "data_sha256": "581944fd1c82bc7c2ab2c9fc2982bc15de9ded50020d8e6ed3a54dd996626389",
+      "matched_dataset": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/scaled_sudoku_20261028_seed29/development.json",
+      "declared_train_fingerprints": 10051,
+      "declared_validation_instances": 23,
+      "train_fingerprint_overlap": 0,
+      "all_validation_candidates_excluded": true
+    },
+    "reinforce": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/reinforce.pt",
+      "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+      "data_sha256": "180951003abc434cee01c2d7d18e154b9340c1384241ee1d3b17909c77e90662",
+      "matched_dataset": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json",
+      "declared_train_fingerprints": 10000,
+      "declared_validation_instances": 55,
+      "train_fingerprint_overlap": 0,
+      "all_validation_candidates_excluded": true
+    },
+    "replay": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/final_test/self_imitation.pt",
+      "sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+      "data_sha256": "180951003abc434cee01c2d7d18e154b9340c1384241ee1d3b17909c77e90662",
+      "matched_dataset": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json",
+      "declared_train_fingerprints": 10000,
+      "declared_validation_instances": 8,
+      "train_fingerprint_overlap": 0,
+      "all_validation_candidates_excluded": true
+    },
+    "q": {
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/q.pt",
+      "sha256": "d97586675993ca6ab92ace20d010c4876ff9cccb8cc961caacfaf092c6994fc8",
+      "data_sha256": "581944fd1c82bc7c2ab2c9fc2982bc15de9ded50020d8e6ed3a54dd996626389",
+      "matched_dataset": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/scaled_sudoku_20261028_seed29/development.json",
+      "declared_train_fingerprints": 10051,
+      "declared_validation_instances": 23,
+      "train_fingerprint_overlap": 0,
+      "all_validation_candidates_excluded": true
+    }
+  },
+  "earlier16": {
+    "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/unique_test.json",
+    "sha256": "cb10bcff9e2a5a6823fd174ec498b181e07d4b9f25612ad816a5a2eb03260661",
+    "overlap": 0
+  },
+  "model_queries": false,
+  "checkpoint_reads": "Metadata only via torch.load(weights_only=True); no neural inference",
+  "scope": "Exact normalized grids and generic domain fingerprints; symmetry-equivalent grids are not excluded"
+}

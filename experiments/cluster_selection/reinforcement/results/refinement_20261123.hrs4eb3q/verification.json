@@ -1,0 +1,33 @@
+{
+  "refinement_tests": {
+    "files": [
+      "test_refine_actor.py",
+      "test_refine_updates.py",
+      "test_refine_eval.py",
+      "test_refine_training.py"
+    ],
+    "passed": 103,
+    "skipped_cuda": 8,
+    "seconds": 12.65
+  },
+  "legacy_integration": {
+    "passed": 246,
+    "skipped": 2,
+    "seconds": 30.58,
+    "receipt": "common_v2_2wlie6na/legacy_integration.json",
+    "log_sha256": "4f12e56241f062fd166509c87a89e62b85638f69b6333d2b33f0b88212f0df67"
+  },
+  "shell_syntax": true,
+  "shell_mode": "0o755",
+  "frozen_benchmark_sources": {
+    "purpose": "Source-only integrity check; no test outcomes read",
+    "protocol_sha256": "e8f4d7b9c6d7fa78e382e69274ba15c22c7ea5f9de342f852b83da3418e49bf4",
+    "sources": 111,
+    "all_match": true,
+    "failures": []
+  },
+  "cuda_execution_tested": false,
+  "condor_submit_available_locally": false,
+  "scope": "Checks of new implementation and unchanged integration paths; not proof of Sudoku generalization",
+  "final_input_default_fix": "Missing reward_colors consistently defaults to all network variables for fresh/loaded initialization and both evaluation paths. Evaluated Sudoku datasets specify reward_colors explicitly; their results are unaffected."
+}

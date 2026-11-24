@@ -1,0 +1,35 @@
+Additional exploratory comparison on the same already queried 16 test puzzles; not a new untouched test. All three final stopping points and training hyperparameters were predeclared. No checkpoint selection, retraining or tuning uses these outcomes.
+
+All methods: name branching, allowance32, decoder8192, original per-cluster bounds; no cumulative work cap.
+Method | DFS nodes | Without branching | Complete
+Starting parent (reused) | 32 | 8/16 | 16/16
+reinforce final | 31 | 9/16 | 16/16
+lower_lr final | 29 | 9/16 | 16/16
+self_imitation final | 27 | 10/16 | 16/16
+
+Paired wins/ties/losses against the frozen starting parent:
+{
+  "reinforce": {
+    "paired_complete": 16,
+    "wins": 2,
+    "ties": 13,
+    "losses": 1,
+    "node_difference": -1
+  },
+  "lower_lr": {
+    "paired_complete": 16,
+    "wins": 3,
+    "ties": 13,
+    "losses": 0,
+    "node_difference": -3
+  },
+  "self_imitation": {
+    "paired_complete": 16,
+    "wins": 6,
+    "ties": 9,
+    "losses": 1,
+    "node_difference": -5
+  }
+}
+
+A small reused-test comparison with one training seed. Equal caps do not mean equal actual contractions or tensor work. Censored cases retain unknown full node counts.

@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-11-11T11:12:44.619869+00:00",
+  "selection": "After the frozen sweep, choose the learned anchor count whose aggregate setup+solve time is closest to heuristic64, using absolute log time ratio only, independent of DFS outcomes.",
+  "confirmation": "Repeat the selected learned configuration and heuristic64 on the same 55 puzzles, sequential randomized interleaving, two repetitions in a fresh directory. Use median repeated total times and report all DFS totals.",
+  "interpretation": "Report actual measured times. Similar aggregate time is not an identical per-puzzle hard time limit. Do not claim exact equality when configurations differ materially in runtime.",
+  "disclosure": "Top-K changes the single-anchor no-op stopping rule only when explicitly enabled. All learned variants retain 64 total contracted applications per episode and refresh rankings after useful pruning. No retraining or final test data.",
+  "other_curves": "Show all tested learned K1/2/4/8 and heuristic16/32/64 values; do not pick the best node result and conceal runtime."
+}

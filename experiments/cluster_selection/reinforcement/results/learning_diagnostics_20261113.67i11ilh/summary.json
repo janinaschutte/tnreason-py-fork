@@ -1,0 +1,388 @@
+{
+  "created_utc": "2026-11-13T11:09:24.123634+00:00",
+  "status": "local investigations complete; full GPU continuations prepared, unsubmitted by agent",
+  "annotation": 1,
+  "fresh_heldout": {
+    "puzzles": 16,
+    "selection": "model-free reserved unique GAC-stalled puzzles; no known grid/solution overlap",
+    "results": {
+      "plain": {
+        "instances": 16,
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 62,
+        "branch_free": 0,
+        "contractions": 0,
+        "estimated_work": 0,
+        "solve_seconds": 2.4997431289993983
+      },
+      "heuristic": {
+        "instances": 16,
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 44,
+        "branch_free": 2,
+        "contractions": 935,
+        "estimated_work": 273950,
+        "solve_seconds": 6.302454680000665
+      },
+      "initial": {
+        "instances": 16,
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 32,
+        "branch_free": 7,
+        "contractions": 646,
+        "estimated_work": 3743309,
+        "solve_seconds": 246.6809673449934
+      },
+      "teacher": {
+        "instances": 16,
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 28,
+        "branch_free": 10,
+        "contractions": 479,
+        "estimated_work": 556978,
+        "solve_seconds": 184.19020104399897
+      },
+      "reinforce": {
+        "instances": 16,
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 32,
+        "branch_free": 8,
+        "contractions": 608,
+        "estimated_work": 7649969,
+        "solve_seconds": 266.1808866759984
+      }
+    },
+    "reinforce_vs_initial": {
+      "paired_complete": 16,
+      "wins": 4,
+      "ties": 8,
+      "losses": 4
+    },
+    "note": "one seed, same source distribution; equal caps are not equal actual work"
+  },
+  "continuation_pilot": {
+    "training_puzzles": 16,
+    "visits_per_arm": 48,
+    "existing_validation_puzzles": 8,
+    "arms": {
+      "reinforce": {
+        "lr": 0.0003,
+        "self_imitation_weight": 0.0,
+        "initial": {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        "final": {
+          "epoch": 6,
+          "nodes": 14,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.27092964317605917,
+          "greedy_useful": 1
+        },
+        "fresh_optimizer_updates": 77,
+        "fresh_cluster_trials": 308,
+        "self_imitation_terms": 0
+      },
+      "lower_lr": {
+        "lr": 0.0001,
+        "self_imitation_weight": 0.0,
+        "initial": {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        "final": {
+          "epoch": 6,
+          "nodes": 13,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            1,
+            3,
+            1,
+            1,
+            1
+          ],
+          "without_branching": 4,
+          "root_progress": 0.518063209667684,
+          "greedy_useful": 2
+        },
+        "fresh_optimizer_updates": 78,
+        "fresh_cluster_trials": 312,
+        "self_imitation_terms": 0
+      },
+      "self_imitation": {
+        "lr": 0.0003,
+        "self_imitation_weight": 0.1,
+        "initial": {
+          "epoch": 0,
+          "nodes": 16,
+          "nodes_by_instance": [
+            2,
+            2,
+            3,
+            2,
+            3,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 2,
+          "root_progress": 0.28624499471373194,
+          "greedy_useful": 1
+        },
+        "final": {
+          "epoch": 6,
+          "nodes": 13,
+          "nodes_by_instance": [
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "without_branching": 3,
+          "root_progress": 0.38586053316074326,
+          "greedy_useful": 1
+        },
+        "fresh_optimizer_updates": 86,
+        "fresh_cluster_trials": 344,
+        "self_imitation_terms": 85
+      }
+    },
+    "restart": "weights only; fresh Adam/RNG/cache/replay state"
+  },
+  "additional_reused_test": {
+    "puzzles": 16,
+    "starting_parent": {
+      "nodes": 32,
+      "branch_free": 8
+    },
+    "fixed_finals": {
+      "reinforce": {
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 31,
+        "branch_free": 9,
+        "contractions": 570,
+        "estimated_work": 7480120
+      },
+      "lower_lr": {
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 29,
+        "branch_free": 9,
+        "contractions": 573,
+        "estimated_work": 8930336
+      },
+      "self_imitation": {
+        "completed": 16,
+        "statuses": {
+          "solved": 16
+        },
+        "nodes": 27,
+        "branch_free": 10,
+        "contractions": 499,
+        "estimated_work": 5669834
+      }
+    },
+    "paired_vs_parent": {
+      "reinforce": {
+        "paired_complete": 16,
+        "wins": 2,
+        "ties": 13,
+        "losses": 1,
+        "node_difference": -1
+      },
+      "lower_lr": {
+        "paired_complete": 16,
+        "wins": 3,
+        "ties": 13,
+        "losses": 0,
+        "node_difference": -3
+      },
+      "self_imitation": {
+        "paired_complete": 16,
+        "wins": 6,
+        "ties": 9,
+        "losses": 1,
+        "node_difference": -5
+      }
+    },
+    "note": "same previously queried test set; exploratory; no tuning or checkpoint selection from outcomes"
+  },
+  "teacher_diagnostic": {
+    "fixed_training_states": 24,
+    "roots": 13,
+    "branches": 11,
+    "existing_validation_roots": 15,
+    "existing_validation_full_solves": 23,
+    "baselines": {
+      "plain": {
+        "instances": 23,
+        "complete": 23,
+        "nodes": 315,
+        "branch_free": 8,
+        "censored": []
+      },
+      "heuristic32": {
+        "instances": 23,
+        "complete": 23,
+        "nodes": 188,
+        "branch_free": 9,
+        "censored": []
+      },
+      "parent": {
+        "instances": 23,
+        "complete": 23,
+        "nodes": 117,
+        "branch_free": 8,
+        "censored": []
+      }
+    },
+    "arms": {
+      "nearbest_pool": {
+        "1000": {
+          "dfs": {
+            "instances": 23,
+            "complete": 23,
+            "nodes": 233,
+            "branch_free": 8,
+            "censored": []
+          },
+          "train_useful": 2,
+          "validation_root_useful": 1
+        },
+        "4000": {
+          "dfs": {
+            "instances": 23,
+            "complete": 23,
+            "nodes": 199,
+            "branch_free": 8,
+            "censored": []
+          },
+          "train_useful": 7,
+          "validation_root_useful": 0
+        }
+      },
+      "shortest_teacher": {
+        "1000": {
+          "dfs": {
+            "instances": 23,
+            "complete": 23,
+            "nodes": 186,
+            "branch_free": 8,
+            "censored": []
+          },
+          "train_useful": 2,
+          "validation_root_useful": 0
+        },
+        "4000": {
+          "dfs": {
+            "instances": 23,
+            "complete": 23,
+            "nodes": 147,
+            "branch_free": 9,
+            "censored": []
+          },
+          "train_useful": 5,
+          "validation_root_useful": 0
+        }
+      }
+    },
+    "note": "joint teacher multiplicity/identity/length comparison; old validation is exploratory; original censor preserved and independently audited retry used"
+  },
+  "gpu": {
+    "submitted_by_agent": false,
+    "reason": "SSH gateway authentication failed: Permission denied (publickey,keyboard-interactive)",
+    "submit_command": "cd /Home/optimier/schuette/tnreasonproj/tnreason-py && condor_submit experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/train_gpu.sub"
+  },
+  "tests": {
+    "command": "python -m pytest -q experiments/cluster_selection/tests/test_useful_learning.py experiments/cluster_selection/tests/test_reinforcement.py",
+    "passed": 248,
+    "skipped": 2,
+    "seconds": 73.69,
+    "skip_reason": "CUDA unavailable locally; CUDA-only tests skipped"
+  },
+  "all_preexisting_weights_and_results_preserved": true,
+  "production_supervised_mask_implementation_unchanged": true,
+  "component_sha256": {
+    "REPORT.txt": "3c71d0a79979401d933b28fb811f51fab9910b0fc278c5f24bfbf1ce9b3291ea",
+    "verification.json": "743bb024298ebac68fd22294b19dcc3a612e22203c22519ec1ada1ad396eb52e",
+    "heldout/protocol.json": "4670f2e049ffb72acc8f32d3aa29182b94a93d742afbb6969c211a5535327591",
+    "heldout/summary.json": "12a4560b9624208302aca430d11320be07f1432d81a62f68c48dfcd064400512",
+    "heldout/audit.json": "0944bcf37ce9916b2341582089f3dbe16dde93e0a6a655bee28ebb7a6255a99b",
+    "continuations/protocol.json": "8250c0a66a4c76cdb4fd6e4ad14ddfa55fe99bbc9ca5239fdeb9ed8d12bd4faf",
+    "continuations/PILOT_REPORT.json": "6bc867c34ec7961bead759019c99a1a062b165113bd0f8bdc14e88aeccabeac4",
+    "continuations/initial_audit.json": "41a99e67212092a8f7da695aaefe55c3a2d5f0ee6075312dd8bcf2d08d410466",
+    "continuations/default_equivalence.json": "2d58c0700ca59e9c07f3a01b2a378ba4be41e83d92bc4ede1691f2f9b6fdc869",
+    "continuations/cli_preflight.json": "01b0c414d462e4beafd0c3697078c99b961c3320ec3984aec40628fc71014564",
+    "continuations/train_gpu.sub": "0066c41a60801c7c32cccbe25db418b643e9ea331db1c20092a8f2d6b4619386",
+    "continuations/final_test/protocol.json": "3ed528d6a5dbbecb4d8416de6103c15bc1935a07627d3223b5d87d85015c6377",
+    "continuations/final_test/summary.json": "60c2a4ec27280cb13cf29dfe544d9cf01a00226b0d8a65728e69562306507a00",
+    "continuations/final_test/audit.json": "10f9f8a4e4e183b8e519e8076127aa7e8184d1c22d563d9a487214ea7bf7d433",
+    "supervised/protocol.json": "b28d3978d5eca6dd10b521627218afdc32133892d678509df27c69128af17ed3",
+    "supervised/effective_summary.json": "de0b1dff45371545085cbdeec31c6360dcfe67899b6a19b84f2ba2e0712ef579",
+    "supervised/final_audit.json": "438e1784766e0b52db706a0a830fdf70decb7c0116682d8a990691db4e211eb6",
+    "supervised/teacher_recheck.json": "ceb40a08e0b9be16edd966f3e30145abb1693ecf205b5983ae06ef7f9ab00e8a",
+    "supervised/PREFIX_INTERPRETATION.txt": "6fdaa84989ef885155e4e4e0f14883a75b340dc41a9d55e83513fb3242642809"
+  }
+}

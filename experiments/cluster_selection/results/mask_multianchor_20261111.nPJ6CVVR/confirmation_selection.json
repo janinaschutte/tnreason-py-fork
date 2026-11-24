@@ -1,0 +1,18 @@
+{
+  "rule_file": "time_comparison_rule.json",
+  "criterion": "minimum absolute log total setup+solve time ratio to heuristic64; independent of DFS",
+  "chosen": "mask4",
+  "candidates_abs_log_ratio": {
+    "mask1": 0.7724863411957547,
+    "mask2": 0.49770882045106324,
+    "mask4": 0.10886595977709328,
+    "mask8": 0.35639525362429053
+  },
+  "sweep_ratio": 0.8968506234993238,
+  "confirmation_repeats": 2,
+  "confirmation_seed": 815,
+  "methods": [
+    "heuristic64",
+    "mask4"
+  ]
+}

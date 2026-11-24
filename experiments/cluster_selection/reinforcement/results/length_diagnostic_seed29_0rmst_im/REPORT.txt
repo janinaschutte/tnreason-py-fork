@@ -1,0 +1,59 @@
+Cluster construction-length diagnostic (existing validation only)
+
+Question
+Can shorter prefixes of the current REINFORCE construction already prune?
+
+Setup
+16 GAC-stalled puzzles selected by a fixed shuffle of the existing 55-puzzle
+validation split, without using learned performance for selection. Four
+constructions per puzzle: one greedy and three seeded samples. No training,
+checkpoint changes, or inputs from the heldout100 evaluation set.
+
+The original sampled core order was retained. Every prefix containing all
+selected outputs was contracted independently under identical current domains,
+followed by GAC and rollback. Each trial kept the usual 64-core, 6-output,
+1M-work and 100K-entry bounds. A separate comparison retained only the original
+anchor, with its own full-length comparator. Plain MAC then measured remaining
+DFS nodes, without further clusters. Finish legality under the current cycle
+mask was recorded; there were no rejected contractions or censored DFS solves.
+
+Findings with the original outputs
+64 constructions; 15 full clusters pruned. All 15 had a shorter legal useful
+prefix. First usefulness appeared at 53-63 cores (median 57), versus 59-64
+cores (median 63) for the useful full constructions.
+14 of 15 reproduced exactly the full pruning at a strictly shorter prefix.
+The earliest full-equivalent prefix saved a median four cores (including the
+one case that needed the full construction). These matching prefixes retained
+the same DFS result.
+The first useful prefix had equal DFS nodes in 14 cases and worse DFS in one;
+none improved DFS. In puzzle 238, draw 3, stopping at 56 cores removed 5 values
+and left 8 DFS nodes; completing 63 cores removed 25 values and left 7 nodes.
+Two full constructions solved their puzzle at the root, and their identical
+pruning prefixes also solved it. These are isolated one-cluster applications,
+not a complete multi-attempt solver benchmark.
+
+Outputs and contraction cost
+Retaining only the anchor was useful in 2/64 cases, compared with 15/64 for the
+original outputs. Its two useful cases also had shorter matching prefixes.
+Output selection therefore matters; restricting summaries to the anchor loses
+most of the useful constructions in this sample.
+Fewer cores did not always mean less estimated contraction work: in three
+cases the earliest full-equivalent prefix had higher estimated work than the
+full cluster. Each prefix was planned separately.
+
+Interpretation
+This supports testing modest late stopping, not a small-cluster restriction.
+The complete trace and outputs were generated before testing prefixes. Timing
+measurements are retrospective; timestamps to the last selected prefix core
+exclude alternate stop/output decisions, so this is not a demonstrated solver
+speedup. Single-trial contraction timings are noisy. The 64 constructions come
+from 16 puzzles and must not be treated as 64 independent puzzle observations.
+No shorter prefix improved pruning or DFS over its full fixed-output comparator.
+Any learned stopping change needs a separate end-to-end validation experiment.
+
+Verification
+All 6029 trials retained an independently obtained valid baseline assignment.
+Domains, cores, counters and queues were checked after every rollback. An
+independent review checked split membership, all prefix lengths, monotonicity,
+recomputed pruning/entropy, summaries and source hashes. Checkpoints and inputs
+were unchanged. See protocol.json, summary.json and audit.json for exact records.

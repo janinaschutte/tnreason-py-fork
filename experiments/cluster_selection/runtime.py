@@ -399,3 +399,56 @@ def attach_heuristic(state, **options):
         raise ValueError("Heuristic clusters cannot be combined with another closure hook")
     state.on_closure = HeuristicPolicy(state, **options)
     return state
+
+
+class HybridPolicy:
+    """Structural batch, then learned constructions under the resulting domains.
+
+    The two contraction allowances add; unused structural slots are not transferred.
+    Each application uses the existing temporary-summary transaction.
+    """
+
+    def __init__(self, state, predictor, *, heuristic_candidates=32, learned_candidates=32,
+                 heuristic_steps=8192):
+        if getattr(predictor, "kind", None) != "construction":
+            raise ValueError("Hybrid policies require a construction predictor")
+        if predictor.config.get("max_total_work") is not None:
+            raise ValueError("Hybrid policies require no per-episode total-work limit")
+        self.state, self.colors = state, predictor.network["colors"]
+        limits = {key: predictor.config[key] for key in
+                  ("max_cores", "max_open_colors", "max_work", "max_size")}
+        self.learned = ConstructionPolicy(state, predictor, max_candidates=learned_candidates)
+        self.heuristic = HeuristicPolicy(state, max_candidates=heuristic_candidates,
+            max_steps=heuristic_steps, compact_domains=predictor.config.get("compact_domains", False), **limits)
+        self.calls, self.last = 0, None
+
+    @property
+    def statistics(self):
+        heuristic, learned = self.heuristic.statistics, self.learned.statistics
+        totals = {key: heuristic[key] + learned[key] for key in
+                  ("useful", "rejected", "skipped", "removed_values", "contradictions", "time_s")}
+        totals.update(calls=self.calls, candidates=heuristic["proposed"] + learned["candidates"],
+                      selected=heuristic["applied"] + learned["selected"])
+        return totals
+
+    def __call__(self, state, changed):
+        if state is not self.state:
+            raise ValueError("A hybrid policy is bound to one state")
+        snapshot = tuple(state.domains[color] for color in self.colors)
+        if state.contradiction or state.is_solved() or snapshot == self.last:
+            return
+        self.calls += 1
+        self.heuristic(state, changed)
+        if not state.contradiction and not state.is_solved():
+            self.learned(state, changed)
+        self.last = None if state.contradiction else tuple(state.domains[color] for color in self.colors)
+
+
+def attach_hybrid(state, predictor, **options):
+    """Attach a structural-first learned portfolio without replacing another hook."""
+    if state.on_closure is not None:
+        raise ValueError("Hybrid clusters cannot be combined with another closure hook")
+    if isinstance(predictor, (str, PathLike)):
+        predictor = load(predictor)
+    state.on_closure = HybridPolicy(state, predictor, **options)
+    return state

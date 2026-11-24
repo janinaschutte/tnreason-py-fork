@@ -1,0 +1,29 @@
+# Three independent weights-only continuations; no job has been submitted here.
+repo_root = /Home/optimier/schuette/tnreasonproj/tnreason-py
+python_exec = /Home/optimier/schuette/.conda/envs/alphareason/bin/python
+run_root = $(repo_root)/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations
+run_dir = $(run_root)/gpu_$(arm)_$(ClusterId).$(ProcId)
+universe = vanilla
+initialdir = $(repo_root)
+executable = $(python_exec)
+transfer_executable = False
+should_transfer_files = NO
+arguments = "-u '$(run_root)/run_gpu.py' $(arm) --output '$(run_dir)/policy.pt' --device cuda"
+request_gpus = 1
+require_gpus = Capability >= 7.5
+request_cpus = 1
+request_memory = 32GB
+request_disk = 4GB
+getenv = PATH, LD_LIBRARY_PATH
+environment = "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1"
+output = $(run_root)/training.$(arm).$(ClusterId).$(ProcId).out
+error = $(run_root)/training.$(arm).$(ClusterId).$(ProcId).err
+log = $(run_root)/training.$(arm).$(ClusterId).$(ProcId).log
+stream_output = True
+stream_error = True
+on_exit_hold = (ExitBySignal =?= True) || (ExitCode =!= 0)
+queue arm from (
+reinforce
+lower_lr
+self_imitation
+)

@@ -1,0 +1,68 @@
+Root-only saturation diagnostic (16 reused Sudoku puzzles)
+
+Goal: solve by propagation only, rather than share a small cluster allowance fairly.
+No domain assumptions, assignments or DFS were used. Original ConstraintNetwork
+cores remain the representation; each domain-conditioned contraction adds one
+temporary summary, GAC retains its pruning, then the summary is removed.
+
+Result
+  Method                         Solved without DFS   Post-GAC root-only time
+  All generic sources combined   14/16                955.77s
+  Sudoku expert, 51 families      15/16                 13.57s
+
+  The initial teacher-first phase already solved all14 generic successes;
+  it used1,060 completed contractions. Other generic sources added no root solves.
+  Previous teacher192 control: 13/16 without branching.
+  The Sudoku expert uses larger cluster bounds. Its independent root-only
+  benchmark is expert_root_remainder/root_benchmark/{summary,audit}.json.
+
+The new generic root solve is puzzle position12: the unchanged teacher required
+272 contraction attempts and10 useful clusters. This is more inference search,
+not a new trained checkpoint. Later RF suggestions did prune4 more primary cell
+values across the two remaining puzzles, and a later teacher cluster pruned1,
+but neither puzzle became solved. The masks, structural proposals, replay model
+and Q model added no pruning in their later phases on these remaining states.
+
+Stopping rules (frozen before querying)
+  Teacher first; then heuristic, mask, teacher, original RF, replay RF and Q.
+  Rotate source after128 consecutive actual no-op contractions, or decoder
+  exhaustion. Reset this streak after any domain removal, including auxiliaries.
+  Repeat complete source sweeps while any domain shrinks. Stop after a complete
+  six-source sweep without new information, a solution/contradiction, or600s.
+  Teacher-first1024 and later512 contraction limits are emergency rotation guards.
+  Decoder steps262144 initially,131072 per later source, refreshed after pruning.
+  Structural lists keep32 proposal breadth; mask considers32 anchors.
+  Each cluster: <=64 original cores, <=6 outputs, work<=1e6, tensor size<=1e5,
+  compact current domains. No cumulative tensor-work cap.
+
+The remaining cases stopped naturally, without reaching the600s guard:
+  position7: second full sweep stalled;313.73s;37 primary cells still unfixed.
+  position8: third full sweep stalled;432.47s;50 primary cells still unfixed.
+These are stalls under the searched decoders and stopping rules, not proofs that
+no useful cluster exists.
+
+Time
+  Initial teacher phases only: 288.29s summed over16 cases.
+  Complete root-only combined diagnostic: 955.77s,3,979 contractions.
+  Sudoku expert51 post-GAC root-only benchmark:13.57s.
+  Runs use CPU and concurrent workers; timings are descriptive, not isolated
+  speed comparisons. Current root-only time excludes model loading and initial
+  MAC state/GAC preparation; it includes case checkpoint overhead afterward.
+  The expert time excludes network loading, initial GAC and final validation.
+  Teacher-stage time288.29s excludes overhead outside those phases; it is not
+  a complete run time and should not be substituted for the table's955.77s.
+
+Verification
+  Independent audit passed: all61 useful contractions replayed under original
+  domains with models, assignments and DFS disabled; exact intermediate and final
+  domains matched. All14 solved assignments satisfy every original core and given.
+  Frozen source/model/data/reference hashes matched;139 checkpoint JSONs parsed
+  with matching domain hashes;3,979 started =3,979 completed contractions.
+  No timeout, interrupted worker, resume, partial JSON or unsupported pruning.
+  Checkpoint writes in this frozen experimental runner are not atomic: the actual
+  complete run was audited, but shutdown/resume robustness is not established.
+
+This is exploratory work on the same already reused16-puzzle set. Production
+code, supervised training, existing checkpoints/results and GPU jobs were not
+changed. Source, protocol, complete rows/checkpoints, summary, analysis and
+independent audit are preserved in this directory.

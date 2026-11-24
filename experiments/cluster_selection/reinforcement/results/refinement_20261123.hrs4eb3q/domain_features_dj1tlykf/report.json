@@ -1,0 +1,38 @@
+{
+  "features_bitwise_equal": 48,
+  "full_encoded_tuples_bitwise_equal": 48,
+  "generic_valid_cases": 6,
+  "generic_identical_error_cases": 10,
+  "variables": 1053,
+  "median_cpu_seconds": {
+    "original": 0.014237553999919328,
+    "batched": 0.0023792829997546505
+  },
+  "CPU_profiler_operator_counts": {
+    "original": {
+      "aten::empty": 1054,
+      "aten::to": 1057,
+      "aten::index_put_": 1053,
+      "aten::_index_put_impl_": 1053,
+      "aten::_to_copy": 4
+    },
+    "batched": {
+      "aten::empty": 3,
+      "aten::to": 6,
+      "aten::index_put_": 1,
+      "aten::_index_put_impl_": 1,
+      "aten::_to_copy": 4
+    }
+  },
+  "cpu_feature_speedup": 5.9839682801026575,
+  "calls_per_method": 240,
+  "torch": "2.4.1",
+  "cuda_available": false,
+  "scope": "CPU0 one thread, cached48development states; no actual GPU speed measurement or solver performance claim",
+  "input_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/refinement_20261123.hrs4eb3q/pilot_data.json": "cc9835c3b380afbd2354d5c1ec135662073d94dafbdd3083fb5fb11631cadd11",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/refinement_20261123.hrs4eb3q/pilot_states.json": "c31f07f4870c83e31d97e1dda55375b9441d165aff11be96952f397ee61a32ac",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/reinforce.pt": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/refinement_20261123.hrs4eb3q/batch_domains.py": "6f4285f3108f2b4e8d4c0e26abe0f6adeeb090e1fd6ffca270cbb6799c8a8b42"
+  }
+}

@@ -18,6 +18,66 @@ from experiments.cluster_selection.reinforcement.model import Policy, load
 from experiments.cluster_selection.reinforcement.train import _closed
 
 
+def test_success_trace_replay_scores_the_actual_growth_policy_and_preserves_teacher_scoring():
+    data = _data()
+    model = Policy(data["network"], width=8, rounds=1, contextual=True, target_first=True,
+                   compact_domains=True, max_cores=3, max_open_colors=3, min_active=2,
+                   cyclic_only=True, heuristic_candidates=0, decoder="sampling_grow")
+    domains = data["initial_domains"][0]
+    torch.manual_seed(19)
+    candidate, probability, _, trace = model.rollout(domains, beta=0.)
+    rng = torch.get_rng_state().clone()
+    replayed, replay_probability, _, replay_trace = model.rollout(
+        domains, beta=0., trace=trace, policy_trace=True)
+    assert replayed == candidate and replay_trace == trace
+    torch.testing.assert_close(replay_probability, probability)
+    assert torch.equal(rng, torch.get_rng_state())
+    teacher_probability = model.rollout(domains, beta=0., trace=trace)[1]
+    assert teacher_probability < replay_probability
+    (-replay_probability / len(trace)).backward()
+    assert any(p.grad is not None and torch.isfinite(p.grad).all() and p.grad.abs().sum() > 0
+               for p in model.parameters())
+    assert model.rollout(domains, beta=0., trace=[("skip", -1)])[0] is None
+    with pytest.raises(ValueError, match="Illegal construction action"):
+        model.rollout(domains, beta=0., trace=[("skip", -1)], policy_trace=True)
+    with pytest.raises(ValueError, match="requires a complete trace"):
+        model.rollout(domains, policy_trace=True)
+
+
+def test_success_replay_keeps_frozen_verified_inputs_and_bounded_distinct_sequences():
+    buffer, domains, trace = {}, [[0, 1]], [["open", 0], ["finish", -1]]
+    useful = dict(useful=1, reward_valid=1, reward=.5, prefixed=0)
+    for changes in (dict(useful=0), dict(reward=0.), dict(reward=float("nan")),
+                    dict(reward_valid=0), dict(prefixed=1)):
+        assert not learn._remember_success(buffer, domains, trace, {**useful, **changes}, 2)
+    assert not buffer
+    assert learn._remember_success(buffer, domains, trace, useful, 2)
+    assert not learn._remember_success(buffer, domains, trace, useful, 2)
+    domains[0].clear()
+    trace[0][1] = 1
+    assert next(iter(buffer)) == (((0, 1),), (("open", 0), ("finish", -1)))
+    for value in (2, 3):
+        assert learn._remember_success(buffer, [[value]], trace, useful, 2)
+    assert len(buffer) == 2 and all(key[0] != ((0, 1),) for key in buffer)
+
+
+def test_self_imitation_runs_after_verified_success_with_the_same_fresh_update_budget(tmp_path):
+    output = tmp_path / "self_imitation.pt"
+    _, history = learn.fit(_data(), output=output, objective="pruning", epochs=3,
+        width=8, rounds=1, seed=7, rollouts=2, steps=1, warmup=0, imitation_weight=0.,
+        teacher_candidates=8, teacher_mutations=0, curriculum=False,
+        train_indices=[0], validation_indices=[1], validation_seconds=5.,
+        max_cores=3, max_open_colors=3, max_work=10_000, max_size=256,
+        target_first=True, decoder="sampling_grow", self_imitation_weight=.1, self_imitation_capacity=2)
+    assert history[0]["self_imitation_updates"] == 0
+    assert sum(row["self_imitation_updates"] for row in history) == 2
+    assert all(row["updates"] == 1 and row["trials"] == 2 for row in history)
+    assert all(0 < row["self_imitation_buffer"] <= 2 for row in history)
+    saved = torch.load(output, weights_only=True)
+    assert saved["training"]["self_imitation_weight"] == .1
+    assert saved["training"]["self_imitation_capacity"] == 2
+
+
 @pytest.fixture(autouse=True)
 def one_thread():
     previous = torch.get_num_threads()
@@ -635,13 +695,117 @@ def test_explicit_default_imitation_preserves_loss_gradients_and_rng():
     gradients = {name: parameter.grad.clone() for name, parameter in model.named_parameters()
                  if parameter.grad is not None}
     model.zero_grad(set_to_none=True)
-    explicit = learn.teacher_loss(model, data["initial_domains"][0], teachers, explicit_rng, greedy=False)
+    explicit = learn.teacher_loss(model, data["initial_domains"][0], teachers, explicit_rng,
+                                  greedy=False, quality_fraction=0.)
     explicit.backward()
     torch.testing.assert_close(default, explicit, rtol=0, atol=0)
     assert default_rng.getstate() == explicit_rng.getstate()
     for name, parameter in model.named_parameters():
         if name in gradients:
             torch.testing.assert_close(parameter.grad, gradients[name], rtol=0, atol=0)
+
+
+@pytest.mark.parametrize("second_reward,fraction,keep_second", [
+    (.95, .9, True), (1., 1., True), (.95, 1., False)])
+def test_teacher_quality_preserves_near_best_and_ties_but_excludes_weak_gradients(
+        monkeypatch, second_reward, fraction, keep_second):
+    data = _data()
+    model = Policy(data["network"], width=8, rounds=1, contextual=True, target_first=True,
+                   max_cores=3, max_open_colors=3, min_active=2, cyclic_only=True, heuristic_candidates=0)
+    teachers = [(_candidate(("a",)), dict(reward=1., pruned_outputs=("a",))),
+                (_candidate(("b",)), dict(reward=second_reward, pruned_outputs=("b",))),
+                (SummaryClusterCandidate("weak", ("uv", "vw", "uw"), ("u",)),
+                 dict(reward=.1, pruned_outputs=("u",)))]
+    actions = model.actions([], [], False, [2] * len(model.network["colors"]))
+    logits = torch.zeros(len(actions), requires_grad=True)
+
+    def uniform_actions(encoded, sizes, keys, opened, output_phase, beta):
+        legal = model.actions(keys, opened, output_phase, sizes)
+        scores = logits if not keys and not opened else torch.zeros(len(legal))
+        return legal, torch.distributions.Categorical(logits=scores)
+
+    monkeypatch.setattr(model, "distribution", uniform_actions)
+    filtered_rng, expected_rng = Random(31), Random(31)
+    filtered = learn.teacher_loss(model, data["initial_domains"][0], teachers, filtered_rng,
+                                  quality_fraction=fraction)
+    filtered.backward()
+    gradients = logits.grad.clone()
+    logits.grad = None
+    expected = learn.teacher_loss(model, data["initial_domains"][0],
+                                 teachers[:2] if keep_second else teachers[:1], expected_rng)
+    expected.backward()
+    torch.testing.assert_close(filtered, expected, rtol=0, atol=0)
+    torch.testing.assert_close(gradients, logits.grad, rtol=0, atol=0)
+    assert filtered_rng.getstate() == expected_rng.getstate()
+    assert gradients[actions.index(("open", model.color_idx["a"]))] < 0
+    second_gradient = gradients[actions.index(("open", model.color_idx["b"]))]
+    assert bool(second_gradient < 0) == keep_second
+    assert gradients[actions.index(("open", model.color_idx["u"]))] > 0
+
+
+def test_teacher_quality_filters_before_greedy_continuation_choice(monkeypatch):
+    data = _data()
+    model = Policy(data["network"], width=8, rounds=1, contextual=True, target_first=True,
+                   max_cores=3, max_open_colors=3, min_active=2, cyclic_only=True, heuristic_candidates=0)
+    teachers = [(_candidate(), dict(reward=1., pruned_outputs=("a",))),
+                (SummaryClusterCandidate("weak", ("uv", "vw", "uw"), ("u",)),
+                 dict(reward=.1, pruned_outputs=("u",)))]
+    actions = model.actions([], [], False, [2] * len(model.network["colors"]))
+    logits = torch.zeros(len(actions))
+    weak = actions.index(("open", model.color_idx["u"]))
+    logits[weak] = 10
+    logits.requires_grad_()
+    visited = []
+
+    def misleading_actions(encoded, sizes, keys, opened, output_phase, beta):
+        visited.append(tuple(opened))
+        legal = model.actions(keys, opened, output_phase, sizes)
+        scores = logits if not keys and not opened else torch.zeros(len(legal))
+        return legal, torch.distributions.Categorical(logits=scores)
+
+    monkeypatch.setattr(model, "distribution", misleading_actions)
+    loss = learn.teacher_loss(model, data["initial_domains"][0], teachers, Random(3),
+                              greedy=True, quality_fraction=.9)
+    loss.backward()
+    assert visited[1] == (model.color_idx["a"],)
+    assert logits.grad[weak] > 0
+    assert logits.grad[actions.index(("open", model.color_idx["a"]))] < 0
+
+
+@pytest.mark.parametrize("fraction", [-.1, 1.1, float("nan"), float("inf")])
+def test_teacher_quality_rejects_invalid_fractions(fraction):
+    with pytest.raises(ValueError, match="between zero and one"):
+        learn.teacher_loss(None, None, [], Random(0), quality_fraction=fraction)
+
+
+@pytest.mark.parametrize("reward", [None, 0., -.1, float("nan"), float("inf")])
+def test_teacher_quality_requires_measured_positive_finite_rewards(reward):
+    metrics = {} if reward is None else dict(reward=reward)
+    with pytest.raises(ValueError, match="positive finite measured rewards"):
+        learn.teacher_loss(None, None, [(_candidate(), metrics)], Random(0), quality_fraction=.9)
+
+
+def test_teacher_quality_fit_records_opt_in_without_changing_runtime_config(tmp_path):
+    data = _data()
+    path = tmp_path / "quality.pt"
+    _, history = learn.fit(data, output=path, epochs=1, width=8, rounds=1, seed=7,
+        rollouts=2, teacher_candidates=8, teacher_mutations=0, steps=1, warmup=1,
+        train_indices=[0], validation_indices=[1], validation_seconds=2., max_cores=3,
+        max_open_colors=3, max_work=10_000, max_size=256, target_first=True,
+        curriculum=False, objective="pruning", teacher_quality_fraction=.9)
+    assert history[0]["updates"] == 1
+    for checkpoint_path in (path, path.with_stem("quality.best"), path.with_stem("quality.initial")):
+        checkpoint = torch.load(checkpoint_path, weights_only=True)
+        assert checkpoint["training"]["teacher_quality_fraction"] == .9
+        assert "teacher_quality_fraction" not in checkpoint["config"]
+        assert isinstance(runtime.load(checkpoint_path), Policy)
+
+
+@pytest.mark.parametrize("mode", ["on_policy_imitation", "completion_value_imitation"])
+def test_teacher_quality_rejects_unfiltered_imitation_modes(tmp_path, mode):
+    with pytest.raises(ValueError, match="quality filtering"):
+        learn.fit(_data(), output=tmp_path / "invalid.pt", teacher_quality_fraction=.9,
+                  target_first=True, **{mode: True})
 
 
 def test_target_labels_use_actual_pruned_outputs_while_retaining_the_full_summary(monkeypatch):

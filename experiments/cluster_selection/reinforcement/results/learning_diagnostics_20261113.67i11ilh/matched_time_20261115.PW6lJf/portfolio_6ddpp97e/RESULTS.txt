@@ -1,0 +1,37 @@
+MATCHED-TIME PROPAGATION INCLUDING A SHARED-BUDGET GENERIC MIX
+
+One serial pinned CPU process; wall-clock budget includes initial ordinary GAC, proposal adapter/context setup, generation/decoding, planning, contraction and GAC. Model/network/state loading, source hashing, final validation, disk publication and residual DFS are excluded. Closed-domain snapshots are copied in RAM inside the timed interval. Completion timestamps are sampled after full contraction+GAC and lightweight accounting, before snapshot copying. Both wall and CPU timestamps are recorded. SIGALRM interrupts read-only proposals/planning; blocked during initial GAC and domain mutation/contraction+GAC. Atomic completion after a budget earns no earlier credit.
+
+Same reused16 puzzles/checkpoints/hardware/per-cluster limits and exact timed evaluate/residual helpers as the parent. One aggregate60s budget includes ordinary GAC and every source's proposal, planning, contraction and GAC; no private60s allowance. Sources heuristic/teacher/REINFORCE/replay/Q target equal cumulative wall shares by advancing the least-charged source one candidate at a time. A turn includes cache/rejection screening and any application/GAC/accounting while its adapter yield is suspended. Turns are nonpreemptive except for the aggregate deadline; a slow proposal or bounded atomic contraction can exceed its ideal share. There is no hard per-source quota. All source iterators restart after useful pruning from shared updated domains; cumulative time balances persist across these generations. Global exact scoped no-op caching remains unchanged. Per-source timing excludes small adapter gaps and initial GAC, recorded as unattributed overhead. No random constructor, mask decoder, domain-specific expert, DFS, assumptions or probes in mix. Prefixes1/5/15/60s credit only fully completed contraction+GAC snapshots by their recorded deadline. Per-source useful-cluster attribution records the actual constructor that emitted that cluster; it does not estimate counterfactual causal contribution.
+
+Budget (seconds):                 1      5     15     60
+
+Solved without branching (of 16):
+Plain MAC                            0      0      0      0
+Structural heuristic                 7      8      8      9
+Untrained constructor                1      6      9     11
+Teacher imitation                    7     10     10     14
+REINFORCE                            3      7     11     12
+REINFORCE + replay                   1      9     11     12
+Q-learning                           1      1      1      1
+Sudoku expert*                      15     15     15     15
+Generic mix (shared time)            5      8     10     11
+
+Remaining DFS nodes (root included; identical plain MAC):
+Plain MAC                           62     62     62     62
+Structural heuristic                37     34     33     32
+Untrained constructor               59     49     32     29
+Teacher imitation                   36     31     31     26
+REINFORCE                           55     48     30     28
+REINFORCE + replay                  57     35     29     28
+Q-learning                          60     60     60     60
+Sudoku expert*                      22     22     22     22
+Generic mix (shared time)           39     35     32     29
+
+All root rows and residual solves pass the original matched-time plotting assertions.
+Parent protocol, shared source/data/checkpoint/reference hashes, limits, hardware and budget match.
+All residual solves completed with valid assignments; no censored DFS totals.
+Generic mix is an actual shared-domain trajectory under one total time budget, not a union of independent runs.
+Source turns target equal cumulative charged wall time; nonpreemptive turns can overshoot their ideal share.
+Root curves are completed closure events; DFS points are measured only at the four declared budgets.
+Prior eight curves are reused unchanged; this follow-up remains exploratory on the reused held-out set.

@@ -1,0 +1,723 @@
+{
+  "status": "PASSED",
+  "audit_type": "Independent read-only recount of frozen raw results; no inference or source changes",
+  "protocol_sha256": "26ae5f2631642c14bf090edac33a87cc667f788bb4c09450b1b924ca3a1be2e5",
+  "checks": {
+    "done_positions": 1,
+    "source_sha256": 110,
+    "reference_sha256": 100,
+    "checkpoint_hash": 5,
+    "data_hash": 1,
+    "parent_protocol_hash": 1,
+    "preparation_hash": 1,
+    "done_protocol": 100,
+    "worker_hash": 100,
+    "attempt_protocol": 100,
+    "worker_single_thread": 100,
+    "worker_no_gpu": 100,
+    "complete_method_rows": 100,
+    "row_hash": 1800,
+    "row_identity": 1800,
+    "dfs_root_hash": 900,
+    "dfs_budgets": 900,
+    "uncensored_valid_dfs": 5400,
+    "root_invariants": 900,
+    "snapshot_reference": 5240,
+    "snapshot_monotonic": 5240,
+    "snapshot_invariants": 5240,
+    "prefix_deadline": 5400,
+    "latest_prefix": 5400,
+    "solved_reference_assignment": 567,
+    "mixed_event_nonoverlap": 100,
+    "mixed_sources": 100,
+    "mixed_global_ledger": 100,
+    "mixed_source_event_ledger": 500,
+    "mixed_source_turns": 500,
+    "mixed_source_pruning": 500,
+    "summary_protocol": 1,
+    "collector_summary_independent_recount": 1,
+    "condor_normal_exit": 100,
+    "condor_no_hold_or_eviction": 100,
+    "condor_complete_logs": 1
+  },
+  "errors": [],
+  "positions": 100,
+  "methods": [
+    "plain",
+    "heuristic",
+    "initial",
+    "teacher",
+    "reinforce",
+    "replay",
+    "q",
+    "expert",
+    "combined"
+  ],
+  "root_rows": 900,
+  "dfs_rows": 900,
+  "uncensored_valid_dfs_prefix_records": 5400,
+  "snapshots_checked": 5240,
+  "solved_root_assignments_equal_unique_references": 567,
+  "frozen_hashes_checked": {
+    "sources": 110,
+    "reference_assignments": 100,
+    "checkpoints": 5,
+    "data": 1,
+    "parent_protocol": 1,
+    "preparation": 1
+  },
+  "root_statuses": {
+    "plain": {
+      "ordinary_gac_stalled": 100
+    },
+    "heuristic": {
+      "resource_guard": 51,
+      "solved": 36,
+      "technical_iterator_exhausted": 13
+    },
+    "initial": {
+      "solved": 82,
+      "resource_guard": 18
+    },
+    "teacher": {
+      "solved": 88,
+      "resource_guard": 12
+    },
+    "reinforce": {
+      "solved": 87,
+      "resource_guard": 13
+    },
+    "replay": {
+      "solved": 85,
+      "resource_guard": 15
+    },
+    "q": {
+      "resource_guard": 95,
+      "solved": 5
+    },
+    "expert": {
+      "solved": 97,
+      "expert_bounded_detectors_exhausted": 3
+    },
+    "combined": {
+      "solved": 87,
+      "resource_guard": 13
+    }
+  },
+  "root_wall_mean_s": {
+    "plain": 0.07099127919238526,
+    "heuristic": 168.95647498489473,
+    "initial": 80.77906341032882,
+    "teacher": 61.86057746374805,
+    "reinforce": 56.775860169512455,
+    "replay": 64.95769761021947,
+    "q": 285.0397568631818,
+    "expert": 0.8912944864359451,
+    "combined": 60.18886634060764
+  },
+  "totals": [
+    {
+      "method": "plain",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "plain",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "plain",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "plain",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "plain",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "plain",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 0,
+      "remaining_dfs_nodes": 356,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 19,
+      "remaining_dfs_nodes": 296,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 28,
+      "remaining_dfs_nodes": 275,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 33,
+      "remaining_dfs_nodes": 268,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 35,
+      "remaining_dfs_nodes": 261,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 36,
+      "remaining_dfs_nodes": 258,
+      "residual_censored": 0
+    },
+    {
+      "method": "heuristic",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 36,
+      "remaining_dfs_nodes": 255,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 13,
+      "remaining_dfs_nodes": 340,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 32,
+      "remaining_dfs_nodes": 299,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 55,
+      "remaining_dfs_nodes": 246,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 70,
+      "remaining_dfs_nodes": 198,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 74,
+      "remaining_dfs_nodes": 189,
+      "residual_censored": 0
+    },
+    {
+      "method": "initial",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 82,
+      "remaining_dfs_nodes": 164,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 24,
+      "remaining_dfs_nodes": 306,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 50,
+      "remaining_dfs_nodes": 251,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 64,
+      "remaining_dfs_nodes": 225,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 75,
+      "remaining_dfs_nodes": 193,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 80,
+      "remaining_dfs_nodes": 179,
+      "residual_censored": 0
+    },
+    {
+      "method": "teacher",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 88,
+      "remaining_dfs_nodes": 152,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 16,
+      "remaining_dfs_nodes": 332,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 50,
+      "remaining_dfs_nodes": 262,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 59,
+      "remaining_dfs_nodes": 222,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 76,
+      "remaining_dfs_nodes": 175,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 85,
+      "remaining_dfs_nodes": 155,
+      "residual_censored": 0
+    },
+    {
+      "method": "reinforce",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 87,
+      "remaining_dfs_nodes": 149,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 14,
+      "remaining_dfs_nodes": 322,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 49,
+      "remaining_dfs_nodes": 254,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 62,
+      "remaining_dfs_nodes": 214,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 77,
+      "remaining_dfs_nodes": 176,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 78,
+      "remaining_dfs_nodes": 168,
+      "residual_censored": 0
+    },
+    {
+      "method": "replay",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 85,
+      "remaining_dfs_nodes": 158,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 350,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 349,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 349,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 349,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 349,
+      "residual_censored": 0
+    },
+    {
+      "method": "q",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 5,
+      "remaining_dfs_nodes": 349,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 86,
+      "remaining_dfs_nodes": 148,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 94,
+      "remaining_dfs_nodes": 124,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 97,
+      "remaining_dfs_nodes": 120,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 97,
+      "remaining_dfs_nodes": 120,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 97,
+      "remaining_dfs_nodes": 120,
+      "residual_censored": 0
+    },
+    {
+      "method": "expert",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 97,
+      "remaining_dfs_nodes": 120,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 1,
+      "instances": 100,
+      "solved_without_branching": 24,
+      "remaining_dfs_nodes": 307,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 5,
+      "instances": 100,
+      "solved_without_branching": 46,
+      "remaining_dfs_nodes": 252,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 15,
+      "instances": 100,
+      "solved_without_branching": 65,
+      "remaining_dfs_nodes": 211,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 60,
+      "instances": 100,
+      "solved_without_branching": 76,
+      "remaining_dfs_nodes": 185,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 120,
+      "instances": 100,
+      "solved_without_branching": 83,
+      "remaining_dfs_nodes": 170,
+      "residual_censored": 0
+    },
+    {
+      "method": "combined",
+      "budget_s": 300,
+      "instances": 100,
+      "solved_without_branching": 87,
+      "remaining_dfs_nodes": 153,
+      "residual_censored": 0
+    }
+  ],
+  "paired_root_comparisons": [
+    {
+      "budget_s": 60,
+      "a": "combined",
+      "b": "reinforce",
+      "a_only_root_solves": 4,
+      "b_only_root_solves": 4,
+      "both": 72,
+      "neither": 20
+    },
+    {
+      "budget_s": 60,
+      "a": "combined",
+      "b": "teacher",
+      "a_only_root_solves": 6,
+      "b_only_root_solves": 5,
+      "both": 70,
+      "neither": 19
+    },
+    {
+      "budget_s": 60,
+      "a": "reinforce",
+      "b": "initial",
+      "a_only_root_solves": 8,
+      "b_only_root_solves": 2,
+      "both": 68,
+      "neither": 22
+    },
+    {
+      "budget_s": 60,
+      "separate_teacher_reinforce_replay_union": 82,
+      "combined_unique_beyond_that_union": [],
+      "warning": "The standalone union uses three independent budgets; it is not a matched-budget solver."
+    },
+    {
+      "budget_s": 120,
+      "a": "combined",
+      "b": "reinforce",
+      "a_only_root_solves": 4,
+      "b_only_root_solves": 6,
+      "both": 79,
+      "neither": 11
+    },
+    {
+      "budget_s": 120,
+      "a": "combined",
+      "b": "teacher",
+      "a_only_root_solves": 6,
+      "b_only_root_solves": 3,
+      "both": 77,
+      "neither": 14
+    },
+    {
+      "budget_s": 120,
+      "a": "reinforce",
+      "b": "initial",
+      "a_only_root_solves": 11,
+      "b_only_root_solves": 0,
+      "both": 74,
+      "neither": 15
+    },
+    {
+      "budget_s": 120,
+      "separate_teacher_reinforce_replay_union": 89,
+      "combined_unique_beyond_that_union": [],
+      "warning": "The standalone union uses three independent budgets; it is not a matched-budget solver."
+    },
+    {
+      "budget_s": 300,
+      "a": "combined",
+      "b": "reinforce",
+      "a_only_root_solves": 3,
+      "b_only_root_solves": 3,
+      "both": 84,
+      "neither": 10
+    },
+    {
+      "budget_s": 300,
+      "a": "combined",
+      "b": "teacher",
+      "a_only_root_solves": 3,
+      "b_only_root_solves": 4,
+      "both": 84,
+      "neither": 9
+    },
+    {
+      "budget_s": 300,
+      "a": "reinforce",
+      "b": "initial",
+      "a_only_root_solves": 5,
+      "b_only_root_solves": 0,
+      "both": 82,
+      "neither": 13
+    },
+    {
+      "budget_s": 300,
+      "separate_teacher_reinforce_replay_union": 92,
+      "combined_unique_beyond_that_union": [],
+      "warning": "The standalone union uses three independent budgets; it is not a matched-budget solver."
+    }
+  ],
+  "mixed_budget_audit": {
+    "global_budget_s": 300,
+    "sources": [
+      "heuristic",
+      "teacher",
+      "reinforce",
+      "replay",
+      "q"
+    ],
+    "expert_or_untrained_in_mix": false,
+    "events_checked": 137292,
+    "max_global_ledger_error_s": 0.0,
+    "max_source_event_ledger_error_s": 0.0,
+    "charged_s_totals": {
+      "heuristic": 1591.802067459852,
+      "teacher": 1112.6938169441419,
+      "reinforce": 1104.9987127730274,
+      "replay": 1102.7252185627585,
+      "q": 1096.1741557622445
+    },
+    "useful_application_totals": {
+      "heuristic": 230,
+      "teacher": 154,
+      "reinforce": 102,
+      "replay": 103,
+      "q": 11
+    },
+    "scheduling": "Least cumulative charged wall time, nonpreemptive one-candidate turns; all sources share the single 300s timer. No hard per-source quotas."
+  },
+  "hardware": {
+    "cpu_model_counts": {
+      "INTEL(R) XEON(R) GOLD 6544Y": 51,
+      "Intel(R) Xeon(R) Gold 6254 CPU @ 3.10GHz": 32,
+      "Intel(R) Xeon(R) Gold 6444Y": 1,
+      "Intel(R) Xeon(R) Gold 6354 CPU @ 3.00GHz": 12,
+      "Intel(R) Xeon(R) Gold 6154 CPU @ 3.00GHz": 2,
+      "Intel(R) Xeon(R) Gold 6438M": 2
+    },
+    "host_counts": {
+      "leonhard-26": 50,
+      "leonhard-09": 31,
+      "leonhard-21": 1,
+      "leonhard-25": 1,
+      "leonhard-18": 11,
+      "leonhard-17": 1,
+      "leonhard-05": 1,
+      "leonhard-01": 2,
+      "leonhard-23": 1,
+      "leonhard-24": 1
+    },
+    "cpu_wall_ratio_min_all": 0.7880960902118636,
+    "cpu_wall_ratio_median_all": 0.9999535981360897,
+    "rows_with_wall_over_1s": 599,
+    "cpu_wall_ratio_min_over_1s": 0.9863352853672085,
+    "note": "Very short rows have noisy ratios. All rows longer than 1s have CPU/wall ratio at least 0.9863. Paired methods run sequentially on the same worker per puzzle; hardware mix differs from the earlier60s experiment."
+  },
+  "condor": {
+    "cluster": 8976,
+    "normal_exit_jobs": 100,
+    "first_execution_berlin": "2026-11-23 11:38:47",
+    "last_termination_berlin": "2026-11-23 14:13:14",
+    "timezone": "Europe/Berlin"
+  },
+  "interpretation": "Exploratory replication on all 100 previously evaluated puzzles, without performance-based selection. All nine methods rerun from the original domains, on the same worker per puzzle, with fixed checkpoints, decoders and per-cluster limits. One 300s trajectory supplies prefixes 1/5/15/60/120/300s; no saved trajectory is resumed or spliced into this replication. The generic mix shares one aggregate budget across heuristic/teacher/REINFORCE/replay/Q, restarting their iterators after useful pruning on shared updated domains. It targets equal cumulative wall shares with nonpreemptive one-candidate turns, not hard per-source quotas. Switching, proposal, planning, contraction and GAC are charged; no Sudoku expert or untrained control enters the mix. The expert remains a separate reference with its original larger limits. Model/network/state loading is excluded. Hardware is recorded per attempt; do not merge these timings with old runs.",
+  "important_limits": [
+    "This is an exploratory longer-budget replication on the same100 puzzles already evaluated, not a fresh testset.",
+    "Use the complete new300s trajectories, including their own60s prefixes; do not splice old60s results into these curves.",
+    "Expert uses its separate larger computational limits. Model/network loading and residual DFS are outside the propagation timer.",
+    "DFS totals count the root node. Remaining plain MAC is run separately after each saved propagation prefix."
+  ]
+}

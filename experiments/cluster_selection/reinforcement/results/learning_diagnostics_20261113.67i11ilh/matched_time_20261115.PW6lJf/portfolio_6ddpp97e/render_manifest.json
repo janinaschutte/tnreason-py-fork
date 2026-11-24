@@ -1,0 +1,11 @@
+{
+  "kind": "presentation_only_caption_clarification",
+  "input_sha256": {
+    "render.py": "e339d01f9c1cca7912c48b9693978202b8dc6c241afd3d41e1805274c30a6817",
+    "plot.py": "e9b50af15763f9e279354512f5e06752c77e43acf97bce7b79947528d350829d",
+    "protocol.json": "da831a56371e380119412f3d6c5787997090e1ce4275171b8d2f5c934acd450a",
+    "../plot.py": "dc74a93ba594e5db7a811ad34b180abf219043469373e14cf3f276a7d928af4a",
+    "../protocol.json": "7994987024f364874c4dbb5a8de5202400b3f5cf4ffbdf371aef222d55c554b7"
+  },
+  "change": "Caption explicitly states training exclusion; evaluation set was reused for later experiments."
+}

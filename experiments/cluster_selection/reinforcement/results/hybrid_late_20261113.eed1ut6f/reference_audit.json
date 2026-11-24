@@ -1,0 +1,310 @@
+{
+  "created_utc": "2026-11-13T09:21:42.316608+00:00",
+  "no_new_contractions_or_solves": true,
+  "protocol_sha256": "24f557da113cd2261e5b2e8f28a236d0b247dbf8afc562f458ac99d6e4144f88",
+  "reference_comparison_sha256": "835e742420b0e769b2659f8057260db11ff1cf2812ed4f27c37c26f4a0d898c7",
+  "reference_protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+  "selected_rows": [
+    {
+      "puzzle": 80,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_80.json",
+      "sha256": "dec41c11453d4bde3cec8df78cad1da2cea8f52aa715738930229172641c1f8a",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 81,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_81.json",
+      "sha256": "b3ad517d9743bb91333110fcd57316cdec97c69c14053f4bf8f4be3115f5051a",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 82,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_82.json",
+      "sha256": "3ea7b4dadabd68fb60840816aca54cdf0941f9d8150a333590232ef06db3c852",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 83,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_83.json",
+      "sha256": "9db200d24dbbf5fb19212df192ace38f45d8ac6653f22653d5f50cbaee8a07d7",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 84,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_84.json",
+      "sha256": "21987aa11958915ef9a6bbb4061daf820c238607614b34a9b99324ce73f13468",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 86,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_86.json",
+      "sha256": "1cda804fc740ed13da0750058c47aea8ee45bf69ab8cc20c9abd73f647254b61",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 87,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_87.json",
+      "sha256": "4357c07731a27b13387b7c64acd9f0579d6eb1effac147859eaff11efbc42363",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 88,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_88.json",
+      "sha256": "1bbc3ae6d6b0ed7b483a6ebb8e4a38ad35935ff334d3692e6b3eeb51c631f45d",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 89,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_89.json",
+      "sha256": "d29eb9c85695b48cea4923934cd8a3b9df346bc82dae7343a9b7e93d5197f1b2",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 90,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_90.json",
+      "sha256": "0568881090fded720afc3521fc88e73d0254f6fcb7201c01cc1cc4f28c79b746",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 92,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_92.json",
+      "sha256": "b21319b81d34b0895da35631d84e3ead19736409b37ffef5bf99664f0b4afbb6",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 93,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_93.json",
+      "sha256": "4e44911e5e914e3474334d4f06568be10a9dcf37d44aa83179494afd1956e91f",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 94,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_94.json",
+      "sha256": "a78006ce0c1293accf3b08c4987faea021f6fe8ee3b29ee9932d2657d9042912",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 95,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_95.json",
+      "sha256": "2e07272070380c4924bc586dc09cc2cac19bfa8cf215528d07a2f4d98aa20ba2",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 96,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_96.json",
+      "sha256": "7f9ffd7acad62256bc62e778eedf8f3554faf5700fc67cc853357dba58835838",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 97,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_97.json",
+      "sha256": "90571d72066d1f887e9e2abcdd18d11290c0fe1eafca1233b21af90407fac8c0",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 98,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_98.json",
+      "sha256": "b5a789e8e80b5d38add8ba92c123ba4e635f6f69409d1dcbf6eb44b52031fd54",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 99,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_99.json",
+      "sha256": "5298482137cc86c21f5babd01814855b559db9c5c2d3f945ee8f54af25d8dc53",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 110,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_110.json",
+      "sha256": "648df985ddd3245004ec38ae1df6e65a5a7b620126437deff6458d6bb748f8a7",
+      "nodes": 3,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 111,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_111/rows/name_4096_111.json",
+      "sha256": "ef4ce83165ecbc45eec709c606efdf7d72d21142012944cf3dbd0e7c95ea4ed0",
+      "nodes": 3,
+      "protocol_sha256": "b3f43b4c0148a6be0416b8febb28b8fde3953831d2035ebcbba4661bf1bb9c83",
+      "wall_guard_seconds": 7200,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 112,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_112/rows/name_4096_112.json",
+      "sha256": "92deffb39ee7afd58d18dc557311d7823af1f6ed624363a99eb6d4dbc2a1b096",
+      "nodes": 8,
+      "protocol_sha256": "819d6ea06fa06dd12321563de246aeed8d4979415696a853c102214e031dbf6b",
+      "wall_guard_seconds": 7200,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 113,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_113/rows/name_4096_113.json",
+      "sha256": "2da31e98c01123b54086c72314b5bcbbc532972bb41a9132bd77044c85c49d66",
+      "nodes": 4,
+      "protocol_sha256": "382208a7474b5ae19d7a97dce73f3296b506fb7512c9122746d12d20c90cb3d5",
+      "wall_guard_seconds": 7200,
+      "assignment_checked_against_original_givens_and_cores": true
+    },
+    {
+      "puzzle": 114,
+      "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_114.json",
+      "sha256": "0082160ecc34925d92b6aa752b80fe90d5b897b1971964e0efd2c0c4e21ba5e4",
+      "nodes": 1,
+      "protocol_sha256": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+      "wall_guard_seconds": 1800,
+      "assignment_checked_against_original_givens_and_cores": true
+    }
+  ],
+  "retry_histories_verified": 3,
+  "completed": 23,
+  "nodes": 37,
+  "branch_free": 19,
+  "reused_root_puzzles": [
+    80,
+    81,
+    82,
+    83,
+    84,
+    86,
+    87,
+    88,
+    89,
+    90,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    114
+  ],
+  "newly_measured_puzzles": [
+    110,
+    111,
+    112,
+    113
+  ],
+  "previous_nodes_on_newly_measured": {
+    "110": 3,
+    "111": 3,
+    "112": 8,
+    "113": 4
+  },
+  "checks": {
+    "recorded_comparison_row_hashes_match": true,
+    "initial_and_retry_protocols_match": true,
+    "original_assignments_valid": true,
+    "data_and_existing_solver_sources_unchanged": true,
+    "current_runtime_only_appends_hybrid_definitions": true,
+    "hybrid_stops_before_learned_phase_when_structural_solves": true
+  },
+  "limitation": "This audits the structural reference and validity of reusing nineteen root solves; pending hybrid DFS trials are not assigned fabricated counts.",
+  "source_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/protocol.json": "149b488170cb3f90f1e39f31dfe05a87c01b66db1726b4eafefa8339ac554788",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/comparison.json": "835e742420b0e769b2659f8057260db11ff1cf2812ed4f27c37c26f4a0d898c7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/hybrid_late_20261113.eed1ut6f/protocol.json": "24f557da113cd2261e5b2e8f28a236d0b247dbf8afc562f458ac99d6e4144f88",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/plot.py": "9d5a5a93738d02bdd85d6b4244a6d316b1ace01129d9760b2333dafc5ca02067",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/development.json": "9f56c35b058e9f1a16419a290584b501eb3a2fc9fbbecda27cbd46cc5a9586ba",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/constraint_networks/mac.py": "9eb5ec1148a14b9cfe43fb99ea0216c15317a95d4193efc5cc540b05f4bda1fd",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/constraint_networks/constraint_networks.py": "0314afdb46f0d9c8d36bebcab2decf2752ffaa3ecd8bf40d64a9bc7d011ddd87",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/constraint_networks/generalized_arc_consistency.py": "78dbdfb1a4ae78bbdc81d63cd30f7671600dbce8eff9b83e216b104fb796d065",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/hybrid_late_20261113.eed1ut6f/runtime_before.py": "f155a2cd980b740008be4c1bac50866a310f2e8cbad44c3264c065f03690dfb4",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/candidate_generation.py": "553643454fe9c0d74f16fe426da78edb3a94ecf5d1735f11d9209955bfb43ae1",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/contraction_cost.py": "edfb22c682e435fd7c1eeb0a79434784124cfb782d3f26f19c095bf8677f49e3",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/candidate_evaluation_mac.py": "719eac61c074f6ae23c2adcbb363d614b24942d3a50aca10522d5b04cf63f2ea",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/experiment.py": "422d17e898efe228740b0c95c5ec38a1622e230fe075646451e1f67e7f3633a7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/train.py": "36bd0776c58a89aa9d63004e87a1c4a787263050e8c0617545708bede0989912",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/run.py": "b6def53e5f463bd6fe040d844c8e6833258ef37b67634ed325b0adb3e929d65e",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/runtime.py": "ce5dd098939e3c5736271c521d8ad7426386d8640be312b219e1b1e820630f45",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_80.json": "dec41c11453d4bde3cec8df78cad1da2cea8f52aa715738930229172641c1f8a",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_81.json": "b3ad517d9743bb91333110fcd57316cdec97c69c14053f4bf8f4be3115f5051a",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_82.json": "3ea7b4dadabd68fb60840816aca54cdf0941f9d8150a333590232ef06db3c852",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_83.json": "9db200d24dbbf5fb19212df192ace38f45d8ac6653f22653d5f50cbaee8a07d7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_84.json": "21987aa11958915ef9a6bbb4061daf820c238607614b34a9b99324ce73f13468",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_86.json": "1cda804fc740ed13da0750058c47aea8ee45bf69ab8cc20c9abd73f647254b61",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_87.json": "4357c07731a27b13387b7c64acd9f0579d6eb1effac147859eaff11efbc42363",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_88.json": "1bbc3ae6d6b0ed7b483a6ebb8e4a38ad35935ff334d3692e6b3eeb51c631f45d",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_89.json": "d29eb9c85695b48cea4923934cd8a3b9df346bc82dae7343a9b7e93d5197f1b2",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_90.json": "0568881090fded720afc3521fc88e73d0254f6fcb7201c01cc1cc4f28c79b746",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_92.json": "b21319b81d34b0895da35631d84e3ead19736409b37ffef5bf99664f0b4afbb6",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_93.json": "4e44911e5e914e3474334d4f06568be10a9dcf37d44aa83179494afd1956e91f",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_94.json": "a78006ce0c1293accf3b08c4987faea021f6fe8ee3b29ee9932d2657d9042912",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_95.json": "2e07272070380c4924bc586dc09cc2cac19bfa8cf215528d07a2f4d98aa20ba2",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_96.json": "7f9ffd7acad62256bc62e778eedf8f3554faf5700fc67cc853357dba58835838",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_97.json": "90571d72066d1f887e9e2abcdd18d11290c0fe1eafca1233b21af90407fac8c0",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_98.json": "b5a789e8e80b5d38add8ba92c123ba4e635f6f69409d1dcbf6eb44b52031fd54",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_99.json": "5298482137cc86c21f5babd01814855b559db9c5c2d3f945ee8f54af25d8dc53",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_110.json": "648df985ddd3245004ec38ae1df6e65a5a7b620126437deff6458d6bb748f8a7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_111.json": "9dfce594a2b8e832749926f340685b210f36f7efcb06018153f3c5e276fb2856",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_111/rows/name_4096_111.json": "ef4ce83165ecbc45eec709c606efdf7d72d21142012944cf3dbd0e7c95ea4ed0",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_111/protocol.json": "b3f43b4c0148a6be0416b8febb28b8fde3953831d2035ebcbba4661bf1bb9c83",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retry.py": "261f364b6af717ebb3c3d0cc8ff8145baa942a49494ed543fe0a24eac29346f7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_112.json": "ed32508f1cea33ddc96403a63cd2266d98e2a1e52821126aff88c9c4cfefd6c8",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_112/rows/name_4096_112.json": "92deffb39ee7afd58d18dc557311d7823af1f6ed624363a99eb6d4dbc2a1b096",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_112/protocol.json": "819d6ea06fa06dd12321563de246aeed8d4979415696a853c102214e031dbf6b",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_113.json": "fe557e5d34722ca19b0593cb1ead7930a45df83b200b26eca06fb210a67afcc5",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_113/rows/name_4096_113.json": "2da31e98c01123b54086c72314b5bcbbc532972bb41a9132bd77044c85c49d66",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/retries_7200/name_4096_113/protocol.json": "382208a7474b5ae19d7a97dce73f3296b506fb7512c9122746d12d20c90cb3d5",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/allowance_extended_20261112.uwmvnag2/rows/name_4096_114.json": "0082160ecc34925d92b6aa752b80fe90d5b897b1971964e0efd2c0c4e21ba5e4"
+  }
+}

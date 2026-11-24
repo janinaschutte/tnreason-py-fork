@@ -1,0 +1,8 @@
+{
+  "status": "PASSED",
+  "purpose": "Collector regression only: copied completion metadata references existing300s rawrows. No solving ornewperformanceexperiment.",
+  "compared_totals": 54,
+  "source_sha256": "6fc56a19756aa48e836cf95849846292a912c7d61a7782b4814c99ae021e18a3",
+  "all_nine_methods": true,
+  "raw_results_unchanged": true
+}

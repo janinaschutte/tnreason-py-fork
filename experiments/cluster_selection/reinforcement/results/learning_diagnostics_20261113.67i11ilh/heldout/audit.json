@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-11-13T10:16:44.372021+00:00",
+  "valid_original_assignments": 80,
+  "original_core_count": 2916,
+  "original_variable_count": 1053,
+  "all_original_givens_satisfied": true,
+  "all_recorded_episode_and_root_caps_respected": true,
+  "all_accounting_matches": true,
+  "all_frozen_source_input_checkpoint_row_hashes_match": true,
+  "matched_initialization_config": true,
+  "reinforce_has_updated_weights": true,
+  "train_overlap_per_checkpoint": {
+    "initial": 0,
+    "teacher": 0,
+    "reinforce": 0
+  },
+  "preparation_original_driver_archive_verified": true,
+  "proof_records_verified": 16,
+  "additional_solves": 0,
+  "additional_policy_queries": 0,
+  "protocol_sha256": "4670f2e049ffb72acc8f32d3aa29182b94a93d742afbb6969c211a5535327591",
+  "summary_sha256": "12a4560b9624208302aca430d11320be07f1432d81a62f68c48dfcd064400512"
+}

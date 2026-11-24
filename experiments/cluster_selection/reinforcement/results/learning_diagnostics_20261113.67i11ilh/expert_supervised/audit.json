@@ -1,0 +1,75 @@
+{
+  "protocol_sha256": "0a0d179ca4a3a74008424ef9e3c06bd88d14128c42e418ca90a6bb814c73d332",
+  "summary_sha256": "5a6b7cad8f2bbbc53b464f7d43c84fdff6f3af9c23d7cce136355d942772237b",
+  "data_sha256": "cb10bcff9e2a5a6823fd174ec498b181e07d4b9f25612ad816a5a2eb03260661",
+  "checkpoint_sha256": "669b317520c199c4cbba9259a302ff9481e9e06216bea73e63415f4483529e19",
+  "completed_valid_assignments": 80,
+  "original_core_checks": 233280,
+  "original_core_count": 2916,
+  "initial_domains_and_all_network_cores_satisfied": true,
+  "train_overlap": 0,
+  "source_hashes_verified": 99,
+  "reference_hashes_verified": 87,
+  "distinct_cases_verified": 80,
+  "all_nodes_include_root": true,
+  "all_masks_episode_contractions_at_most": 32,
+  "all_mask_contraction_counts_equal_observed_applications": true,
+  "compact_variants_per_puzzle_nodes_and_assignments_equal": true,
+  "previous_control_protocol_caps_branching_data_limits_preserved": true,
+  "previous_control_summary_sha256": "12a4560b9624208302aca430d11320be07f1432d81a62f68c48dfcd064400512",
+  "continuation_control_summary_sha256": "60c2a4ec27280cb13cf29dfe544d9cf01a00226b0d8a65728e69562306507a00",
+  "results": {
+    "mask1": {
+      "instances": 16,
+      "completed": 16,
+      "nodes": 38,
+      "branch_free": 4,
+      "contractions": 41,
+      "estimated_work": 109720,
+      "solve_seconds": 4.014134733999526
+    },
+    "mask8": {
+      "instances": 16,
+      "completed": 16,
+      "nodes": 36,
+      "branch_free": 5,
+      "contractions": 174,
+      "estimated_work": 757584,
+      "solve_seconds": 10.990915355001562
+    },
+    "mask1_compact": {
+      "instances": 16,
+      "completed": 16,
+      "nodes": 38,
+      "branch_free": 4,
+      "contractions": 41,
+      "estimated_work": 4851,
+      "solve_seconds": 3.8119038750010077
+    },
+    "mask8_compact": {
+      "instances": 16,
+      "completed": 16,
+      "nodes": 36,
+      "branch_free": 5,
+      "contractions": 174,
+      "estimated_work": 19939,
+      "solve_seconds": 10.645212290999552
+    },
+    "expert51": {
+      "instances": 16,
+      "completed": 16,
+      "nodes": 17,
+      "branch_free": 15,
+      "contractions": 513,
+      "estimated_work": 47257944,
+      "solve_seconds": 19.480847275999622
+    }
+  },
+  "limitations": [
+    "Additional exploratory queries on the already queried 16 reserved test puzzles; no further training or model selection.",
+    "Mask checkpoint selected previously on 55 older validation puzzles; K1 and K8 fixed before these solver queries.",
+    "Saved mask execution uses full-shape affordability; predeclared compact variants use domain-compacted planning.",
+    "Sudoku expert uses 51 domain-specific families, unary projections, larger per-cluster limits and no generic 32-cluster episode cap.",
+    "Equal generic contraction caps do not imply equal tensor work or elapsed time."
+  ]
+}

@@ -1,0 +1,45 @@
+Frequent generic portfolio: root-only construction and attribution
+
+The six generic sources rotate after every emitted proposal. Each affordable cluster is contracted under current domains, one temporary summary is used for GAC, then removed. Any pruning refreshes all proposal streams while preserving the next source in the rotation. No DFS, assignment or assumption is used.
+
+Results on the same previously queried 16 unique Sudoku puzzles:
+  Method                              Without branching   Post-GAC root time
+  Ordinary GAC                        0/16                0.00 s additional
+  Earlier teacher-first portfolio     14/16               955.77 s
+  Frequent six-source portfolio       14/16               1863.90 s
+  Sudoku expert, 51 families           15/16               13.57 s
+
+The generic solved positions are unchanged. Positions 7 and 8 reached the 600-second resource guard; heuristic and mask streams had exhausted, but the neural streams had not all exhausted. These two cases are censored, not established saturation. Position 7 ended with exactly the earlier final domains. Position 8 retained five extra values, including one extra cell value, compared with the earlier teacher-first run. No extra pruning or root solution was found beyond that earlier run.
+
+Observed contribution within this execution:
+  Source                  Useful  Cell values  Roots helped  Finishes  Component time
+  Structural heuristic        3          150             2         2        19.71 s
+  Supervised mask            25          378            13         3        61.03 s
+  Teacher-trained            24          361            10         4       520.84 s
+  REINFORCE                  18          146            10         2       570.89 s
+  REINFORCE + replay         19          210             8         3       566.83 s
+  Q-learning                  0            0             0         0        54.48 s
+
+The supervised mask removed the most cell values (378), made the most useful steps (25), and helped in the most roots (13). The teacher was close in pruning (361 values, 24 useful steps) and supplied the final step in the most solved roots (4). Q made 2,184 contractions with no pruning. These counts reflect this source order and the states produced by all preceding sources; they do not rank intrinsic model strength or assign sole credit for a solve. A useful step may prune auxiliary variables only; cell-value counts include subsequent full GAC.
+
+Component time sums proposal generation, preparation and contraction/GAC time charged to that source. It excludes checkpoint/loop overhead. Full root times above include active-loop checkpoints, but exclude model/network loading, initial GAC and final validation. The expert is a separate Sudoku-specific reference with larger cluster limits, not a source in this generic portfolio. Times were recorded under concurrent CPU execution and are descriptive.
+
+Cheap saved-proof omission diagnostic (96 replay cases):
+  Source removed from saved sequence     Roots still solved
+  Structural heuristic                 12/16
+  Supervised mask                      9/16
+  Teacher-trained                      7/16
+  REINFORCE                            10/16
+  REINFORCE + replay                   9/16
+  Q-learning                           14/16
+
+For each omission, the remaining original core/output sets were re-contracted in their saved order under the new current domains, starting from ordinary GAC. There were no new model queries, DFS calls or unaffordable retained clusters. This tests dependence of the recorded proof, not what a fresh adaptive policy would find without that source. Finishing moves are necessarily part of these finite recorded proofs. For example, the mixed proof for position 12 fails if mask, teacher, REINFORCE or replay clusters are omitted, although the earlier teacher-first run solved that puzzle independently. Therefore these omission losses do not prove those sources are necessary for solving the puzzle.
+
+Full adaptive leave-one-source-out variants were frozen but have NOT been executed. Future local commands from tnreason-py (replace without_teacher with without_heuristic, without_mask, without_reinforce, without_replay or without_q):
+  python experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/frequent_mix/run.py evaluate --variant without_teacher
+  python experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/frequent_mix/run.py report --variant without_teacher
+  python experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/frequent_mix/audit.py without_teacher
+
+Verification: independent audit replayed all 89 useful contractions and checked all 121 checkpoints, 11,562 turn events and 16 final states. All 14 solved assignments satisfy every original given and all 2,916 cores. The valid reference assignment remains in every domain; frozen source/model/data/reference hashes match; no summaries remain installed. Guard interruptions happened during proposal generation, not partial contraction/GAC transactions. All original results, production code, supervised training and GPU jobs were preserved.
+
+Protocol, per-case rows/checkpoints, exact sequences, source counters, independent audit, fixed-proof omissions, summary_all.json and input hashes in analysis.json are preserved. This remains an exploratory reused-test comparison.

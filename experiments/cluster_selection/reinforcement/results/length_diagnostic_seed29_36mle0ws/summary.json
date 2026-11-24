@@ -1,0 +1,36 @@
+{
+  "cases": 64,
+  "skipped": 0,
+  "groups": {
+    "same_outputs": {
+      "constructions": 64,
+      "full_useful": 15,
+      "shorter_legal_useful": 0,
+      "shorter_legal_identical_domains": 0,
+      "shortest_useful_vs_full_dfs": {
+        "better": 0,
+        "equal": 0,
+        "worse": 0
+      },
+      "rejected": 0,
+      "full_rejected": 0,
+      "earlier": [],
+      "equivalent": []
+    },
+    "anchor_only": {
+      "constructions": 64,
+      "full_useful": 2,
+      "shorter_legal_useful": 0,
+      "shorter_legal_identical_domains": 0,
+      "shortest_useful_vs_full_dfs": {
+        "better": 0,
+        "equal": 0,
+        "worse": 0
+      },
+      "rejected": 0,
+      "full_rejected": 0,
+      "earlier": [],
+      "equivalent": []
+    }
+  }
+}

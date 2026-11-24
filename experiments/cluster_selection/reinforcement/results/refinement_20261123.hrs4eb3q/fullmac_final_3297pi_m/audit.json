@@ -1,0 +1,11 @@
+{
+  "assignments": 112,
+  "tensor_entries": 326592,
+  "givens": 2737,
+  "equal_reference": 112,
+  "reference_assignments_valid": 16,
+  "new_global_rms_untrained_source_hashes_match": true,
+  "data_reports_references_unchanged": true,
+  "no_test100_inputs_or_results": true,
+  "all16_puzzles_kept": true
+}

@@ -1,0 +1,206 @@
+{
+  "kind": "exploratory_generic_portfolio_comparison",
+  "results": {
+    "control_plain": {
+      "instances": 16,
+      "nodes": 62,
+      "branch_free": 0,
+      "solve_seconds": 2.4997431289993983,
+      "contractions": 0,
+      "estimated_work": 0
+    },
+    "control_heuristic": {
+      "instances": 16,
+      "nodes": 44,
+      "branch_free": 2,
+      "solve_seconds": 6.302454680000665,
+      "contractions": 935,
+      "estimated_work": 273950
+    },
+    "mask8_compact": {
+      "instances": 16,
+      "nodes": 36,
+      "branch_free": 5,
+      "solve_seconds": 10.645212290999552,
+      "contractions": 174,
+      "estimated_work": 19939
+    },
+    "control_teacher": {
+      "instances": 16,
+      "nodes": 28,
+      "branch_free": 10,
+      "solve_seconds": 184.19020104399897,
+      "contractions": 479,
+      "estimated_work": 556978
+    },
+    "control_reinforce": {
+      "instances": 16,
+      "nodes": 32,
+      "branch_free": 8,
+      "solve_seconds": 266.1808866759984,
+      "contractions": 608,
+      "estimated_work": 7649969
+    },
+    "continuation_self_imitation": {
+      "instances": 16,
+      "nodes": 27,
+      "branch_free": 10,
+      "solve_seconds": 159.6946874919995,
+      "contractions": 499,
+      "estimated_work": 5669834
+    },
+    "expert51": {
+      "instances": 16,
+      "nodes": 17,
+      "branch_free": 15,
+      "solve_seconds": 19.480847275999622,
+      "contractions": 513,
+      "estimated_work": 47257944
+    },
+    "portfolio32": {
+      "instances": 16,
+      "nodes": 33,
+      "branch_free": 7,
+      "solve_seconds": 147.36510823899516,
+      "contractions": 614,
+      "estimated_work": 2766406
+    },
+    "portfolio192": {
+      "instances": 16,
+      "nodes": 26,
+      "branch_free": 11,
+      "solve_seconds": 518.0794729739973,
+      "contractions": 2308,
+      "estimated_work": 13099785
+    },
+    "q32": {
+      "instances": 16,
+      "nodes": 54,
+      "branch_free": 1,
+      "solve_seconds": 38.828715783005464,
+      "contractions": 1220,
+      "estimated_work": 1144303
+    },
+    "teacher192": {
+      "instances": 16,
+      "nodes": 20,
+      "branch_free": 13,
+      "solve_seconds": 405.93170073299916,
+      "contractions": 1579,
+      "estimated_work": 1779782
+    },
+    "replay192": {
+      "instances": 16,
+      "nodes": 23,
+      "branch_free": 11,
+      "solve_seconds": 480.18711659099426,
+      "contractions": 1685,
+      "estimated_work": 19906723
+    },
+    "heuristic192": {
+      "instances": 16,
+      "nodes": 34,
+      "branch_free": 7,
+      "solve_seconds": 30.20603541899618,
+      "contractions": 3830,
+      "estimated_work": 1745140
+    },
+    "structural32": {
+      "instances": 16,
+      "nodes": 41,
+      "branch_free": 3,
+      "solve_seconds": 6.986602588003734,
+      "contractions": 737,
+      "estimated_work": 155853
+    },
+    "structural192": {
+      "instances": 16,
+      "nodes": 34,
+      "branch_free": 6,
+      "solve_seconds": 83.43178899399936,
+      "contractions": 3114,
+      "estimated_work": 1188738
+    },
+    "portfolio192cap32": {
+      "instances": 16,
+      "nodes": 26,
+      "branch_free": 11,
+      "solve_seconds": 442.37872777000666,
+      "contractions": 2392,
+      "estimated_work": 11901829
+    }
+  },
+  "targeted_portfolio_vs_controls": {
+    "teacher192": {
+      "wins": 0,
+      "ties": 11,
+      "losses": 5,
+      "difference": 6,
+      "root_additions": [],
+      "root_losses": [
+        3,
+        15
+      ]
+    },
+    "replay192": {
+      "wins": 0,
+      "ties": 13,
+      "losses": 3,
+      "difference": 3,
+      "root_additions": [],
+      "root_losses": []
+    },
+    "heuristic192": {
+      "wins": 6,
+      "ties": 10,
+      "losses": 0,
+      "difference": -8,
+      "root_additions": [
+        4,
+        9,
+        13,
+        14
+      ],
+      "root_losses": []
+    },
+    "portfolio192": {
+      "wins": 0,
+      "ties": 16,
+      "losses": 0,
+      "difference": 0,
+      "root_additions": [],
+      "root_losses": []
+    },
+    "continuation_self_imitation": {
+      "wins": 2,
+      "ties": 12,
+      "losses": 2,
+      "difference": -1,
+      "root_additions": [
+        11
+      ],
+      "root_losses": []
+    },
+    "control_teacher": {
+      "wins": 2,
+      "ties": 13,
+      "losses": 1,
+      "difference": -2,
+      "root_additions": [
+        4
+      ],
+      "root_losses": []
+    }
+  },
+  "component_sha256": {
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/REPORT.txt": "fcbdb9ccc3adbcc6b84fa4cc4fc23d550131ba681fdcb895835e0b607dcd5609",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/protocol.json": "28e5a3b226170b25704b916b9b3b296e8a3140c4137265095cb0cf5c7adba3d0",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/summary.json": "ee2c31ebc5188d07f38fc8950ac4a684ab92b4f03d3ffdb00f0f9b4ec146a7bd",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/audit.json": "11b0ea41b7657129a543872b66d4800981148c9822becdc91a24195a0ac77c84",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/structural_cap32/protocol.json": "37adf1855200762f1a16591b47b82509de170b70110442166f24b66d791e819e",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/structural_cap32/summary.json": "59fadb6d9c15bb56f8cc353aaaaf374b7d5e6727fda7986fc111c0e6537c35ed",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/structural_cap32/audit.json": "b40d154b824a701b1c35d3f411d1812357382f21e0423fa71d13b0fa7fdb8e4b",
+    "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/expert_supervised/comparison.json": "2c9ed46a2bbbfa5932f0abbbc7bb98776cb5c728fa43cc0379f7f18abb6a9a19"
+  },
+  "note": "Same16reusedtestpuzzles. Initial six-source shared32/192 experiments plus separately frozen posthoc structural-list-cap32 diagnostic. All sources now produce contractions in diagnostic. Selected teacher192 is stronger. Timings are recorded summed solver wall times across separate concurrent CPU batches. Expert has larger separate limits. No training or checkpoint selection uses these outcomes."
+}

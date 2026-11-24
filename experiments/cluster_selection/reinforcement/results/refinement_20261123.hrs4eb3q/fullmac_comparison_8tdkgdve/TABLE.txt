@@ -1,0 +1,11 @@
+Actual full MAC: 16 development puzzles; clusters at every DFS propagation closure; 32 attempts per closure; 300s whole-solve ceiling; 10000-node cap.
+All 16 solved for every row below. Default MRV/degree/name branching.
+Method                       Roots DFS  Solve(s) Retry count
+plain                         0/16 242      3.30           0
+structural_batch32            2/16 187     18.81           0
+parent                        7/16  32    233.36           3
+global_context                8/16  36    278.02           2
+Parent/global times are composites: only the 3/2 initially censored cases were rerun at 300s; completed 30s rows retained unchanged.
+Separate reference, another metric: 51-family Sudoku expert 14/16 roots, 32 root+plain-residual DFS nodes, 29.24s; earlier CPU2/larger limits.
+Diagnostic excluding the plain 158-node outlier39: plain84, H51, parent30, global35 DFS. All 16 remain the criterion.
+No test100 inputs/results were used.

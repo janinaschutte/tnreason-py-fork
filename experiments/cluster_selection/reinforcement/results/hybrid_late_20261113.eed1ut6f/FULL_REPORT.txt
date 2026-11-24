@@ -1,0 +1,23 @@
+Late learned clusters after structural allowance4096
+
+Exploratory original validation; fixed name branching, unchanged original tensor cores.
+Structural4096 then a shared learned64 allowance. Each summary is temporary; pruning is retained.
+The three sources are teacher growth, new REINFORCE growth (chunk52), and Q (epoch52).
+Root tails start independently from identical structural-domain snapshots.
+Extra heuristic64 is a fresh nested search under updated domains, not the next64 of the old list.
+Root trials alone do not establish a DFS-node improvement.
+
+Puzzle | Teacher | REINFORCE | Q | Portfolio | Extra heuristic (primary values removed; *solves)
+110 | 11 | 11 | 0 | 11 | 0
+111 | 0 | 0 | 0 | 0 | 0
+112 | 5 | 0 | 0 | 8 | 0
+113 | 2 | 129* | 0 | 129* | 2
+
+Full hybrid DFS (structural4096 + portfolio64 at every propagation episode):
+  110: heuristic 3 -> hybrid 3
+  111: heuristic 3 -> hybrid 3
+  112: heuristic 8 -> hybrid 8
+  113: heuristic 4 -> hybrid 1
+Total23: 34 nodes, 20 without branching.
+Reuses 19 earlier structural root solves; the hybrid stops before its learned phase on those states.
+The hybrid has64 additional learned contraction slots; this is an additive hybrid comparison.

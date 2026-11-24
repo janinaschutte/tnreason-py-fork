@@ -16,6 +16,81 @@ def _network():
                               "xyz": _core(np.ones((2,) * 3), ["x", "y", "z"])})
 
 
+def _age_network():
+    return ConstraintNetwork({color: _core(np.ones(4), [color]) for color in ("a", "z")})
+
+
+def test_oldest_pruned_prefers_older_reductions_before_name_and_ignores_noops():
+    network = _age_network()
+    state = network.create_mac_state()
+    state.restrict_domain("z", (0, 1, 2))
+    state.restrict_domain("a", (0, 1, 2))
+    oldest = ConstraintNetworkSolver(network, variable_tie_break="oldest_pruned")
+    assert ConstraintNetworkSolver(network)._select_color(state) == "a"
+    assert oldest._select_color(state) == "z"
+    assert not state.restrict_domain("z", (0, 1, 2))
+    assert oldest._select_color(state) == "z"
+    state.push_level()
+    state.restrict_domain("a", (0, 1))
+    state.restrict_domain("z", (0, 1))
+    assert oldest._select_color(state) == "a"
+    state.pop_level()
+    assert oldest._select_color(state) == "z"
+
+
+def test_oldest_pruned_keeps_mrv_and_degree_priority_and_never_pruned_is_oldest():
+    network = _age_network()
+    state = network.create_mac_state({"z": (0, 1, 2)})
+    oldest = ConstraintNetworkSolver(network, variable_tie_break="oldest_pruned")
+    state.restrict_domain("a", (0, 1, 2))
+    assert oldest._select_color(state) == "z"  # Never reduced along this path.
+    state.add_cores({"extra_a": _core(np.ones(4), ["a"])})
+    assert oldest._select_color(state) == "a"  # Degree precedes age.
+    state.restrict_domain("z", (0, 1))
+    assert oldest._select_color(state) == "z"  # Domain size precedes degree.
+    state.assign("z", 0)
+    assert oldest._select_color(state) == "a"  # Fixed variables are excluded.
+
+
+def test_oldest_pruned_retains_summary_pruning_then_undoes_with_parent_branch():
+    network = _age_network()
+    state = network.create_mac_state()
+    state.restrict_domain("z", (0, 1, 2))
+    state.restrict_domain("a", (0, 1, 2))
+    assert state.propagate()
+    root, trail = state.snapshot_domains(), tuple(state._trail)
+    oldest = ConstraintNetworkSolver(network, variable_tie_break="oldest_pruned")
+    state.push_level()
+    state.push_level()
+    state.add_cores({"summary": _core([1, 1, 0, 0], ["a"])}, reversible=True)
+    assert state.propagate() and state.domains["a"] == (0, 1)
+    state.pop_level(keep_domains=True)
+    assert "summary" not in state._cores
+    state.restrict_domain("z", (0, 1))
+    assert oldest._select_color(state) == "a"
+    state.pop_level()
+    assert state.snapshot_domains() == root and tuple(state._trail) == trail
+    assert oldest._select_color(state) == "z"
+
+
+@pytest.mark.parametrize("variable_tie_break", ["name", "oldest_pruned"])
+def test_branch_tie_rules_preserve_unsatisfiability_and_root_history(variable_tie_break):
+    network = ConstraintNetwork({key: _core(~np.eye(2, dtype=bool), list(key))
+                                 for key in ("ab", "bc", "ac")})
+    state = network.create_mac_state()
+    assert state.propagate()
+    before = state.snapshot_domains(), tuple(state._trail)
+    result = network.solve_mac(state=state, variable_tie_break=variable_tie_break)
+    assert result.unsatisfiable and not result.solved
+    assert (state.snapshot_domains(), tuple(state._trail)) == before
+
+
+@pytest.mark.parametrize("value", [None, "recent", ""])
+def test_invalid_variable_tie_break_is_rejected(value):
+    with pytest.raises(ValueError, match="variable_tie_break"):
+        _age_network().solve_mac(variable_tie_break=value)
+
+
 def _assert_tensors(state, tensors):
     for color, tensor in tensors.items():
         assert state._domain_tensors[color] is tensor
@@ -142,18 +217,21 @@ def test_reused_solve_honors_additions_and_restores_prepared_root():
     assert state.decision_level == 0 and not state._queue
 
 
-def test_reused_search_restores_root_after_solution_and_node_limit():
+@pytest.mark.parametrize("variable_tie_break", ["name", "oldest_pruned"])
+def test_reused_search_restores_root_after_solution_and_node_limit(variable_tie_break):
     network = _network()
     state = network.create_mac_state()
     assert state.propagate()
     state.add_cores({"yz": _core(np.eye(2), ["y", "z"])})
     assert state.propagate()
-    root, tensors = state.snapshot_domains(), dict(state._domain_tensors)
-    limited = network.solve_mac(max_nodes=1, state=state)
+    root, tensors, trail = state.snapshot_domains(), dict(state._domain_tensors), tuple(state._trail)
+    limited = network.solve_mac(max_nodes=1, state=state, variable_tie_break=variable_tie_break)
     assert limited.node_limit_reached and not limited.solved and state.snapshot_domains() == root
-    solved = network.solve_mac(state=state)
+    assert tuple(state._trail) == trail
+    solved = network.solve_mac(state=state, variable_tie_break=variable_tie_break)
     assert solved.solved and solved.assignment == {"x": 0, "y": 0, "z": 0}
     assert state.snapshot_domains() == root and state.decision_level == 0 and not state._queue
+    assert tuple(state._trail) == trail
     _assert_tensors(state, tensors)
 
 

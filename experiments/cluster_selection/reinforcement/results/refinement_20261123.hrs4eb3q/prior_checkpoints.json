@@ -1,0 +1,213 @@
+{
+  "scope": "Read-only checkpoint metadata and original development fingerprints; no heldout100 outcomes read.",
+  "data_sha256": "203d57dcc7d11f6915ba881a2e9674f42a10795251b6a20c2e2840848e3045db",
+  "metric_caveat": "Saved search_nodes are historical full-MAC DFS; new refine_eval reports separate plain-MAC residual DFS after root propagation.",
+  "checkpoints": [
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/reinforce.pt",
+      "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+      "epoch": 52,
+      "seed": 0,
+      "train_fingerprints": 10000,
+      "train_puzzles": 10000,
+      "updates": 57632,
+      "puzzle_visits": 26000,
+      "device": "cuda",
+      "lr": 0.0003,
+      "replay_weight": 0,
+      "parent": null,
+      "selection": {
+        "instances": 55,
+        "solved": 30,
+        "additional_solved": 22,
+        "mean_progress": 0.5308948051328142,
+        "search_complete": 55,
+        "search_nodes": 105
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/teacher.pt",
+      "sha256": "d340b2f7167079baa5702f739d555afe2213dd450341d19de6b6c0cf45633a4c",
+      "epoch": 32,
+      "seed": 0,
+      "train_fingerprints": 10051,
+      "train_puzzles": 10051,
+      "updates": 12039,
+      "puzzle_visits": 15551,
+      "device": "cuda",
+      "lr": 0.0003,
+      "replay_weight": 0,
+      "parent": {
+        "path": "/Home/optimier/schuette/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/warmup/policy.best.pt",
+        "sha256": "267c2c1f4eaa3015246a3c5a77f13ef428aefa825d9f0c33c92fa843742b384a"
+      },
+      "selection": {
+        "instances": 23,
+        "solved": 11,
+        "additional_solved": 3,
+        "mean_progress": 0.24227588365379676,
+        "search_complete": 23,
+        "search_nodes": 77
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/teacher.pt",
+      "sha256": "d340b2f7167079baa5702f739d555afe2213dd450341d19de6b6c0cf45633a4c",
+      "epoch": 32,
+      "seed": 0,
+      "train_fingerprints": 10051,
+      "train_puzzles": 10051,
+      "updates": 12039,
+      "puzzle_visits": 15551,
+      "device": "cuda",
+      "lr": 0.0003,
+      "replay_weight": 0,
+      "parent": {
+        "path": "/Home/optimier/schuette/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/warmup/policy.best.pt",
+        "sha256": "267c2c1f4eaa3015246a3c5a77f13ef428aefa825d9f0c33c92fa843742b384a"
+      },
+      "selection": {
+        "instances": 23,
+        "solved": 11,
+        "additional_solved": 3,
+        "mean_progress": 0.24227588365379676,
+        "search_complete": 23,
+        "search_nodes": 77
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/generic_portfolio/replay.pt",
+      "sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+      "epoch": 6,
+      "seed": 29,
+      "train_fingerprints": 10000,
+      "train_puzzles": 16,
+      "updates": 86,
+      "puzzle_visits": 48,
+      "device": "cpu",
+      "lr": 0.0003,
+      "replay_weight": 0.1,
+      "parent": {
+        "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+        "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615"
+      },
+      "selection": {
+        "instances": 8,
+        "solved": 3,
+        "additional_solved": 3,
+        "mean_progress": 0.38586053316074326,
+        "search_complete": 8,
+        "search_nodes": 13
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/final_test/self_imitation.pt",
+      "sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+      "epoch": 6,
+      "seed": 29,
+      "train_fingerprints": 10000,
+      "train_puzzles": 16,
+      "updates": 86,
+      "puzzle_visits": 48,
+      "device": "cpu",
+      "lr": 0.0003,
+      "replay_weight": 0.1,
+      "parent": {
+        "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+        "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615"
+      },
+      "selection": {
+        "instances": 8,
+        "solved": 3,
+        "additional_solved": 3,
+        "mean_progress": 0.38586053316074326,
+        "search_complete": 8,
+        "search_nodes": 13
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_self_imitation/policy.best.pt",
+      "sha256": "8341a6f29538658ac96173f31f9287c5815fdca9b1bdd8a5b5743df38eebbb8a",
+      "epoch": 4,
+      "seed": 29,
+      "train_fingerprints": 10000,
+      "train_puzzles": 16,
+      "updates": 59,
+      "puzzle_visits": 32,
+      "device": "cpu",
+      "lr": 0.0003,
+      "replay_weight": 0.1,
+      "parent": {
+        "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+        "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615"
+      },
+      "selection": {
+        "instances": 8,
+        "solved": 4,
+        "additional_solved": 4,
+        "mean_progress": 0.5276569720260467,
+        "search_complete": 8,
+        "search_nodes": 13
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/gpu_self_imitation_8051.2/policy.best.pt",
+      "sha256": "7d4e9e57244cda6041de7a1538181432a5ca437186b2bb2ee0713f2ed2c64049",
+      "epoch": 4,
+      "seed": 29,
+      "train_fingerprints": 10000,
+      "train_puzzles": 10000,
+      "updates": 4670,
+      "puzzle_visits": 2000,
+      "device": "cuda",
+      "lr": 0.0003,
+      "replay_weight": 0.1,
+      "parent": {
+        "path": "/Home/optimier/schuette/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+        "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615"
+      },
+      "selection": {
+        "instances": 55,
+        "solved": 33,
+        "additional_solved": 25,
+        "mean_progress": 0.5878335368514277,
+        "search_complete": 55,
+        "search_nodes": 99
+      },
+      "full55_training_overlap": []
+    },
+    {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/gpu_self_imitation_8051.2/policy.pt",
+      "sha256": "5db5804bf9d717e1683e2464c15edfb9d4ac2659a5c1c48d2194c194e58df03b",
+      "epoch": 20,
+      "seed": 29,
+      "train_fingerprints": 10000,
+      "train_puzzles": 10000,
+      "updates": 23269,
+      "puzzle_visits": 10000,
+      "device": "cuda",
+      "lr": 0.0003,
+      "replay_weight": 0.1,
+      "parent": {
+        "path": "/Home/optimier/schuette/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/parent.pt",
+        "sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615"
+      },
+      "selection": {
+        "instances": 55,
+        "solved": 31,
+        "additional_solved": 23,
+        "mean_progress": 0.5670555341344404,
+        "search_complete": 55,
+        "search_nodes": 105
+      },
+      "full55_training_overlap": []
+    }
+  ],
+  "interpretation": "Generic portfolio replay and final_test self_imitation are the same small CPU continuation, not the later GPU-best continuation. Historical validation suggests checking GPU-best under the current protocol before choosing a training parent."
+}

@@ -62,11 +62,12 @@ class ConstraintNetwork:
             self.rebuild_indices()
         return ConstraintNetworkState(self, domains=domains)
 
-    def solve_mac(self, domains=None, max_nodes=100000, *, state=None):
-        """Solve with maintaining GAC search, optionally reusing a prepared state."""
+    def solve_mac(self, domains=None, max_nodes=100000, *, state=None, variable_tie_break="name"):
+        """Solve with GAC; optionally prefer oldest-pruned variables after MRV/degree ties."""
         from experiments.constraint_networks.mac import ConstraintNetworkSolver
 
-        return ConstraintNetworkSolver(self, max_nodes=max_nodes).solve(domains=domains, state=state)
+        return ConstraintNetworkSolver(self, max_nodes=max_nodes,
+                                       variable_tie_break=variable_tie_break).solve(domains=domains, state=state)
 
     def add_subcontraction(self, contractKeys, openColors, dropKeys, contractedName):
         ## Check dropKeys: They have to be in contractKeys and the corresponding colors left open

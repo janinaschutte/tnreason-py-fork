@@ -1,0 +1,35 @@
+Oldest-pruned variable tie-break — validation experiment, 12 November 2026
+
+Outcome: the age tie-break lowers total DFS nodes for all three methods on 55 validation puzzles. However, one difficult puzzle accounts for the entire aggregate gain; across the other 54, all three totals worsen. Keep the existing default and expose age as an option pending independent evaluation.
+
+Method | Name tie-break | Oldest-pruned tie-break | Wins/ties/losses | Without branching (unchanged)
+Plain MAC | 479 | 348 | 23/17/15 | 8/55
+Structural heuristic, allowance 64 | 286 | 182 | 11/29/15 | 21/55
+Supervised mask, epoch 20, allowance 64 | 348 | 265 | 17/22/16 | 15/55
+
+The dominant puzzle is current validation ID 21, identical to validation ID 113 in the earlier allowance sweep.
+Plain MAC: that puzzle changes from 158 to 8 nodes; the other 54 change by +19 nodes in total.
+Structural heuristic, allowance 64: that puzzle changes from 136 to 6 nodes; the other 54 change by +26 nodes in total.
+Supervised mask, epoch 20, allowance 64: that puzzle changes from 161 to 8 nodes; the other 54 change by +70 nodes in total.
+
+What changed
+ConstraintNetwork.solve_mac(..., variable_tie_break="oldest_pruned") enables the optional rule. The default remains "name". Selection first minimises remaining domain size (>1), then maximises incident constraint-core count, then minimises the last retained domain-reduction position, then the variable name. Values retain their existing order.
+Last pruning is derived from the existing reversible domain trail. Each real reduction has a position; a variable absent from the trail has timestamp 0 and is oldest. No-op restrictions do not refresh it. Ordinary backtracking and speculative evaluation truncate their history; pruning retained after a temporary summary is removed remains in the trail. No new mutable state or representation is added. Pruning within a GAC closure is ordered by the existing revision sequence. This is logical event age along the current branch, not wall-clock time or global history across abandoned branches.
+The rule is generic; it uses no Sudoku rules or feature names except the existing final name tie-break. Only the core solver API and tests changed. Supervised training, cluster construction, contractions, GAC and checkpoints remain unchanged.
+
+Controls and validation
+Both rules were evaluated on the same 55 declared validation puzzles with the same frozen supervised checkpoint (epoch_0020.pt). No training or final-test queries. All 330 solves completed validly. Every fresh name-mode per-puzzle node count exactly matches the saved historical reference (479/286/348 totals), and an instrumented check confirms the default selects the same variable as the original MRV/degree/name key at every visited branch.
+The model and structural heuristic each allow 64 cluster applications per propagation episode, with the original per-cluster bounds (64 cores, 6 outputs, 1,000,000 estimated work, 100,000 tensor entries). Structural search allows 16,384 steps. Common guards are 10,000 nodes and 300 seconds; no cumulative work cap. Case order was shuffled with seed 47 before outcomes. Results are atomically saved per puzzle and checkpoint/source/data hashes are frozen in protocol.json. No timing advantage is claimed.
+The age rule changed 122/127 branching choices relative to name ordering at the heuristic states it visited, and 205/210 at the supervised-model states. Those are comparisons at the age rule's visited states, not matched search trajectories.
+Without-branching counts cannot change from this option: root propagation is identical and the rule is used only when branching is necessary. The structural heuristic remains stronger than the supervised model under either matched tie-break. This experiment does not establish a plateau or monotonic DFS improvement with increasing cluster allowance.
+
+Interpretation and next control
+The aggregate gains are real for this validation set, but the heuristic wins 11 puzzles and loses 15, and its gain reverses when the single dominant instance is considered separately. This supports an additional branching option rather than a broadly validated default improvement. The most informative next control is fixed random variable priorities after MRV/degree, using several predetermined seeds. That would test whether age carries useful information or mainly avoids an unlucky lexical order on one puzzle. Keep the dominant case visible and evaluate any selected rule independently.
+
+Checks
+112 targeted tests passed, covering MRV/degree priority, never-pruned variables, no-ops, nested undo, retained temporary-summary pruning, speculative cluster evaluations, SAT/UNSAT, node limits and prepared-state reuse. Existing trail structure remains unchanged for consumers such as library evaluation.
+Original checkpoints and results were not overwritten. Source/report/compact summaries appear in the normal edited-file diff; raw per-puzzle assignments are retained in rows/ outside that diff.
+
+Rerun/recovery
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -u experiments/cluster_selection/results/pruning_age_20261112.ym6eg5qt/run.py
+The runner validates its frozen protocol and reuses saved completed rows.

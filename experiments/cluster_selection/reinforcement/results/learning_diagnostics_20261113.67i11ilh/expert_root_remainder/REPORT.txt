@@ -1,0 +1,11 @@
+EXPERT ROOT REMAINDER DIAGNOSTIC
+
+Exploratory, same previously queried 16 unique Sudoku puzzles. The 51-family expert solved 15 without branching; only position 8 remained. No new DFS, probing, learned-policy queries, or training occurred in this diagnostic.
+
+Default expert root propagation: stalled with 53 unresolved positions after 11.01 seconds. Seven useful clusters came from locked candidates (3), AIC (1), ALS chains (2), and kraken fish (1). Many advanced scans were truncated; the complete-support and pattern-overlay clusters were skipped because they exceeded the default 256-core cap. This is not an exhaustive rule-saturation result.
+
+Expanded exact projection: all 2916 original tensor cores, retaining only pos_0_0_0_1 (current domain {2,8}); original domains conditioned every contraction. Caps: 100 million work, 100 million planning steps, 1 million entries, 600 seconds. It skipped after 2.17 seconds because the next intermediate had 2,097,152 entries. Charged work before that skip: 11,069,399; planning steps: 77,066,006. No partial pruning was applied.
+
+A separate shape-only replay traced the executor's same deterministic elimination path without allocating joined tensors. It reproduced that exact execution prefix, then estimated a maximum 1.21e25 entries and 6.08e25 work; maximum rank 82. Thus a modest 16M/64M entry limit would not make this particular full-network path practical. This is not a lower bound on every contraction order or every smaller proof cluster.
+
+All stages forbid state.assign and invoke no solver. The known valid reference assignment remained in every domain and all original givens/2916 tensor constraints were checked. No cores were added. Frozen source/reference hashes remain unchanged. Exact selected core keys, output, elimination order and join scopes are in symbolic_plan.json. Existing results were preserved.

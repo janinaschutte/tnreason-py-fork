@@ -1,0 +1,33 @@
+{
+  "recorded_utc": "2026-11-13T11:20:48.974699+00:00",
+  "submitted_by": "user on bernoulli",
+  "cluster_id": 8051,
+  "scheduler_submission_time": "2026-11-13 12:19:57 Europe/Berlin",
+  "submit_file": "train_gpu.sub",
+  "submit_file_sha256": "0066c41a60801c7c32cccbe25db418b643e9ea331db1c20092a8f2d6b4619386",
+  "jobs": [
+    {
+      "id": "8051.0",
+      "arm": "reinforce",
+      "log": "training.reinforce.8051.0.log",
+      "observed_log_sha256": "ca3b4a1bf0979c56a16af621cff1b0160abdca9e768c309b3a715f750fc0bed8",
+      "execution_observed": true
+    },
+    {
+      "id": "8051.1",
+      "arm": "lower_lr",
+      "log": "training.lower_lr.8051.1.log",
+      "observed_log_sha256": "3cc82aed4240b0ff619e562089e2dc91c9eb383b3888e5e1edc4306bf9cf06bf",
+      "execution_observed": false
+    },
+    {
+      "id": "8051.2",
+      "arm": "self_imitation",
+      "log": "training.self_imitation.8051.2.log",
+      "observed_log_sha256": "c653973ebc186d6bc60d6d7b6f9852b003d54fe59cbe6e4c805ee91be1062dda",
+      "execution_observed": false
+    }
+  ],
+  "status": "Submission accepted for all three jobs; no execution event in shared logs at this check.",
+  "previous_status": "Initial reports correctly described the jobs as prepared and unsubmitted at report creation. This additive record documents the later user submission without altering frozen protocols or results."
+}

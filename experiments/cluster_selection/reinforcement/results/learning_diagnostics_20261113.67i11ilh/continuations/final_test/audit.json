@@ -1,0 +1,41 @@
+{
+  "kind": "additional_reused_test_result_audit",
+  "checked_utc": "2026-11-13T11:07:28.762728+00:00",
+  "valid_original_assignments": 48,
+  "original_cores": 2916,
+  "original_variables": 1053,
+  "all_initial_givens_satisfied": true,
+  "all_contraction_and_root_episode_caps_respected": true,
+  "all_accounting_matches": true,
+  "all_frozen_source_data_checkpoint_previous_result_hashes_match": true,
+  "final_stopping_points_verified": true,
+  "test_training_overlap_per_checkpoint": {
+    "reinforce": 0,
+    "lower_lr": 0,
+    "self_imitation": 0
+  },
+  "additional_solver_queries": 0,
+  "paired_between_continuations": {
+    "self_imitation_vs_reinforce": {
+      "wins": 5,
+      "ties": 10,
+      "losses": 1,
+      "node_difference": -4
+    },
+    "lower_lr_vs_reinforce": {
+      "wins": 4,
+      "ties": 10,
+      "losses": 2,
+      "node_difference": -2
+    },
+    "self_imitation_vs_lower_lr": {
+      "wins": 4,
+      "ties": 10,
+      "losses": 2,
+      "node_difference": -2
+    }
+  },
+  "protocol_sha256": "3ed528d6a5dbbecb4d8416de6103c15bc1935a07627d3223b5d87d85015c6377",
+  "summary_sha256": "60c2a4ec27280cb13cf29dfe544d9cf01a00226b0d8a65728e69562306507a00",
+  "note": "Additional exploratory comparison on the same previously queried 16 test puzzles; no final checkpoint selection or training used these outcomes."
+}

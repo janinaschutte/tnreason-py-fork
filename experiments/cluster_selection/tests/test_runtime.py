@@ -291,3 +291,81 @@ def test_heuristic_rejects_over_budget_plans_and_existing_hooks(monkeypatch):
         runtime.attach_heuristic(state)
     with pytest.raises(ValueError, match="bound"):
         policy(_state(), set())
+
+
+def _construction_predictor(network, proposals):
+    return SimpleNamespace(kind="construction", network=network_data(network), proposals=proposals,
+        config=dict(max_cores=64, max_open_colors=6, max_work=1_000_000, max_size=100_000,
+                    compact_domains=True))
+
+
+def test_hybrid_learner_sees_structural_pruning_and_both_phases_roll_back(monkeypatch):
+    cores = _network().coresDict.copy()
+    rename = dict(zip("abcd", "uvwx"))
+    cores.update({"other_" + key: NumpyCore(values=core.values.copy(), colors=[rename[c] for c in core.colors])
+                  for key, core in _network().coresDict.items()})
+    network = ConstraintNetwork(cores)
+    state = network.create_mac_state({c: (0, 1) for c in "abcuvw"})
+    assert state.propagate()
+    before, topology, observations = state.snapshot_domains(), _topology(state), []
+    learned_candidate = SummaryClusterCandidate("other", ("other_ab", "other_ac", "other_bc"), ("u",))
+
+    def proposals(domains, **options):
+        assert domains["a"] == domains["d"] == (1,)
+        assert not state._queue and not state._temporary_core_keys
+        observations.append(domains["u"])
+        return iter((learned_candidate,))
+
+    runtime.attach_hybrid(state, _construction_predictor(network, proposals),
+                          heuristic_candidates=1, learned_candidates=1)
+    policy = state.on_closure
+    monkeypatch.setattr(policy.heuristic.generator, "generate", lambda *args, **kwargs: (_candidate(),))
+    state.push_level()
+    assert state.propagate()
+    assert state.domains["a"] == state.domains["u"] == (1,)
+    assert observations == [(0, 1)]
+    assert policy.heuristic.statistics["applied"] == policy.learned.statistics["selected"] == 1
+    assert policy.statistics["selected"] == policy.statistics["useful"] == 2
+    assert policy.statistics["removed_values"] == 4
+    assert all(isinstance(value, (int, float)) for value in policy.statistics.values())
+    assert state.on_closure is policy and not state._temporary_core_keys
+    assert set(state._cores) == set(cores)
+    assert state.propagate() and policy.statistics["calls"] == 1
+    state.pop_level()
+    assert state.snapshot_domains() == before and _topology(state) == topology
+    assert state.propagate() and policy.statistics["selected"] == 4
+    with pytest.raises(ValueError, match="another"):
+        runtime.attach_hybrid(state, _construction_predictor(network, proposals))
+    with pytest.raises(ValueError, match="bound"):
+        policy(_state(), set())
+
+
+@pytest.mark.parametrize("contradiction", [False, True])
+def test_hybrid_skips_learner_when_structural_phase_resolves_state_and_restores_on_pop(monkeypatch, contradiction):
+    cores = {key: NumpyCore(values=~np.eye(2, dtype=bool) if contradiction else np.eye(2, dtype=bool),
+                            colors=list(key)) for key in ("ab", "bc", "ac")}
+    if not contradiction:
+        cores["ac"].values = np.array([[1, 1], [1, 0]], dtype=bool)
+    network = ConstraintNetwork(cores)
+    state = network.create_mac_state()
+    assert state.propagate()
+    before, topology = state.snapshot_domains(), _topology(state)
+
+    def proposals(*args, **kwargs):
+        pytest.fail("The learned phase must not run after resolution")
+
+    runtime.attach_hybrid(state, _construction_predictor(network, proposals),
+                          heuristic_candidates=1, learned_candidates=1)
+    policy = state.on_closure
+    candidate = SummaryClusterCandidate("whole", tuple(cores), () if contradiction else ("a",))
+    monkeypatch.setattr(policy.heuristic.generator, "generate", lambda *args, **kwargs: (candidate,))
+    state.push_level()
+    assert bool(state.propagate()) is not contradiction
+    assert state.contradiction is contradiction
+    assert state.is_solved() is not contradiction
+    assert policy.statistics["selected"] == policy.statistics["useful"] == 1
+    assert policy.learned.statistics["calls"] == 0
+    assert set(state._cores) == set(cores) and not state._temporary_core_keys
+    assert state.on_closure is policy
+    state.pop_level()
+    assert not state.contradiction and state.snapshot_domains() == before and _topology(state) == topology

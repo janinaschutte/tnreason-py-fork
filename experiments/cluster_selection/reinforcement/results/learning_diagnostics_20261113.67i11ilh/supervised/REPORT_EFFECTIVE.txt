@@ -1,0 +1,18 @@
+Controlled constructive-teacher fit diagnostic
+Joint teacher-multiplicity and teacher-length ablation; free contraction/GAC utility is primary fitting evidence, exact mask agreement only diagnostic. Training states comprise 13 roots and 11 branches. Validation remains exploratory.
+Same parent, seed29, fresh Adam3e-4, fixed24 states, identical update order. All legal core orders remain available.
+Common branching: MRV, maximum core degree, then name. Allowance32; discrepancy decoder; no cumulative contraction-work cap.
+Original600-second rows retained. Only their censored observations are replaced by separately frozen1800-second retries; remaining limits stay unknown. Timings are not comparable isolated measurements.
+Arm/update | useful train/24 | roots/13 | branches/11 | useful validation roots/15 | validation DFS nodes
+nearbest_pool/0 | 1 | 0 | 1 | 2 | not evaluated
+nearbest_pool/240 | 4 | 0 | 4 | 1 | not evaluated
+nearbest_pool/1000 | 2 | 1 | 1 | 1 | 233
+nearbest_pool/4000 | 7 | 4 | 3 | 0 | 199
+shortest_teacher/0 | 1 | 0 | 1 | 2 | not evaluated
+shortest_teacher/240 | 0 | 0 | 0 | 1 | not evaluated
+shortest_teacher/1000 | 2 | 1 | 1 | 0 | 186
+shortest_teacher/4000 | 5 | 1 | 4 | 0 | 147
+Fresh baselines: {'plain': {'instances': 23, 'complete': 23, 'nodes': 315, 'branch_free': 8, 'censored': []}, 'heuristic32': {'instances': 23, 'complete': 23, 'nodes': 188, 'branch_free': 9, 'censored': []}, 'parent': {'instances': 23, 'complete': 23, 'nodes': 117, 'branch_free': 8, 'censored': []}}
+The pool arm exactly reproduces all240 earlier loss/gradient/state records before continuing.
+Longer training improves free construction on these fixed training states, but fit remains limited. The single-teacher comparison changes both teacher multiplicity and length; it does not isolate their separate effects.
+Validation was examined previously and supplies no teacher gradients here. No final test, checkpoint selection or production supervised/mask change.

@@ -1,0 +1,280 @@
+{
+  "before": {
+    "useful": 16,
+    "trials": 128,
+    "mean_reward": 0.075,
+    "validation": {
+      "rows": [
+        {
+          "index": 2,
+          "sampled": {
+            "trials": 8,
+            "useful": 2,
+            "reward": 1.5,
+            "solved": 0,
+            "seconds": 0.24397680900074192
+          },
+          "root": {
+            "status": "wall_timeout",
+            "nodes": 0,
+            "solved": false,
+            "valid": false,
+            "setup_s": 0.00017947400010598358,
+            "solve_s": 2.001726606999,
+            "work": {
+              "contractions": 1,
+              "estimated_work": 12,
+              "max_tensor_size": 4,
+              "budget_exhausted": false
+            },
+            "mac_statistics": {
+              "propagation_calls": 3,
+              "revisions": 26,
+              "queue_pops": 13,
+              "queue_pushes": 13,
+              "domain_reductions": 3,
+              "removed_values": 3
+            },
+            "cluster_statistics": {
+              "calls": 1,
+              "candidates": 1,
+              "selected": 1,
+              "useful": 1,
+              "rejected": 0,
+              "skipped": 0,
+              "removed_values": 3,
+              "contradictions": 0,
+              "time_s": 2.001500218999354,
+              "estimated_work": 12,
+              "max_tensor_size": 4,
+              "budget_exhausted": 0
+            },
+            "domains": {
+              "a": [
+                0
+              ],
+              "b": [
+                0
+              ],
+              "c": [
+                0
+              ],
+              "x": [
+                1
+              ],
+              "y": [
+                0,
+                1
+              ]
+            },
+            "initial_entropy": 2.0794415416798357,
+            "remaining_entropy": 0.0,
+            "baseline_entropy": 2.0794415416798357,
+            "baseline_solved": false,
+            "baseline_contradiction": false,
+            "resolved": false,
+            "progress": 1.0,
+            "cluster_removed_values": 3
+          },
+          "residual": {
+            "status": "solved",
+            "nodes": 2,
+            "solved": true,
+            "valid": true,
+            "assignment": {
+              "a": 0,
+              "b": 0,
+              "c": 0,
+              "x": 1,
+              "y": 0
+            },
+            "setup_s": 0.00020760799998242874,
+            "solve_s": 0.000182853998921928,
+            "work": {
+              "contractions": 0,
+              "estimated_work": 0,
+              "max_tensor_size": 0,
+              "budget_exhausted": false
+            },
+            "mac_statistics": {
+              "propagation_calls": 2,
+              "revisions": 16,
+              "queue_pops": 8,
+              "queue_pushes": 8,
+              "domain_reductions": 1,
+              "removed_values": 1
+            },
+            "cluster_statistics": {}
+          }
+        }
+      ],
+      "totals": {
+        "instances": 1,
+        "sampled_trials": 8,
+        "sampled_useful": 2,
+        "sampled_reward": 1.5,
+        "sampled_solved": 0,
+        "sampled_seconds": 0.24397680900074192,
+        "root_solved": 0,
+        "baseline_solved": 0,
+        "mean_progress": 1.0,
+        "root_seconds": 2.001726606999,
+        "dfs_complete": 1,
+        "dfs_nodes": 2,
+        "residual_seconds": 0.000182853998921928,
+        "sampled_useful_fraction": 0.25,
+        "sampled_mean_reward": 0.1875
+      },
+      "settings": {
+        "mode": "trained",
+        "attempts": 8,
+        "seconds": 2.0,
+        "samples": 8,
+        "seed": 1234,
+        "nodes": 10000,
+        "timing": "Root and residual wall limits are separate; model copy, setup and one-step trials are excluded"
+      }
+    }
+  },
+  "after": {
+    "useful": 127,
+    "trials": 128,
+    "mean_reward": 0.5953125,
+    "validation": {
+      "rows": [
+        {
+          "index": 2,
+          "sampled": {
+            "trials": 8,
+            "useful": 8,
+            "reward": 6.0,
+            "solved": 0,
+            "seconds": 0.39362132099995506
+          },
+          "root": {
+            "status": "wall_timeout",
+            "nodes": 0,
+            "solved": false,
+            "valid": false,
+            "setup_s": 0.00015858599908824544,
+            "solve_s": 2.0000719059989933,
+            "work": {
+              "contractions": 1,
+              "estimated_work": 12,
+              "max_tensor_size": 4,
+              "budget_exhausted": false
+            },
+            "mac_statistics": {
+              "propagation_calls": 3,
+              "revisions": 26,
+              "queue_pops": 13,
+              "queue_pushes": 13,
+              "domain_reductions": 3,
+              "removed_values": 3
+            },
+            "cluster_statistics": {
+              "calls": 1,
+              "candidates": 1,
+              "selected": 1,
+              "useful": 1,
+              "rejected": 0,
+              "skipped": 0,
+              "removed_values": 3,
+              "contradictions": 0,
+              "time_s": 1.9998944430008123,
+              "estimated_work": 12,
+              "max_tensor_size": 4,
+              "budget_exhausted": 0
+            },
+            "domains": {
+              "a": [
+                0
+              ],
+              "b": [
+                0
+              ],
+              "c": [
+                0
+              ],
+              "x": [
+                1
+              ],
+              "y": [
+                0,
+                1
+              ]
+            },
+            "initial_entropy": 2.0794415416798357,
+            "remaining_entropy": 0.0,
+            "baseline_entropy": 2.0794415416798357,
+            "baseline_solved": false,
+            "baseline_contradiction": false,
+            "resolved": false,
+            "progress": 1.0,
+            "cluster_removed_values": 3
+          },
+          "residual": {
+            "status": "solved",
+            "nodes": 2,
+            "solved": true,
+            "valid": true,
+            "assignment": {
+              "a": 0,
+              "b": 0,
+              "c": 0,
+              "x": 1,
+              "y": 0
+            },
+            "setup_s": 0.0003024239995284006,
+            "solve_s": 0.00015705700025137048,
+            "work": {
+              "contractions": 0,
+              "estimated_work": 0,
+              "max_tensor_size": 0,
+              "budget_exhausted": false
+            },
+            "mac_statistics": {
+              "propagation_calls": 2,
+              "revisions": 16,
+              "queue_pops": 8,
+              "queue_pushes": 8,
+              "domain_reductions": 1,
+              "removed_values": 1
+            },
+            "cluster_statistics": {}
+          }
+        }
+      ],
+      "totals": {
+        "instances": 1,
+        "sampled_trials": 8,
+        "sampled_useful": 8,
+        "sampled_reward": 6.0,
+        "sampled_solved": 0,
+        "sampled_seconds": 0.39362132099995506,
+        "root_solved": 0,
+        "baseline_solved": 0,
+        "mean_progress": 1.0,
+        "root_seconds": 2.0000719059989933,
+        "dfs_complete": 1,
+        "dfs_nodes": 2,
+        "residual_seconds": 0.00015705700025137048,
+        "sampled_useful_fraction": 1.0,
+        "sampled_mean_reward": 0.75
+      },
+      "settings": {
+        "mode": "trained",
+        "attempts": 8,
+        "seconds": 2.0,
+        "samples": 8,
+        "seed": 1234,
+        "nodes": 10000,
+        "timing": "Root and residual wall limits are separate; model copy, setup and one-step trials are excluded"
+      }
+    }
+  },
+  "sources_unchanged": true,
+  "global_solutions_preserved": 4,
+  "assertions_passed": true,
+  "interpretation": "A deliberate fit test on one fixed generic tensor network. The free variables prevent root solving; improved sampled pruning is not Sudoku generalization."
+}

@@ -1,0 +1,37 @@
+method,label,budget_s,instances,solved_without_branching,remaining_dfs_nodes
+plain,Plain MAC,1,16,0,62
+plain,Plain MAC,5,16,0,62
+plain,Plain MAC,15,16,0,62
+plain,Plain MAC,60,16,0,62
+heuristic,Structural heuristic,1,16,7,37
+heuristic,Structural heuristic,5,16,8,34
+heuristic,Structural heuristic,15,16,8,33
+heuristic,Structural heuristic,60,16,9,32
+initial,Untrained constructor,1,16,1,59
+initial,Untrained constructor,5,16,6,49
+initial,Untrained constructor,15,16,9,32
+initial,Untrained constructor,60,16,11,29
+teacher,Teacher imitation,1,16,7,36
+teacher,Teacher imitation,5,16,10,31
+teacher,Teacher imitation,15,16,10,31
+teacher,Teacher imitation,60,16,14,26
+reinforce,REINFORCE,1,16,3,55
+reinforce,REINFORCE,5,16,7,48
+reinforce,REINFORCE,15,16,11,30
+reinforce,REINFORCE,60,16,12,28
+replay,REINFORCE + replay,1,16,1,57
+replay,REINFORCE + replay,5,16,9,35
+replay,REINFORCE + replay,15,16,11,29
+replay,REINFORCE + replay,60,16,12,28
+q,Q-learning,1,16,1,60
+q,Q-learning,5,16,1,60
+q,Q-learning,15,16,1,60
+q,Q-learning,60,16,1,60
+expert,Sudoku expert*,1,16,15,22
+expert,Sudoku expert*,5,16,15,22
+expert,Sudoku expert*,15,16,15,22
+expert,Sudoku expert*,60,16,15,22
+combined,Generic mix (shared time),1,16,5,39
+combined,Generic mix (shared time),5,16,8,35
+combined,Generic mix (shared time),15,16,10,32
+combined,Generic mix (shared time),60,16,11,29

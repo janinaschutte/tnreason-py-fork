@@ -317,11 +317,14 @@ class ConstraintNetworkState:
 class ConstraintNetworkSolver:
     """Depth-first MAC search for constraint networks."""
 
-    def __init__(self, constraint_network, max_nodes: int = 100000):
+    def __init__(self, constraint_network, max_nodes: int = 100000, *, variable_tie_break="name"):
         if max_nodes <= 0:
             raise ValueError("max_nodes must be positive.")
+        if variable_tie_break not in ("name", "oldest_pruned"):
+            raise ValueError("variable_tie_break must be 'name' or 'oldest_pruned'.")
         self.constraint_network = constraint_network
         self.max_nodes = max_nodes
+        self.variable_tie_break = variable_tie_break
         self.nodes, self.node_limit_reached = 0, False
 
     def solve(self, domains: Mapping[str, Iterable[int]] | None = None, *, state=None) -> SolveResult:
@@ -370,5 +373,10 @@ class ConstraintNetworkSolver:
 
     def _select_color(self, state: ConstraintNetworkState) -> str:
         domains = state.domains
+        # The retained trail is already reversible and includes summary pruning.
+        # Zero means never reduced; no-op restrictions do not enter the trail.
+        last_pruned = ({color: step for step, (color, _) in enumerate(state._trail, 1)}
+                       if self.variable_tie_break == "oldest_pruned" else {})
         return min((color for color, domain in domains.items() if len(domain) > 1),
-                   key=lambda color: (len(domains[color]), -len(state._core_keys_by_color.get(color, ())), color))
+                   key=lambda color: (len(domains[color]), -len(state._core_keys_by_color.get(color, ())),
+                                      last_pruned.get(color, 0), color))

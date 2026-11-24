@@ -1,0 +1,87 @@
+{
+  "protocol_sha256": "8250c0a66a4c76cdb4fd6e4ad14ddfa55fe99bbc9ca5239fdeb9ed8d12bd4faf",
+  "parent_sha256": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+  "pilot_validation_indices": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    13,
+    14
+  ],
+  "initials": {
+    "reinforce": {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_reinforce/policy.initial.pt",
+      "sha256": "55c61c9e6fe1805c875cb121a25b40dbc8d2812d2d81fb3033e63534acc6ee8e",
+      "weights_config_rewards_beta_identical_to_parent": true,
+      "validation_nodes": 16,
+      "validation_nodes_by_instance": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        1
+      ],
+      "without_branching": 2
+    },
+    "lower_lr": {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_lower_lr/policy.initial.pt",
+      "sha256": "d46dd1c7bab7a3057a630eb82be3aeaeff2f0e030edc71276181e698469d95cd",
+      "weights_config_rewards_beta_identical_to_parent": true,
+      "validation_nodes": 16,
+      "validation_nodes_by_instance": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        1
+      ],
+      "without_branching": 2
+    },
+    "self_imitation": {
+      "path": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/local_self_imitation/policy.initial.pt",
+      "sha256": "c41183a9c1f6285b97a7b7fae3f3dd837e0f526eec732ab5c5c9aa77d216e110",
+      "weights_config_rewards_beta_identical_to_parent": true,
+      "validation_nodes": 16,
+      "validation_nodes_by_instance": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        1,
+        2,
+        1
+      ],
+      "without_branching": 2
+    }
+  },
+  "historical_parent_same_subset": {
+    "nodes": 11,
+    "nodes_by_instance": [
+      2,
+      1,
+      2,
+      1,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  "current_versions": {
+    "python": "3.12.2",
+    "torch": "2.4.1",
+    "numpy": "1.26.4"
+  },
+  "note": "All three current initial policies are exact same weights/configuration and produce identical validation results. Historical saved selection differs; current controls define this experiment baseline. No causal claim about the historical difference; remote versus local library/backend differences have not been isolated.",
+  "no_new_solves": true
+}

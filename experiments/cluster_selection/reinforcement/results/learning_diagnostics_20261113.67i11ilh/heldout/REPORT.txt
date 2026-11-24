@@ -1,0 +1,39 @@
+Fresh 16-puzzle held-out pilot; frozen before solver queries.
+Same name branching, 32 contractions/episode, 8192 decoder/heuristic steps and per-cluster bounds; no total-work cap.
+Equal caps do not imply equal actual contractions, tensor work or time. Concurrent CPU times are descriptive.
+Censored results are explicit and prevent a complete total. One training seed and only sixteen new puzzles limit generalization claims.
+
+Method | DFS nodes | Without branching | Completed
+plain | 62 | 0/16 | 16/16
+heuristic | 44 | 2/16 | 16/16
+initial | 32 | 7/16 | 16/16
+teacher | 28 | 10/16 | 16/16
+reinforce | 32 | 8/16 | 16/16
+
+REINFORCE wins/ties/losses against controls (complete paired cases only):
+{
+  "initial": {
+    "paired_complete": 16,
+    "wins": 4,
+    "ties": 8,
+    "losses": 4
+  },
+  "teacher": {
+    "paired_complete": 16,
+    "wins": 1,
+    "ties": 10,
+    "losses": 5
+  },
+  "heuristic": {
+    "paired_complete": 16,
+    "wins": 8,
+    "ties": 8,
+    "losses": 0
+  },
+  "plain": {
+    "paired_complete": 16,
+    "wins": 11,
+    "ties": 5,
+    "losses": 0
+  }
+}

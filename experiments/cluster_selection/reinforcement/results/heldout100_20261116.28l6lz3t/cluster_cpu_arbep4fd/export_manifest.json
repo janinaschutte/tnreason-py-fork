@@ -1,0 +1,14 @@
+{
+  "note": "Collected with the frozen collector through a filesystem-prefix adapter; no recorded result bytes changed. Independent audit passed. No mix or footer captions.",
+  "sha256": {
+    "protocol.json": "fdbeaf785d048e6d8fe2ff2c772b35ae403f79798b205b10f9084ebdf4635f9e",
+    "collect_here.py": "cd14d821804373fc013bd4546e1cf2b64c66e564466629f6dd8fb6582d22c282",
+    "summary.json": "f721c7faa1f531ca729b731ee163c40a4b0ec8421d1abec7293b2fc0cd2890d6",
+    "matched_time_totals.csv": "c89f0af69128df0defcd1a5112db60cd608629b285f9ed6dc1f16beb5fb40db1",
+    "matched_time_per_puzzle.csv": "c1600230e133b52dd7885d69052cb76fb0b5216e6ee231a168b8b89ed16e3231",
+    "independent_results_audit.json": "fbc7fc610f1f9fa08f126d68e67a3fe6089392954a98d3dd819232009a25dc09",
+    "matched_time_roots_no_caption.png": "aac3ca386d1ebb24f0c171b528e577eab4df5b3d7fc0b01db90c36b4521f7245",
+    "matched_time_roots_no_caption.pdf": "bde3ca2377cfefb25e9d89b90b6f81541cd9087766ada60fe1e676b619b12887",
+    "matched_time_roots_no_caption.svg": "7665b9823cee62972af7c279527a837e7c55105c931d194ebb141b4bbd8c593d"
+  }
+}

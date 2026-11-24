@@ -1,0 +1,72 @@
+{
+  "kind": "read_only_resume_reproduction_check",
+  "updates": 8,
+  "exact_match": true,
+  "rows": [
+    {
+      "update": 1,
+      "state": 10,
+      "loss": 1.3701136112213135,
+      "gradient_norm": 5.568643093109131,
+      "expected_loss": 1.3701136112213135,
+      "expected_gradient_norm": 5.568643093109131
+    },
+    {
+      "update": 2,
+      "state": 13,
+      "loss": 0.8135003447532654,
+      "gradient_norm": 2.364340305328369,
+      "expected_loss": 0.8135003447532654,
+      "expected_gradient_norm": 2.364340305328369
+    },
+    {
+      "update": 3,
+      "state": 4,
+      "loss": 1.4377176761627197,
+      "gradient_norm": 4.690576553344727,
+      "expected_loss": 1.4377176761627197,
+      "expected_gradient_norm": 4.690576553344727
+    },
+    {
+      "update": 4,
+      "state": 18,
+      "loss": 1.2548500299453735,
+      "gradient_norm": 4.712897300720215,
+      "expected_loss": 1.2548500299453735,
+      "expected_gradient_norm": 4.712897300720215
+    },
+    {
+      "update": 5,
+      "state": 23,
+      "loss": 0.9682782888412476,
+      "gradient_norm": 3.516653060913086,
+      "expected_loss": 0.9682782888412476,
+      "expected_gradient_norm": 3.516653060913086
+    },
+    {
+      "update": 6,
+      "state": 8,
+      "loss": 1.373046875,
+      "gradient_norm": 12.149828910827637,
+      "expected_loss": 1.373046875,
+      "expected_gradient_norm": 12.149828910827637
+    },
+    {
+      "update": 7,
+      "state": 15,
+      "loss": 1.0990794897079468,
+      "gradient_norm": 4.5962958335876465,
+      "expected_loss": 1.0990794897079468,
+      "expected_gradient_norm": 4.5962958335876465
+    },
+    {
+      "update": 8,
+      "state": 5,
+      "loss": 1.2255165576934814,
+      "gradient_norm": 8.103987693786621,
+      "expected_loss": 1.2255165576934814,
+      "expected_gradient_norm": 8.103987693786621
+    }
+  ],
+  "note": "Regenerated only an unsaved training prefix from the original parent; no model selected or used in evaluations."
+}

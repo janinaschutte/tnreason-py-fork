@@ -28,6 +28,20 @@ def _signature(candidate):
     return tuple(sorted(candidate.core_keys)), tuple(sorted(candidate.open_colors))
 
 
+def _remember_success(buffer, domains, trace, metrics, capacity):
+    """Keep distinct, verified, unforced successes with immutable input domains."""
+    if (not capacity or metrics.get("prefixed") or not metrics["useful"]
+            or not metrics["reward_valid"] or not isfinite(metrics["reward"]) or metrics["reward"] <= 0):
+        return False
+    key = tuple(tuple(values) for values in domains), tuple(tuple(action) for action in trace)
+    if key in buffer:
+        return False
+    if len(buffer) >= capacity:
+        buffer.pop(next(iter(buffer)))
+    buffer[key] = metrics["reward"]
+    return True
+
+
 def _teacher_search_steps(candidates, maximum, nested):
     if (not isinstance(candidates, int) or isinstance(candidates, bool) or candidates < 0
             or not isinstance(nested, bool)
@@ -333,13 +347,22 @@ def curriculum_prefix(model, domains, teachers, epoch, epochs, rng):
     return trace[:ceil(core_phase * (1 - epoch / duration))]
 
 
-def teacher_loss(model, domains, teachers, rng, *, greedy=False):
+def teacher_loss(model, domains, teachers, rng, *, greedy=False, quality_fraction=0.):
     """Imitate measured constructions, optionally following the best supported path.
 
     The default credits total compatible probability along a random teacher
     trace. Greedy imitation concentrates on one executable continuation at each
-    prefix; actions outside the finite teacher pool remain unverified.
+    prefix; actions outside the finite teacher pool remain unverified. Optional
+    quality filtering retains near-best measured rewards before forming targets.
     """
+    if not isfinite(quality_fraction) or not 0 <= quality_fraction <= 1:
+        raise ValueError("Teacher quality fraction must be between zero and one")
+    if quality_fraction:
+        rewards = [metrics.get("reward", float("nan")) for _, metrics in teachers]
+        if not rewards or any(not isfinite(reward) or reward <= 0 for reward in rewards):
+            raise ValueError("Teacher quality filtering requires positive finite measured rewards")
+        threshold = quality_fraction * max(rewards)
+        teachers = [teacher for teacher, reward in zip(teachers, rewards) if reward >= threshold]
     trace = None if greedy else _teacher_trace(model, domains, rng.choice(teachers), rng)
     targets = [(set(model.key_idx[key] for key in item.core_keys),
                 set(model.color_idx[color] for color in item.open_colors),
@@ -539,9 +562,11 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         validation_seconds=5., max_total_work=5_000_000, train_indices=None,
         validation_indices=None, curriculum=True, initial_checkpoint=None, search_nodes=0,
         search_seconds=10., on_policy_imitation=False, transfer_weights=False, teacher_probes=0,
-        completion_value_imitation=False, greedy_imitation=False, objective="mixed", cluster_attempts=32,
+        completion_value_imitation=False, greedy_imitation=False, teacher_quality_fraction=0.,
+        objective="mixed", cluster_attempts=32,
         device="cpu", validation_interval=1, checkpoint_every=0, progress_every=100,
-        teacher_cache_size=256, cycle_puzzles=False, teacher_max_steps=None, nested_teacher=False, **limits):
+        teacher_cache_size=256, cycle_puzzles=False, teacher_max_steps=None, nested_teacher=False,
+        self_imitation_weight=0., self_imitation_capacity=2048, **limits):
     """Positive measured-trace warm-up, then immediate REINFORCE on fresh samples."""
     output = Path(output)
     paths = [output, output.with_stem(output.stem + ".best"), output.with_stem(output.stem + ".initial")]
@@ -550,7 +575,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
     teacher_max_steps = _teacher_search_steps(teacher_candidates, teacher_max_steps, nested_teacher)
     if (min(epochs, width, rounds, lr, steps, teacher_candidates) <= 0 or rollouts < 2
             or any(not isinstance(value, int) or isinstance(value, bool) or value < 0
-                   for value in (puzzles_per_epoch, teacher_cache_size))
+                   for value in (puzzles_per_epoch, teacher_cache_size, self_imitation_capacity))
             or not isinstance(progress_every, int) or isinstance(progress_every, bool) or progress_every < 1
             or not isinstance(cycle_puzzles, bool) or not isinstance(greedy_imitation, bool)
             or max_total_work is not None and (not isinstance(max_total_work, int)
@@ -563,10 +588,16 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
             or warmup < 0 or teacher_mutations < 0 or validation_seconds <= 0
             or search_seconds <= 0
             or any(not isfinite(value) or value < 0 for value in
-                   (lr, imitation_weight, entropy_weight, cost_weight, validation_seconds, search_seconds))):
+                   (lr, imitation_weight, self_imitation_weight, entropy_weight, cost_weight,
+                    validation_seconds, search_seconds))
+            or self_imitation_weight > 0 and not self_imitation_capacity):
         raise ValueError("Invalid learning parameters")
     if objective not in {"mixed", "dfs_nodes", "pruning"} or objective == "dfs_nodes" and not search_nodes:
         raise ValueError("The dfs_nodes objective requires positive --search-nodes")
+    if not isfinite(teacher_quality_fraction) or not 0 <= teacher_quality_fraction <= 1:
+        raise ValueError("Teacher quality fraction must be between zero and one")
+    if teacher_quality_fraction and (on_policy_imitation or completion_value_imitation):
+        raise ValueError("Teacher quality filtering supports trace or greedy imitation")
     training_device = torch.device(device)
     if training_device.type not in {"cpu", "cuda"}:
         raise ValueError("Construction learning supports CPU or CUDA training")
@@ -627,6 +658,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         **{key: model.config[key] for key in ("max_cores", "max_open_colors", "max_work", "max_size")})
     generate = generator.generate_nested if nested_teacher else generator.generate
     cache, history, second_moment = {}, [], .01
+    success_replay, replay_rng = {}, Random(seed + 104729)
     search_statistics = dict(calls=0, seconds=0., limited=0)
 
     @lru_cache(maxsize=1024)
@@ -777,6 +809,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         search_nodes=search_nodes, search_seconds=search_seconds,
         device=str(training_device), validation_device="cpu", lr=lr, epochs=epochs,
         planned_epochs=epochs, warmup=warmup, greedy_imitation=greedy_imitation,
+        teacher_quality_fraction=teacher_quality_fraction,
         puzzles_per_epoch=puzzles_per_epoch, puzzles_per_epoch_effective=epoch_puzzles,
         dataset_instances=len(initial_domains), validation_instances=len(validation),
         train_puzzle_count=len(pools), train_context_count_initial=sum(map(len, pools.values())),
@@ -786,6 +819,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         progress_every=progress_every,
         teacher_candidates=teacher_candidates, teacher_max_steps=teacher_max_steps, nested_teacher=nested_teacher,
         teacher_cache_size=teacher_cache_size, **progress,
+        self_imitation_weight=self_imitation_weight, self_imitation_capacity=self_imitation_capacity,
         data_sha256=sha256(json.dumps(data, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
         validation_seconds=validation_seconds, validation_interval=validation_interval,
         checkpoint_every=checkpoint_every, epoch=0, last_validation_epoch=0)
@@ -801,6 +835,8 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         puzzle_order = pending_puzzles[:epoch_puzzles]
         pending_puzzles = pending_puzzles[epoch_puzzles:] if cycle_puzzles else []
         totals = defaultdict(float, updates=0., state_exposures=0., puzzle_visits=0.,
+                             self_imitation_updates=0., self_imitation_added=0.,
+                             self_imitation_decisions=0., self_imitation_loss=0.,
                              teacher_structural_calls=0., teacher_structural_candidates=0., teacher_structural_useful=0.)
         started = last_progress = perf_counter()
         phase = "teacher_only" if epoch < warmup else "reinforce_and_imitation"
@@ -823,6 +859,8 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
                     totals["positive_teachers"] += len(teachers)
                     optimizer.zero_grad()
                     sampled = []
+                    sampled_traces = []
+                    input_domains = tuple(state.domains[color] for color in model.network["colors"])
                     prefix = curriculum_prefix(model, state.domains, teachers, epoch, epochs, rng) if curriculum else None
                     for _ in range(rollouts):
                         began = perf_counter()
@@ -838,6 +876,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
                             useful_unseen=int(metrics["useful"] and signature not in measured_candidates),
                             useful_unforced=int(metrics["useful"] and not prefix))
                         sampled.append((candidate, log_prob, entropy, metrics))
+                        sampled_traces.append((trace, metrics))
                     labeled = [item for item in sampled if item[3]["reward_valid"]]
                     rewards = [item[3]["reward"] for item in labeled]
                     scale = max(.05, sqrt(second_moment))
@@ -849,12 +888,23 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
                     if teachers:
                         imitation = (on_policy_teacher_loss(model, state, teachers, work_budget=remaining_work)
                                      if on_policy_imitation else teacher_loss(model, state.domains, teachers, rng,
-                                                                            greedy=greedy_imitation))
+                                                                            greedy=greedy_imitation,
+                                                                            quality_fraction=teacher_quality_fraction))
                         if completion_value_imitation:
                             imitation = (imitation + completion_value_loss(model, state.domains, teachers)) / 2
-                    loss = (0. if epoch < warmup else 1.) * policy_loss + imitation_weight * imitation
+                    self_imitation = policy_loss * 0
+                    if self_imitation_weight and epoch >= warmup and success_replay:
+                        domains, trace = replay_rng.choice(tuple(success_replay))
+                        _, replay_log_probability, _, _ = model.rollout(dict(zip(model.network["colors"], domains)),
+                            beta=0., trace=trace, policy_trace=True)
+                        self_imitation = -replay_log_probability / len(trace)
+                        totals["self_imitation_updates"] += 1
+                        totals["self_imitation_decisions"] += len(trace)
+                    loss = ((0. if epoch < warmup else 1.) * policy_loss + imitation_weight * imitation
+                            + self_imitation_weight * self_imitation)
                     if (objective == "mixed" or epoch >= warmup and labeled
-                            or teachers and imitation_weight > 0):
+                            or teachers and imitation_weight > 0
+                            or epoch >= warmup and self_imitation_weight and success_replay):
                         loss.backward()
                         torch.nn.utils.clip_grad_norm_(model.parameters(), 1., error_if_nonfinite=True)
                         optimizer.step()
@@ -864,6 +914,11 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
                         second_moment = .95 * second_moment + .05 * sum(value ** 2 for value in rewards) / len(rewards)
                     totals["imitation_loss"] += float(imitation.detach())
                     totals["policy_loss"] += float(policy_loss.detach())
+                    totals["self_imitation_loss"] += float(self_imitation.detach())
+                    if self_imitation_weight and epoch >= warmup:
+                        for trace, metrics in sampled_traces:
+                            totals["self_imitation_added"] += _remember_success(
+                                success_replay, input_domains, trace, metrics, self_imitation_capacity)
                     totals["reward_scale"] += scale
                     for _, _, _, metrics in sampled:
                         totals["trials"] += 1
@@ -911,6 +966,7 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
         if validated:
             last_validation_epoch = epoch + 1
         row = dict(epoch=epoch + 1, phase=phase, seconds=perf_counter() - started, **totals, validation=validation_result,
+                   self_imitation_buffer=len(success_replay),
                    total_updates=progress["updates"], total_puzzle_visits=progress["puzzle_visits"],
                    total_state_exposures=progress["state_exposures"], puzzle_passes=progress["puzzle_passes"],
                    train_context_count=sum(map(len, pools.values())),
@@ -961,6 +1017,10 @@ def fit(data, *, output, epochs=12, width=32, rounds=2, lr=.0003, seed=0,
               f"structural proposals {int(totals['teacher_structural_candidates'])} on "
               f"{int(totals['teacher_structural_calls'])} fresh states "
               f"({int(totals['teacher_structural_useful'])} useful)", flush=True)
+        if self_imitation_weight:
+            print(f"self-imitation: {len(success_replay)} stored successes, "
+                  f"{int(totals['self_imitation_updates'])} replay terms, mean loss "
+                  f"{totals['self_imitation_loss'] / max(1, totals['self_imitation_updates']):.4f}", flush=True)
     return model.eval(), history
 
 
@@ -970,13 +1030,16 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     for key, default in dict(epochs=12, width=32, rounds=2, lr=.0003, seed=0, puzzles_per_epoch=32,
                             rollouts=3, steps=3, warmup=2, teacher_candidates=32, teacher_mutations=12, teacher_probes=0,
-                            imitation_weight=1., validation_seconds=5., max_total_work=5_000_000,
+                            imitation_weight=1., teacher_quality_fraction=0.,
+                            self_imitation_weight=0., self_imitation_capacity=2048,
+                            validation_seconds=5., max_total_work=5_000_000,
                             max_cores=32, max_open_colors=6, max_work=1_000_000, max_size=100_000,
                             min_active=2, search_nodes=0, search_seconds=10., cluster_attempts=32,
                             validation_interval=1, checkpoint_every=0, progress_every=100,
                             teacher_cache_size=256).items():
         help_text = {"puzzles_per_epoch": "Puzzles per epoch; 0 visits every unresolved training puzzle once",
                      "teacher_cache_size": "Cached measured teacher states; 0 retains all encountered states",
+                     "teacher_quality_fraction": "Retain rewards at least this fraction of the best teacher; 0 keeps all",
                      "progress_every": "Print training progress after this many puzzles (also every 60 seconds)"}
         parser.add_argument("--" + key.replace("_", "-"), type=type(default), default=default,
                             help=help_text.get(key))

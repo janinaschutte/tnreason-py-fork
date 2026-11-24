@@ -1,0 +1,14 @@
+Controlled constructive-teacher fitting diagnostic
+Joint teacher-multiplicity and teacher-length ablation; free contraction/GAC utility is primary fitting evidence, exact mask agreement only diagnostic. Training states comprise 13 roots and 11 branches. Validation remains exploratory.
+Same parent,24 fixed states, greedy imitation, fresh Adam3e-4, identical state order; no validation selection.
+Train includes13 roots/11 branch states; validation15 unresolved roots and23 full puzzles. Allowance32, discrepancy, nodes10000, seconds600.
+Arm/update | train useful/24 | root useful/13 | branch useful/11 | validation useful/15 | full validation DFS
+nearbest_pool/0 | 1 | 0 | 1 | 2 | not evaluated
+nearbest_pool/240 | 4 | 0 | 4 | 1 | not evaluated
+nearbest_pool/1000 | 2 | 1 | 1 | 1 | None
+nearbest_pool/4000 | 7 | 4 | 3 | 0 | 199
+shortest_teacher/0 | 1 | 0 | 1 | 2 | not evaluated
+shortest_teacher/240 | 0 | 0 | 0 | 1 | not evaluated
+shortest_teacher/1000 | 2 | 1 | 1 | 0 | 186
+shortest_teacher/4000 | 5 | 1 | 4 | 0 | 147
+Fresh baselines: {"plain":{"instances":23,"complete":23,"nodes":315,"completed_nodes":315,"branch_free":8,"censored":[]},"heuristic32":{"instances":23,"complete":23,"nodes":188,"completed_nodes":188,"branch_free":9,"censored":[]},"parent":{"instances":23,"complete":23,"nodes":117,"completed_nodes":117,"branch_free":8,"censored":[]}}

@@ -9,6 +9,13 @@ Run module entry points from the repository root with the package installed or
 the root on `PYTHONPATH`. Learning entry points additionally require PyTorch;
 the regression suites require pytest.
 
+For structural-first inference, `runtime.attach_hybrid(state, predictor,
+heuristic_candidates=32, learned_candidates=32)` runs a structural batch followed
+by learned construction on the resulting domains. `predictor` can be a
+`ConstructionEnsemble` of compatible constructors. The two allowances add;
+each cluster has its own contraction and GAC round, with temporary summaries
+and retained pruning. Existing inference defaults are unchanged.
+
 ## Entry points
 
 | Module | Purpose |
@@ -52,6 +59,37 @@ The collection publishes `library.json` plus per-puzzle records. The mask corpus
 replays recorded applications against the original network instead of reusing
 cached tensor values. Training can validate on the supplied dataset's explicit
 validation split; it does not evaluate the test split.
+
+## Optional rule-inspired proposals
+
+`rule_heuristic` adds overlap and small Hall subset proposals, inspired by Sudoku
+locked candidates, pairs, triples and quads. It recognizes categorical/Boolean
+channels from their actual tensor supports, including value permutations and
+reversed Boolean polarity. Selection uses shared variables and relations;
+every deduction comes from contracting the selected original cores under current
+domains and running GAC. Unrecognized relations still receive cycle proposals.
+
+```python
+from experiments.cluster_selection.rule_heuristic import attach_heuristic
+
+attach_heuristic(state, rule_inspired=True, max_candidates=64, max_steps=16384,
+                 max_cores=64, max_open_colors=6, max_work=1_000_000,
+                 max_size=100_000, compact_domains=True)
+```
+
+The option defaults to `False`, which delegates to the existing runtime policy.
+The enabled policy regenerates proposals after each useful contraction and
+caches only no-op inputs; summaries are temporary and pruning is reversible.
+For a controlled comparison of proposal families under that same refreshed
+schedule, attach `rule_heuristic.HeuristicPolicy(state, rule_inspired=enabled,
+**limits)` as `state.on_closure` in both arms.
+
+Enabled generation interleaves cycle and rule proposals within the requested
+list size and splits traversal steps between them. Support recognition has its
+own bounded preparation work. The result is a budgeted mixture, so a capped
+list need not contain every legacy proposal. Core and tensor limits still
+apply; the legacy ten-core default is too small for an eighteen-core triple.
+Recreate the generator after changing tensor values or network structure.
 
 ## Regression checks
 

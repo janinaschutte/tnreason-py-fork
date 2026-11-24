@@ -1,0 +1,21 @@
+{
+  "independent_reproduction_passed": true,
+  "training_or_test_data_used": false,
+  "original_artifact_sha256": "415d2512b240bc9d732dbf3c1f76b29e55cb686dc826672833d221ac5b5d3a7c",
+  "active_global_and_distance_heads": true,
+  "anchor_embedding_max_difference": 0.0,
+  "anchor_a_u_logit_gap": 0.0,
+  "swapping_reward_roles_leaves_all_anchor_logits_bitwise_equal": true,
+  "left_reward": 0.7,
+  "right_reward": 0.3,
+  "left_gain": 1,
+  "right_gain": 0,
+  "rollback_verified": true,
+  "caveat": "This demonstrates that weighted training rewards contain variable-role information absent from policy inputs. It does not establish a Sudoku DFS penalty; current primary and auxiliary Sudoku variables also differ in dimension.",
+  "source_sha256": {
+    "experiments/cluster_selection/reinforcement/actor.py": "432f992c8071a3263adfddf7e46dcc840a4ab13759403b900d361304d0bd9f20",
+    "experiments/cluster_selection/reinforcement/model.py": "535532767944f598454ade7761d58cdec95a538dc1bf6beb69ad33c15bf990c6",
+    "experiments/cluster_selection/encoder.py": "94b2bc7cd86b1a1dd4528c849b927f92ff233ba75da292de19cd205d5c75805a",
+    "experiments/cluster_selection/reinforcement/learn.py": "90bf8f4669e3494c7e1664debe0ad62cc01f7fac24ea724cbfc3fe8c017139f2"
+  }
+}

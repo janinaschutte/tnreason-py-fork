@@ -1,0 +1,161 @@
+{
+  "kind": "training_exposure_coverage_audit",
+  "method": "Hash each frozen training puzzle initial domains with existing instance_hashes and check membership in parent training.train_instance_hashes.",
+  "source_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/supervised/protocol.json": "b28d3978d5eca6dd10b521627218afdc32133892d678509df27c69128af17ed3",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/development.json": "9f56c35b058e9f1a16419a290584b501eb3a2fc9fbbecda27cbd46cc5a9586ba",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/teacher_forks_scaled_20261028.q9m8bpg9/warmup/policy.best.pt": "267c2c1f4eaa3015246a3c5a77f13ef428aefa825d9f0c33c92fa843742b384a",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/experiment.py": "422d17e898efe228740b0c95c5ec38a1622e230fe075646451e1f67e7f3633a7"
+  },
+  "parent_exposure_count": 10051,
+  "training_states": 24,
+  "covered": 24,
+  "all_covered": true,
+  "branching": "Default MRV, maximum core degree, name; common across full validation solves and baselines.",
+  "rows": [
+    {
+      "state": 0,
+      "puzzle": 53,
+      "instance_hash": "e86b6040721a2fed0f8730099a5efc7e483494c7a973b22addcc2237a0774179",
+      "covered_by_parent": true
+    },
+    {
+      "state": 1,
+      "puzzle": 16,
+      "instance_hash": "c03073e4a36b58f0459e828f5867174babc29a55458db43fbd1a3af5a2b5860c",
+      "covered_by_parent": true
+    },
+    {
+      "state": 2,
+      "puzzle": 63,
+      "instance_hash": "dc106d252c98b41f2a2a857b468d4604dffbb8ac05d3181cda15a0ed15019493",
+      "covered_by_parent": true
+    },
+    {
+      "state": 3,
+      "puzzle": 100,
+      "instance_hash": "1a4c5aa9c0f7a6c37830bbf5764587a7dd7ad4ded1dc5886decb1f836d469db0",
+      "covered_by_parent": true
+    },
+    {
+      "state": 4,
+      "puzzle": 13,
+      "instance_hash": "0fdce4c47734eee87ece6d56005a0457c74e430a7c605e87650c2ac156f0cfd8",
+      "covered_by_parent": true
+    },
+    {
+      "state": 5,
+      "puzzle": 7,
+      "instance_hash": "d4cf3ade081914ba029cfec2682ba535a6288477800bb7cc0c7ad8c717c125e0",
+      "covered_by_parent": true
+    },
+    {
+      "state": 6,
+      "puzzle": 73,
+      "instance_hash": "2617bb359dbf71269d5a0660f9777122920876d672ebef88d92297989a3b5576",
+      "covered_by_parent": true
+    },
+    {
+      "state": 7,
+      "puzzle": 109,
+      "instance_hash": "770083e0ac13e194ad8ceb46bbfb187b1ee7475a0ded1e706ef386472050821d",
+      "covered_by_parent": true
+    },
+    {
+      "state": 8,
+      "puzzle": 71,
+      "instance_hash": "2b671bca66f386b26ab55185a6869a61c5a6cade4172741ac4c6ac352c6c87ca",
+      "covered_by_parent": true
+    },
+    {
+      "state": 9,
+      "puzzle": 9,
+      "instance_hash": "9f57d78d41bd37b607d41a9eb741b0ea39d61823f08e689a69bb4a627afa70ec",
+      "covered_by_parent": true
+    },
+    {
+      "state": 10,
+      "puzzle": 78,
+      "instance_hash": "2a5a9e0849b0a2a31cdd15d8289cb7e44056a9b2f0d811c869254d072d5d8c96",
+      "covered_by_parent": true
+    },
+    {
+      "state": 11,
+      "puzzle": 102,
+      "instance_hash": "376dbe9bae14d9f7c9876e94943c6ef369bbbf83c76ce8f0393034d7a69e9527",
+      "covered_by_parent": true
+    },
+    {
+      "state": 12,
+      "puzzle": 15,
+      "instance_hash": "b78c76e57bb8887e1f0672821dc2fadc9f3400845b43b5a288299cab9e65a8a6",
+      "covered_by_parent": true
+    },
+    {
+      "state": 13,
+      "puzzle": 51,
+      "instance_hash": "2f075e2ef2bdacb561d1672a09ad14e618715a36b4cefb136876f1629e94d279",
+      "covered_by_parent": true
+    },
+    {
+      "state": 14,
+      "puzzle": 106,
+      "instance_hash": "4ee973e8becf630f21419cf4d79f4c271bf5ac7b135c38c1c508f34bf4571c55",
+      "covered_by_parent": true
+    },
+    {
+      "state": 15,
+      "puzzle": 105,
+      "instance_hash": "19d544b857ea0c72d9da1d089f395bb3b08835e93a841a109c91478fc18e8f5d",
+      "covered_by_parent": true
+    },
+    {
+      "state": 16,
+      "puzzle": 108,
+      "instance_hash": "f4b5604d51ffd0e637d72f5d88dd70caa1f1b46100c6795b0af9e709529fb1c6",
+      "covered_by_parent": true
+    },
+    {
+      "state": 17,
+      "puzzle": 45,
+      "instance_hash": "29ab5786cef74c22db31f02a310df1838612217b76c7f712c6e00c1b1fe1933a",
+      "covered_by_parent": true
+    },
+    {
+      "state": 18,
+      "puzzle": 103,
+      "instance_hash": "0398abb276d0ecfec20ce07a55c9de70d8f22c3318b5aaf4af183503edbcd2cc",
+      "covered_by_parent": true
+    },
+    {
+      "state": 19,
+      "puzzle": 64,
+      "instance_hash": "c0e2e95574fc2cf83a1f247f23711aa4b180f28a161511d7bbd08a19fcdf69ef",
+      "covered_by_parent": true
+    },
+    {
+      "state": 20,
+      "puzzle": 66,
+      "instance_hash": "40a3eb75c40702d9deddacb9a29228771e6f1797b7c29194249f57ea76af63ff",
+      "covered_by_parent": true
+    },
+    {
+      "state": 21,
+      "puzzle": 18,
+      "instance_hash": "a48fc5a830d5e4297702d7febf31da684fccba2ea003bc3e6d708cb2f54d823f",
+      "covered_by_parent": true
+    },
+    {
+      "state": 22,
+      "puzzle": 104,
+      "instance_hash": "dce8a2a207e01c63e4e15a2151834483047d5177a92c25b5acf0293ff8a415b8",
+      "covered_by_parent": true
+    },
+    {
+      "state": 23,
+      "puzzle": 48,
+      "instance_hash": "9c19f8a90987a16fac257a4fded0a1b78f9a705e7052a418f8f91dd439d33948",
+      "covered_by_parent": true
+    }
+  ]
+}

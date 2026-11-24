@@ -36,14 +36,14 @@ class MaskPolicy(Encoder):
 
     def __init__(self, network, width=32, rounds=3, *, anchor_rounds=3,
                  max_cores=64, max_open_colors=6, max_work=1_000_000,
-                 max_size=100_000, cluster_attempts=64):
+                 max_size=100_000, cluster_attempts=64, anchor_candidates=1):
         super().__init__(network, width, rounds, normalize=True)
         if any(type(value) is not int or value < 1 for value in
-               (anchor_rounds, max_cores, max_open_colors, max_work, max_size, cluster_attempts)):
+               (anchor_rounds, max_cores, max_open_colors, max_work, max_size, cluster_attempts, anchor_candidates)):
             raise ValueError("Expected positive mask-model budgets and anchor rounds")
         self.config.update(anchor_rounds=anchor_rounds, max_cores=max_cores,
             max_open_colors=max_open_colors, max_work=max_work, max_size=max_size,
-            cluster_attempts=cluster_attempts)
+            cluster_attempts=cluster_attempts, anchor_candidates=anchor_candidates)
         self.keys = [core["key"] for core in network["cores"]]
         self.anchor_head = _mlp(3 * width, width, 1)
         self.anchor_marker = nn.Parameter(torch.randn(width) * .1)
@@ -83,8 +83,7 @@ class MaskPolicy(Encoder):
             variables, cores = self._round_batch(variables, cores)
         return variables, cores
 
-    def forward(self, allowed, anchors=None):
-        variables, cores = self.encode_allowed(allowed)
+    def _anchor_scores(self, variables, cores, allowed):
         batch, count = variables.shape[:2]
         global_state = torch.cat((variables.mean(1), cores.mean(1)), dim=-1)
         anchor_logits = self.anchor_head(torch.cat((variables,
@@ -92,9 +91,10 @@ class MaskPolicy(Encoder):
         eligible = allowed.sum(-1) > 1
         # Fully solved states never enter the runtime; keep forward well-defined.
         eligible = eligible | ~eligible.any(1, keepdim=True)
-        anchor_logits = anchor_logits.masked_fill(~eligible, -torch.inf)
-        if anchors is None:
-            anchors = anchor_logits.argmax(1)
+        return anchor_logits.masked_fill(~eligible, -torch.inf)
+
+    def _condition(self, variables, cores, anchors):
+        batch, count = variables.shape[:2]
         anchors = torch.as_tensor(anchors, dtype=torch.long, device=variables.device)
         if anchors.shape != (batch,) or torch.any(anchors < 0) or torch.any(anchors >= count):
             raise ValueError("Expected one valid anchor index per state")
@@ -115,8 +115,15 @@ class MaskPolicy(Encoder):
             torch.arange(split, device=counts.device) > len(self.keys), -torch.inf)
         open_counts = open_counts.masked_fill(
             torch.arange(open_counts.shape[1], device=counts.device) > count, -torch.inf)
-        return dict(anchor_logits=anchor_logits, core_logits=core_logits, open_logits=open_logits,
+        return dict(core_logits=core_logits, open_logits=open_logits,
             core_count_logits=core_counts, open_count_logits=open_counts, anchors=anchors)
+
+    def forward(self, allowed, anchors=None):
+        variables, cores = self.encode_allowed(allowed)
+        anchor_logits = self._anchor_scores(variables, cores, allowed)
+        if anchors is None:
+            anchors = anchor_logits.argmax(1)
+        return dict(anchor_logits=anchor_logits, **self._condition(variables, cores, anchors))
 
     def loss(self, allowed, core_target, output_target, pruned_target, anchors=None):
         """Positive anchor imitation + coherent full-mask labels, not a union of clusters."""
@@ -162,23 +169,55 @@ class MaskPolicy(Encoder):
                     & (output_mask == output_target).all(1)).float().mean())
         return loss, metrics
 
-    @torch.no_grad()
-    def propose(self, domains):
-        if isinstance(domains, Mapping):
-            domains = [domains[color] for color in self.network["colors"]]
-        # Reuse the shared encoder's schema/value checks for runtime inputs.
-        allowed = self.domain_features(domains)[:, :self.max_dim].bool()[None]
-        if not torch.any(allowed.sum(-1) > 1):
-            return None
-        prediction = self(allowed)
-        nc, no = (int(prediction[name].argmax(1)) for name in ("core_count_logits", "open_count_logits"))
+    def _candidate(self, prediction, row=0):
+        nc, no = (int(prediction[name][row].argmax()) for name in ("core_count_logits", "open_count_logits"))
         if not nc:
             return None
-        cores = prediction["core_logits"][0].argsort(descending=True, stable=True)[:nc].tolist()
+        cores = prediction["core_logits"][row].argsort(descending=True, stable=True)[:nc].tolist()
         scope = sorted({variable for core in cores for variable in self.scopes[core]})
         if no > len(scope):
             return None
-        order = prediction["open_logits"][0, scope].argsort(descending=True, stable=True)[:no].tolist()
+        order = prediction["open_logits"][row, scope].argsort(descending=True, stable=True)[:no].tolist()
         opened = sorted(scope[index] for index in order)
         return SummaryClusterCandidate("mask", tuple(self.keys[i] for i in sorted(cores)),
             tuple(self.network["colors"][i] for i in opened))
+
+    def _allowed(self, domains):
+        if isinstance(domains, Mapping):
+            domains = [domains[color] for color in self.network["colors"]]
+        return self.domain_features(domains)[:, :self.max_dim].bool()[None]
+
+    @torch.no_grad()
+    def propose(self, domains):
+        allowed = self._allowed(domains)
+        return self._candidate(self(allowed)) if torch.any(allowed.sum(-1) > 1) else None
+
+    @torch.no_grad()
+    def proposals(self, domains, *, max_candidates=32, max_steps=8192):
+        """Ranked anchors share one encoding; callers restart after any pruning.
+
+        Opt in with config['anchor_candidates'] > 1 and stop_on_noop=False.
+        The default remains one greedy cluster. Duplicate masks are emitted once.
+        """
+        if any(type(value) is not int or value < 1 for value in (max_candidates, max_steps)):
+            raise ValueError("Expected positive candidate and decoder budgets")
+        allowed = self._allowed(domains)
+        if not torch.any(allowed.sum(-1) > 1):
+            return []
+        variables, cores = self.encode_allowed(allowed)
+        scores = self._anchor_scores(variables, cores, allowed)[0]
+        anchors = scores.argsort(descending=True, stable=True)
+        anchors = anchors[torch.isfinite(scores[anchors])][:
+            min(self.config["anchor_candidates"], max_candidates, max_steps)]
+        count = len(anchors)
+        prediction = self._condition(variables.expand(count, -1, -1), cores.expand(count, -1, -1), anchors)
+        candidates, seen = [], set()
+        for row in range(count):
+            candidate = self._candidate(prediction, row)
+            if candidate is None:
+                continue
+            signature = candidate.core_keys, candidate.open_colors
+            if signature not in seen:
+                seen.add(signature)
+                candidates.append(candidate)
+        return candidates

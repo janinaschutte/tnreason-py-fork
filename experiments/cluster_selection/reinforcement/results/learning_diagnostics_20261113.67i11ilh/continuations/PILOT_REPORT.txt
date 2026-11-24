@@ -1,0 +1,25 @@
+Controlled continuation pilot
+
+All arms start from the same trained chunk52 parent; fresh Adam and seed29.
+16 training puzzles,48 visits (3 passes);8 existing GAC-stalled validation puzzles. Allowance32.
+Validation at initialization and chunks2,4,6; every recorded validation solve completed validly.
+
+Arm | Initial DFS | Best DFS(epoch) | Final DFS | Final without DFS | Fresh updates/trials | Replay terms
+reinforce | 16 | 14(4) | 14 | 2/8 | 77/308 | 0
+lower_lr | 16 | 13(2) | 13 | 4/8 | 78/312 | 0
+self_imitation | 16 | 13(4) | 13 | 3/8 | 86/344 | 85
+
+Validation DFS curves (initial,chunk2,chunk4,chunk6):
+reinforce: 16 -> 15 -> 14 -> 14
+lower_lr: 16 -> 13 -> 14 -> 13
+self_imitation: 16 -> 15 -> 13 -> 13
+
+The self-imitation term replayed older actual successful construction sequences using their original domains and generating growth masks.
+No full GPU continuation was submitted. Prepared full jobs each visit all10000 training puzzles once, with the original55 validation puzzles.
+
+Only16 training puzzles,8 old validation puzzles,one seed and48 visits per arm: mechanism pilot, not a retention or generalization conclusion.
+Same prescribed visit budget and seed; on-policy states and actual updates differ. The shared training RNG can change later-pass ordering after policy-dependent consumption.
+Replay adds scored model actions without fresh contractions; computational work is not identical across arms.
+All initial weights/configurations match the trained parent. Current CPU initial16 nodes differ from historical saved selection on the same subset; current matched controls define this experiment.
+Weights-only restarts reset Adam,RNG,pools,teacher cache,reward scale and replay memory; no exact optimizer resumption is claimed.
+Teacher-imitation coefficient remains zero; teacher-assisted state advances remain active. Printed teacher imitation is diagnostic.

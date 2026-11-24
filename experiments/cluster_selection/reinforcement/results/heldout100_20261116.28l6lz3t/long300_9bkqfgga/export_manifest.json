@@ -1,0 +1,32 @@
+{
+  "kind": "completed_100_puzzle_300s_matched_time_exports",
+  "protocol_sha256": "26ae5f2631642c14bf090edac33a87cc667f788bb4c09450b1b924ca3a1be2e5",
+  "methods": 9,
+  "puzzles": 100,
+  "budgets_s": [
+    1,
+    5,
+    15,
+    60,
+    120,
+    300
+  ],
+  "interpretation": "Same previously evaluated100 puzzles; exploratory budget extension with fixed checkpoints. All methods rerun, including one shared-budget generic mix. Do not splice older60s timings into these curves. Expert has larger per-cluster limits. Loading excluded, initial GAC included. Figures have no footer text.",
+  "verification": "Frozen collector and independent audit agree; all5400residual DFS results complete. Both PNG figures visually inspected.",
+  "export_sha256": {
+    "collect_here.py": "69101142a970f14c13e0211a3a21749490f33e0780663efaa7592a59e90f7042",
+    "protocol.json": "26ae5f2631642c14bf090edac33a87cc667f788bb4c09450b1b924ca3a1be2e5",
+    "summary.json": "1b8c36298e09ac3febabc79adf1d98ee7b03a7fad5cd3ea39c962f91fbe36cd1",
+    "RESULTS.txt": "c9e6fc1675ddf766acfc130381abd1d9314ef8678ed8c8c09f078f60550f00b4",
+    "matched_time_totals.csv": "b2b5949bb6b6aa9b7379be0c4788fc7b53147edadff961e8a9af9530641a1257",
+    "matched_time_per_puzzle.csv": "5dd3c24a27d31d3908874f72d99f6ad0a444f04d14419aaafb0d9ec5c5e206e0",
+    "comparison_300s.csv": "9bd5a7e38f6b037c4ec743fbe9f822d903cc4917c03b2e7ae04ab9d8d97e2e27",
+    "independent_results_audit.json": "b6fa91510a024178ab8432165eb80f7dd1d4664bc36f4b5e37558e846dd3c1d4",
+    "matched_time_roots_no_caption.png": "982b55ba3f8b9e7fd096547738d9db8823d1f8a3b163ef2dc33fce47b014e3ef",
+    "matched_time_roots_no_caption.pdf": "d35c6cd443118969bc187debd2b2d37a0e64c9d04d1eb324f29e89051f1d3868",
+    "matched_time_roots_no_caption.svg": "48340296c011263e1377f132105b8b56bddcaea708fd796b31fd269966f300b1",
+    "matched_time_roots_and_dfs_no_caption.png": "b51f70d5375c389569d4b7d9a484fdf680ad78ab51aca3c940d412b6081ad88a",
+    "matched_time_roots_and_dfs_no_caption.pdf": "7e45170309cf7ecc8321654d6454c1e5c347efafcbd8cb51eacf511f5909003a",
+    "matched_time_roots_and_dfs_no_caption.svg": "733c44d8aa8f909469fb6b4093066666a7af00d2c6d6fa96c658f86fb7fd7691"
+  }
+}

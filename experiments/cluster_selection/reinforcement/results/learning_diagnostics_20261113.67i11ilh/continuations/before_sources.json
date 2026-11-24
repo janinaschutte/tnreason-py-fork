@@ -1,0 +1,14 @@
+{
+  "experiments/cluster_selection/reinforcement/model.py": {
+    "sha256": "2ee4346d0567d42e0f1e45fa7ad5e319e7e11336a0763d328671d0e70b320ce1",
+    "backup": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/before_model.py"
+  },
+  "experiments/cluster_selection/reinforcement/learn.py": {
+    "sha256": "12f11eb6b00f2ec9540d0c653596756d509e878b2faaf29d67380bee55132d6f",
+    "backup": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/before_learn.py"
+  },
+  "experiments/cluster_selection/tests/test_useful_learning.py": {
+    "sha256": "27e7cc73c2f101df3c1d22e8dc2b5d45fbb970fd0a24d9cfedb8dba68f77f2b2",
+    "backup": "experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/before_test_useful_learning.py"
+  }
+}

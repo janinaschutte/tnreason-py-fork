@@ -1,0 +1,26 @@
+{
+  "RF_vs_head_only": {
+    "equal_root_domains": 16,
+    "equal_residual_nodes": 16
+  },
+  "global_vs_base_only": {
+    "equal_root_domains": 14,
+    "root_solved_sets_equal": true
+  },
+  "changed_global_vs_base": [
+    {
+      "index": 33,
+      "global_nodes": 24,
+      "zerohead_nodes": 34,
+      "global_progress": 0.06450575541869052,
+      "zerohead_progress": 0.04673535654338201
+    },
+    {
+      "index": 42,
+      "global_nodes": 2,
+      "zerohead_nodes": 2,
+      "global_progress": 0.1793620626344563,
+      "zerohead_progress": 0.19113726488667782
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "seed": 29,
+  "validation_indices": [
+    238
+  ],
+  "samples_per_state": 1,
+  "greedy_first": true,
+  "inference_mode": "eval; beta=0; no exploration mixture",
+  "cuts": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    48,
+    "full",
+    "first prefix containing all outputs"
+  ],
+  "config": {
+    "width": 32,
+    "rounds": 2,
+    "max_cores": 64,
+    "max_open_colors": 6,
+    "max_work": 1000000,
+    "max_size": 100000,
+    "heuristic_candidates": 32,
+    "normalize": true,
+    "decoder": "sampling_grow",
+    "cluster_attempts": 32,
+    "contextual": true,
+    "context_rounds": 2,
+    "exploration": 0.1,
+    "active_frontier": true,
+    "compact_domains": true,
+    "min_active": 2,
+    "cyclic_only": true,
+    "target_first": true
+  },
+  "source_sha256": {
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/diagnose_length.py": "641026997146691232837542ddd8cac4d280091ce8784cd8b8b94a511745f0c1",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json": "203d57dcc7d11f6915ba881a2e9674f42a10795251b6a20c2e2840848e3045db",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/heldout/reinforce.pt": "3134d8bd743f381d4f85352fc8f0bdf1dbfc30586d766413c833fc3cd04fe615",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/model.py": "535532767944f598454ade7761d58cdec95a538dc1bf6beb69ad33c15bf990c6",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/experiment.py": "422d17e898efe228740b0c95c5ec38a1622e230fe075646451e1f67e7f3633a7",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/candidate_evaluation_mac.py": "719eac61c074f6ae23c2adcbb363d614b24942d3a50aca10522d5b04cf63f2ea",
+    "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/constraint_networks/mac.py": "9eb5ec1148a14b9cfe43fb99ea0216c15317a95d4193efc5cc540b05f4bda1fd"
+  },
+  "interpretation": "Existing validation only; no training or heldout100 input. Fixed-output, independent one-cluster trials with GAC and rollback. Anchor-only has a separate full comparator. Prefix tests are retrospective; construction timestamps exclude stop/output decisions. No learned summaries during residual plain-MAC DFS. No claim of early-stop solver speed."
+}

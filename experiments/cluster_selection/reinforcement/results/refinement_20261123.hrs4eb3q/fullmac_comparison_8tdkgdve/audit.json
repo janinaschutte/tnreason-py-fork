@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "records": 64,
+  "all_original_tensor_constraints_satisfied": true,
+  "all_input_GAC_domains_respected": true,
+  "all16_complete_for_every_method": true,
+  "all_retained30s_rows_unchanged": true,
+  "only_censored_rows_retried": true,
+  "all_source_data_driver_checkpoint_hashes_unchanged": true,
+  "all_inputs_from_validation": true
+}

@@ -1,0 +1,163 @@
+{
+  "note": "Fresh processes, existing filesystem caches; no solving. Shared setup and extra neural startup are measured separately. No provenance-hash verification is timed.",
+  "protocol_sha256": "7994987024f364874c4dbb5a8de5202400b3f5cf4ffbdf371aef222d55c554b7",
+  "script_sha256": "e6870e9ef9f5b5929bf07da8d90ac49a0f4a18d0d9ce2d0803dfed9f82dbbf31",
+  "summary": {
+    "shared_imports": {
+      "median": 4.237282056999902,
+      "min": 3.2352280639997844,
+      "max": 5.118307031000768
+    },
+    "read_dataset": {
+      "median": 0.20484346700050082,
+      "min": 0.1887097110002287,
+      "max": 0.280443732999629
+    },
+    "network_and_first_puzzle_domains": {
+      "median": 0.014645991000179492,
+      "min": 0.014366528999744332,
+      "max": 0.015428279000843759
+    },
+    "first_mac_state": {
+      "median": 0.025909510999554186,
+      "min": 0.02529128700007277,
+      "max": 0.02703810299954057
+    },
+    "neural_imports_and_thread_setup": {
+      "median": 1.2609506669996335,
+      "min": 1.148762392000208,
+      "max": 1.4783987439996054
+    },
+    "load_teacher": {
+      "median": 0.6585400870008016,
+      "min": 0.6320271559998218,
+      "max": 0.7682427549998465
+    },
+    "load_reinforce": {
+      "median": 0.6970312099992952,
+      "min": 0.6675352089996522,
+      "max": 0.781582397999955
+    },
+    "load_replay": {
+      "median": 0.7159041570002955,
+      "min": 0.6629997030004233,
+      "max": 0.8561634520001462
+    },
+    "load_q": {
+      "median": 1.349870398999883,
+      "min": 1.3402937780001594,
+      "max": 1.3939628640000592
+    },
+    "load_initial": {
+      "median": 0.6677079959999901,
+      "min": 0.5984443639999881,
+      "max": 0.7102127640000617
+    },
+    "repeat_teacher_1": {
+      "median": 0.6470386519995373,
+      "min": 0.6076266999998552,
+      "max": 0.6798937829998977
+    },
+    "repeat_teacher_2": {
+      "median": 0.6410170070003005,
+      "min": 0.631599768000342,
+      "max": 0.6769361369997569
+    },
+    "single_teacher_neural_startup": {
+      "median": 1.9194907540004351,
+      "min": 1.7807895480000298,
+      "max": 2.246641498999452
+    },
+    "mixed_neural_startup": {
+      "median": 4.672719899000185,
+      "min": 4.461194858999988,
+      "max": 5.278350212999612
+    }
+  },
+  "trials": [
+    {
+      "seconds": {
+        "shared_imports": 5.118307031000768,
+        "read_dataset": 0.280443732999629,
+        "network_and_first_puzzle_domains": 0.014645991000179492,
+        "first_mac_state": 0.02529128700007277,
+        "neural_imports_and_thread_setup": 1.4783987439996054,
+        "load_teacher": 0.7682427549998465,
+        "load_reinforce": 0.781582397999955,
+        "load_replay": 0.8561634520001462,
+        "load_q": 1.3939628640000592,
+        "load_initial": 0.7102127640000617,
+        "repeat_teacher_1": 0.6470386519995373,
+        "repeat_teacher_2": 0.6410170070003005,
+        "single_teacher_neural_startup": 2.246641498999452,
+        "mixed_neural_startup": 5.278350212999612
+      },
+      "cpu": 3,
+      "torch": "2.4.1",
+      "checkpoint_bytes": {
+        "initial": 1289245,
+        "teacher": 1313265,
+        "reinforce": 1328486,
+        "replay": 1293730,
+        "q": 1828684
+      },
+      "whole_process_seconds": 13.233689269000024
+    },
+    {
+      "seconds": {
+        "shared_imports": 3.2352280639997844,
+        "read_dataset": 0.1887097110002287,
+        "network_and_first_puzzle_domains": 0.015428279000843759,
+        "first_mac_state": 0.02703810299954057,
+        "neural_imports_and_thread_setup": 1.148762392000208,
+        "load_teacher": 0.6320271559998218,
+        "load_reinforce": 0.6675352089996522,
+        "load_replay": 0.6629997030004233,
+        "load_q": 1.349870398999883,
+        "load_initial": 0.6677079959999901,
+        "repeat_teacher_1": 0.6798937829998977,
+        "repeat_teacher_2": 0.6769361369997569,
+        "single_teacher_neural_startup": 1.7807895480000298,
+        "mixed_neural_startup": 4.461194858999988
+      },
+      "cpu": 3,
+      "torch": "2.4.1",
+      "checkpoint_bytes": {
+        "initial": 1289245,
+        "teacher": 1313265,
+        "reinforce": 1328486,
+        "replay": 1293730,
+        "q": 1828684
+      },
+      "whole_process_seconds": 10.475705586000004
+    },
+    {
+      "seconds": {
+        "shared_imports": 4.237282056999902,
+        "read_dataset": 0.20484346700050082,
+        "network_and_first_puzzle_domains": 0.014366528999744332,
+        "first_mac_state": 0.025909510999554186,
+        "neural_imports_and_thread_setup": 1.2609506669996335,
+        "load_teacher": 0.6585400870008016,
+        "load_reinforce": 0.6970312099992952,
+        "load_replay": 0.7159041570002955,
+        "load_q": 1.3402937780001594,
+        "load_initial": 0.5984443639999881,
+        "repeat_teacher_1": 0.6076266999998552,
+        "repeat_teacher_2": 0.631599768000342,
+        "single_teacher_neural_startup": 1.9194907540004351,
+        "mixed_neural_startup": 4.672719899000185
+      },
+      "cpu": 3,
+      "torch": "2.4.1",
+      "checkpoint_bytes": {
+        "initial": 1289245,
+        "teacher": 1313265,
+        "reinforce": 1328486,
+        "replay": 1293730,
+        "q": 1828684
+      },
+      "whole_process_seconds": 11.654867668999941
+    }
+  ]
+}

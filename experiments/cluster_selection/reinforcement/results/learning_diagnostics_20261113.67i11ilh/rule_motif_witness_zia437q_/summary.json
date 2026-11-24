@@ -1,0 +1,117 @@
+{
+  "kind": "Verified witnesses for optional generic rule-inspired proposal work; no production changes",
+  "sudoku": {
+    "initial": {
+      "pos_0_0_0_0": [
+        0,
+        1
+      ],
+      "pos_0_0_1_0": [
+        1,
+        2
+      ],
+      "pos_0_0_2_0": [
+        0,
+        2
+      ]
+    },
+    "cores": 18,
+    "outputs": [
+      "row_0_0_0",
+      "row_1_0_0",
+      "row_2_0_0"
+    ],
+    "projection": {
+      "removed": 90,
+      "work": 2916,
+      "max_size": 729,
+      "domains": {
+        "row_0_0_0": [
+          0,
+          6
+        ],
+        "row_1_0_0": [
+          0,
+          3
+        ],
+        "row_2_0_0": [
+          3,
+          6
+        ]
+      }
+    },
+    "full_old_heuristic": {
+      "status": "complete",
+      "candidates": 512,
+      "evaluated": 512,
+      "useful": 0,
+      "seconds": 2.7177492549999442
+    },
+    "isolated_old_heuristic": {
+      "isolated_cycle_8": {
+        "candidates": 0,
+        "useful": 0,
+        "seconds": 0.0006171510030981153
+      },
+      "isolated_cycle_12": {
+        "candidates": 1,
+        "useful": 1,
+        "seconds": 0.003468861999863293
+      }
+    }
+  },
+  "generic_sparse": {
+    "projection": {
+      "removed": 3,
+      "work": 198,
+      "max_size": 64
+    },
+    "old_heuristic": {
+      "8": {
+        "candidates": 0,
+        "useful": 0
+      },
+      "12": {
+        "candidates": 1,
+        "useful": 1
+      }
+    }
+  },
+  "generic_dense": {
+    "projection": {
+      "removed": 3,
+      "work": 2108,
+      "max_size": 128
+    },
+    "old_heuristic": {
+      "8": {
+        "candidates": 33,
+        "useful": 0,
+        "largest_core_set": 14
+      },
+      "12": {
+        "candidates": 49,
+        "useful": 1,
+        "largest_core_set": 18
+      }
+    }
+  },
+  "contraction_bounds": {
+    "max_cores": 64,
+    "max_open_colors": 6,
+    "max_work": 1000000,
+    "max_size": 100000,
+    "max_candidates": 512,
+    "max_steps": 131072
+  },
+  "no_dfs": true,
+  "interpretation": "Actual example gaps under specified bounded old heuristic, not proof no larger graph-search budget/order can find these deductions. Optional generic selectors should recognize original relation supports and include incomplete target channels.",
+  "artifact_sha256": {
+    "candidate_generation.before.py": "553643454fe9c0d74f16fe426da78edb3a94ecf5d1735f11d9209955bfb43ae1",
+    "run.py": "0cb3ef6013a390d3a9cab9f9b50b6e0eda5e94142544157d87542916a535bee1",
+    "result.json": "01361b7baf86e315544b3f7b738a18893d11a56b256df2a961afd5232031c7a4",
+    "generic_variant.json": "b87f39266337c61717d270e6ade691b7538208295f395a4a00f183750295ef21",
+    "dense_result.json": "fa47064b1568d1c16f680d42d1e8773e8985346e0e72608b721d29b1c511b43b",
+    "generic_cases.py": "eed4d741d7b2c69c2f438e5afcc26820af62cb25d8cc945b9adbb8f57137474b"
+  }
+}

@@ -1,0 +1,152 @@
+Learning diagnostics: 13 November 2026
+
+The three proposed investigations are complete locally. Success replay is
+implemented and has a promising small pilot result. Longer HTCondor GPU runs
+are prepared, but have NOT been submitted: SSH gateway authentication failed.
+No existing checkpoints/results were overwritten; the production supervised
+mask implementation was not changed.
+
+1. Frozen checkpoint comparison on sixteen fresh puzzles
+
+Method                              DFS nodes   Without branching
+Plain MAC                           62          0/16
+Structural heuristic                44          2/16
+Exact random initialization         32          7/16
+Older trained teacher constructor   28          10/16
+Best REINFORCE, frozen chunk52       32          8/16
+
+All eighty solves completed and their assignments were independently checked
+against the original tensor cores and givens. REINFORCE vs its initialization:
+four wins, eight ties, four losses. These results do not demonstrate an aggregate
+learning improvement over random initialization; the older teacher is stronger
+on this pilot. This is a useful control that training metrics alone missed.
+
+The sixteen puzzles were reserved without policy or DFS queries from the same
+source distribution, excluding all known training/evaluation grids and known
+solution identities. Every retained puzzle was checked for unique solution and
+ordinary-GAC stalling. Their small number and one training seed limit inference.
+See heldout/REPORT.txt, preparation.json, summary.json and audit.json.
+
+2. Controlled REINFORCE continuations and verified-success replay
+
+All arms start from the same trained chunk52 weights, with fresh Adam and seed29.
+They receive the same prescribed 48 puzzle visits: sixteen training puzzles,
+three passes. The fixed final checkpoint is evaluated after all six chunks.
+
+Arm                     Learning rate   Replay weight   Final DFS, old 8 val
+Ordinary REINFORCE       0.0003          0               14
+Lower learning rate     0.0001          0               13
+Success replay          0.0003          0.1             13
+Starting policy                                         16
+
+The respective actual fresh update/trial counts are 77/308, 78/312 and 86/344.
+States, stopping conditions and later-pass RNG consumption depend on the policy;
+equal prescribed visits do not mean identical trajectories or actual computation.
+Replay contributed 85 older-sequence loss terms in the same optimizer steps.
+There is no teacher-imitation gradient or warmup in these forks, although the
+existing teacher-assisted state-advancement mechanism remains active.
+
+Replay stores only positive, valid, unprefixed constructions whose usefulness
+was verified by contraction and GAC, together with their original domains and
+actual action order. One older complete sequence is drawn per fresh update.
+Its loss is the mean negative log probability of its actions under the current
+free policy, multiplied by 0.1 and added to the existing REINFORCE loss. It trains
+both core and output choices. Growth masks match sampling, which required a
+separate optional trace-scoring path; ordinary teacher trace scoring is unchanged.
+The bounded buffer is not checkpointed. These are weights-only restarts, not
+exact resumptions of optimizer, RNG, teacher-cache or replay state.
+
+Additional exploratory comparison on the SAME sixteen test puzzles:
+
+Fixed final checkpoint              DFS nodes   Without branching
+Starting chunk52 (reused result)     32          8/16
+Ordinary REINFORCE                   31          9/16
+Lower learning rate                 29          9/16
+Success replay                      27          10/16
+
+All forty-eight additional solves completed and passed independent assignment
+and provenance checks. Replay vs starting policy: six wins, nine ties, one loss;
+five fewer nodes (15.6%). Replay vs ordinary continuation: five wins, ten ties,
+one loss, four fewer nodes. Stopping points and hyperparameters were fixed before
+these test queries, with no checkpoint selection or tuning from the outcomes.
+This reuses an already queried test set and is exploratory, not a second untouched
+confirmation. One seed and this small sample do not establish a reliable gain.
+See continuations/PILOT_REPORT.txt and continuations/final_test/REPORT.txt.
+
+3. Can teacher learning fit twenty-four fixed known-positive states?
+
+Both arms use the same parent, fresh Adam, learning rate 0.0003, seed29 and fixed
+balanced state order. States comprise thirteen roots and eleven DFS branches.
+The pool retains measured teachers within 90% of the best reward per state; the
+other arm selects one shortest teacher from that band. This jointly changes
+teacher multiplicity, identity and length, not only label ambiguity. All legal
+core orders remain available; success means unforced contraction/GAC usefulness,
+not exact agreement with a finite teacher mask.
+
+Arm, updates            Useful train /24   Useful val roots /15   DFS, 23 val
+Parent                  1                  2                      117
+Teacher pool, 1000      2                  1                      233
+Teacher pool, 4000      7                  0                      199
+One teacher, 1000       2                  0                      186
+One teacher, 4000       5                  0                      147
+Plain MAC                                                         315
+Structural heuristic                                              188
+
+All totals are complete. The pool's initial 600-second timeout on one puzzle at
+1000 updates is preserved; its separately frozen 1800-second retry completed at
+142 nodes, giving the reported 233 total. No censored case is counted as zero.
+These twenty-three validation puzzles were already explored; this is not the
+fresh sixteen-puzzle test set above. Greedy-root utility checks one construction;
+the full solver can try alternatives within its allowance at roots and branches.
+Thus zero useful first greedy root constructions does not imply zero solver help.
+
+Longer fitting improves useful training constructions, but neither trained arm
+beats its unchanged parent in full DFS. One shorter teacher is not a demonstrated
+fix. All twenty-four selected teachers were rechecked and remain affordable and
+useful. All thirty-three selected target choices have legal construction traces.
+Stale or impossible targets are not supported as an explanation for the selected
+shortest-teacher arm; the utility recheck does not cover every pool label.
+Anchor disagreements are frequent; the anchor scorer has local domain-conditioned
+embeddings but no explicit global state pool before selecting its first core.
+This motivates a later controlled context test, not a proven causal diagnosis.
+See supervised/REPORT_EFFECTIVE.txt and PREFIX_INTERPRETATION.txt.
+
+Common evaluation limits and practical limits
+
+All full comparisons use MRV/maximum-degree/name branching and allowance32,
+8192 decoder/heuristic steps, maximum64 original cores and6 open variables,
+per-cluster work1e6 and size1e5, with no cumulative tensor-work limit. The policy
+chooses a cluster, contraction/GAC updates domains, and subsequent choices use
+those domains. Summary cores remain temporary; pruning is retained.
+Equal caps do not imply equal actual contractions or tensor work. For example,
+the initial fresh comparison used estimated work 0.274m for the heuristic,
+3.743m for random initialization, 0.557m for the teacher and 7.650m for REINFORCE.
+Concurrent CPU timings are descriptive, not isolated speed comparisons.
+Old eight-state validation of the same frozen chunk52 weights starts at16 nodes
+in the current local runtime, versus11 historically. The current matched control
+is used throughout. Torch/runtime differences are a possible unisolated cause;
+historical and current counts must not be combined as a learning trajectory.
+
+Verification: 248 relevant tests passed; two CUDA-only tests skipped locally.
+The default replay weight is zero. A before/after generic-CSP training experiment
+with replay disabled produced bitwise-identical weights and matching metrics.
+Component audits verify frozen inputs, solved assignments and cluster caps.
+
+Prepared longer experiment and next action
+
+The three independent GPU jobs each continue the same trained weights for one
+pass over all10,000 training puzzles (20 chunks of500), with the original55
+validation puzzles. They use the same three learning-rate/replay arms, no warmup,
+one GPU and fresh training state, and unique output paths. This extends the small
+pilot without changing its hypotheses. It remains unsubmitted because gateway
+SSH authentication failed (publickey,keyboard-interactive).
+
+Run on bernoulli:
+cd /Home/optimier/schuette/tnreasonproj/tnreason-py
+condor_submit experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/train_gpu.sub
+
+The strongest immediate lead is testing verified-success replay at scale while
+retaining ordinary REINFORCE and the lower-rate arm as controls. Repeatedly
+extending the current teacher objective alone is not supported by this diagnostic.
+After any decisions from these results, reserve another untouched test batch for
+confirmation. Machine-readable component references are in summary.json.

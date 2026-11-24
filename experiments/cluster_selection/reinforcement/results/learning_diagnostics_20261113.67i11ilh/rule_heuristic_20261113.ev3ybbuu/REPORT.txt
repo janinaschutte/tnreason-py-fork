@@ -1,0 +1,33 @@
+OPTIONAL GENERIC RULE-INSPIRED HEURISTIC: PAIRED SOLVING RESULTS
+
+Implemented in the optional rule_heuristic module: recognize category/Boolean channels from original realized tensor support, then propose overlap and small Hall (2--4 source) clusters. Names, Sudoku coordinates and global digit labels are not used. The original cores remain authoritative; only conditioned contraction and GAC prune domains. The default attachment path and all existing training/GPU sources remain unchanged. This generalizes two structural ideas, not all 51 expert families.
+
+Results: same previously queried 16 Sudoku puzzles; all 80 full solves valid:
+  Method                              DFS nodes  Without branching  Total solve time
+  Plain MAC                                  62           0/16             1.51 s
+  Cycles, length <=8                         34           6/16            11.60 s
+  Cycles, length <=12                        55           2/16             8.47 s
+  Cycles8 + generic overlap/Hall             33           7/16             8.77 s
+  Sudoku expert, 51 families                 17          15/16            16.88 s
+
+The optional extension saves one DFS node and adds one solve without branching (position 13). The other 15 puzzle node counts are identical to the refreshed cycle8 control. This is a modest improvement on a small reused set, not evidence that the generic solver now matches the expert. Raising the cycle cap alone to 12 performed worse under the same finite search budget; it redistributes search across lengths and changes proposal coverage, so this does not show that longer cycles are inherently worse.
+
+Actual new root solve: in puzzle 13, digits 1,3,6 in column 3 are confined to rows 2,7,8. The generic support graph detects this hidden-triple structure. Two 12-core Hall contractions, with one 4-core overlap contraction between them, remove 15,15,309 domain values including auxiliaries and solve the root. The cycle8 control needs one branch. All three contractions were independently rederived from their saved domains.
+
+New-arm family contributions (includes root and DFS branch applications):
+  Family        Contractions  Useful  Root contractions  Removed values
+  cycle                1022      10                561             746
+  overlap                37      37                 33            4040
+  hall                    4       4                  2             474
+
+All 37 executed overlap proposals and all 4 Hall proposals produced pruning or a contradiction. Their 41 useful applications comprise 35 root and 6 branch traces, including 2 branch contradictions. These traces remove 834 cell-domain values across applications (633 at roots); these are event counts, not distinct global deductions, because DFS backtracking restores sibling domains.
+
+Computational comparison: all three generic arms use the SAME refreshed policy, regenerating after useful pruning and caching only exact no-op inputs. Each has 64 actual contraction attempts per episode, 16,384 traversal steps, 64 original cores, 6 outputs, work<=1e6 and tensor size<=1e5 per cluster. The enabled arm splits traversal between cycle and motif search. Its catalog adds 839,808 support-entry reads and 69,984 bridge-pair checks across 16 solves; bounded extra preparation means equal limits are not equal computation.
+
+Executed generic contractions: cycle8=1,306; cycle12=1,309; cycle8+rules=1,063. Corresponding estimated contraction work:384,233;450,819;259,732. This estimate excludes the additional support catalog and cannot be directly compared with the expert executor's charged reads/joins. The expert uses larger limits and 513 executed contractions. Times are summed CPU wall times from four concurrent workers, including proposal setup, initial GAC and observation overhead, excluding network/state creation and final validation; they are descriptive, not isolated speed benchmarks.
+
+Unlike older tables, these controls use the new refreshed schedule and 64/16k budgets. Compare only the paired rows above when attributing the one-node gain to enabling the optional proposals. No neural policy was trained or selected in this experiment.
+
+Verification: all 80 assignments satisfy the original givens and 2,916 cores. The independent trace audit reconstructed every saved root/branch domain state without assigning values or invoking DFS, models or rule detectors; original-core contractions reproduce all 41 outputs, costs, pruning and contradictions exactly. Temporary summaries, hooks, domain masks and decision levels are clean. The 2 contradictory states legitimately retain pending ORIGINAL queue entries until backtracking; no temporary queue key remains. Frozen source/model/data hashes and unchanged GPU-job inputs were checked independently. The broader existing test suite passed 251 tests.
+
+Files: protocol.json (final pre-query freeze), summary.json, analysis.json, trace_audit.json and verify_rule_traces.py. The earlier unqueried protocol is preserved as protocol.pre_trace.json. Full original rows and proof traces are retained under rows/ and hash-linked by the reports. No existing checkpoints or results were overwritten.

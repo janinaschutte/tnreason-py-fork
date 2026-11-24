@@ -5,6 +5,7 @@ from experiments.cluster_selection.candidate_evaluation_tnreason import SummaryC
 from experiments.cluster_selection.candidate_generation import ClusterCandidateGenerator
 from experiments.cluster_selection.candidate_evaluation_mac import evaluate_candidate
 from experiments.constraint_networks.constraint_networks import ConstraintNetwork
+from experiments.constraint_networks.mac import ConstraintNetworkSolver
 from experiments.constraint_networks.sudoku_tests.standard_constraints import get_sudoku_constraint_network
 
 
@@ -37,6 +38,8 @@ def _snapshot(state):
 def test_domains_enter_the_contraction_and_pruning_cascades_then_rolls_back(signed):
     state, candidate = _state(signed)
     before = _snapshot(state)
+    solver = ConstraintNetworkSolver(state.constraint_network, variable_tie_break="oldest_pruned")
+    choice = solver._select_color(state)
     if not signed:
         old = evaluate_summary_cluster_candidate(state._cores, state.domains, candidate)
         assert old.domains["a"] == (0, 1)  # Domain-free projection misses this implication.
@@ -46,8 +49,10 @@ def test_domains_enter_the_contraction_and_pruning_cascades_then_rolls_back(sign
     assert result.propagation.removed_values == 2
     assert result.cost >= 0 and result.reward == pytest.approx(2 - 2 * result.cost)
     assert _snapshot(state) == before
+    assert solver._select_color(state) == choice
     assert evaluate_candidate(state, candidate).domains == result.domains
     assert _snapshot(state) == before
+    assert solver._select_color(state) == choice
 
 
 def test_existing_search_levels_hooks_history_and_counters_are_preserved():

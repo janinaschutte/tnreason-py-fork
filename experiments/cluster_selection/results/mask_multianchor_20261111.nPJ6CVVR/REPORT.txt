@@ -1,0 +1,67 @@
+Direct-mask inference with alternative anchors: validation comparison
+
+Checkpoint: epoch_0025.pt; trained weights unchanged. All 55 frozen validation puzzles, including 8 ordinary-GAC solutions.
+One CPU thread, one process, sequential randomized/interleaved methods. All 660 solves valid. Nodes 10000; seconds 300 guard.
+Learned cluster allowance 64 total per propagation episode; top K anchors decoded together and duplicates removed.
+After pruning, discard the remaining proposals and recompute from updated domains; after no-op, try the next anchor.
+
+Full sweep (seconds = state setup + solving):
+Method            seconds     DFS nodes    branch-free    contractions
+plain                7.095          479              8               0
+heuristic16         15.640          321             12            3054
+heuristic32         22.324          309             15            5610
+heuristic64         46.913          286             21           10599
+mask1               21.667          364              9             284
+mask2               28.519          362             10             492
+mask4               42.074          350             12             857
+mask8               66.999          336             15            1574
+
+Heuristic16 is both faster and uses fewer DFS nodes than every tested learned variant.
+More anchors help the learned model overall (364 ->362 ->350 ->336 nodes), but do not close that gap.
+K1 and heuristic64 reproduce every original validation puzzle node count exactly.
+
+Comparable-time check, chosen solely by timing before confirmation: K4 vs heuristic64.
+Closest aggregate-time rule: minimize absolute log elapsed-time ratio to heuristic64, independent of DFS nodes.
+Run               heuristic64 seconds    K4 seconds
+full sweep                      46.913        42.074
+confirmation0                   46.761        41.442
+confirmation1                   43.024        42.186
+Primary confirmation-only medians: heuristic64 44.892s; K4 41.814s.
+Secondary medians over sweep + two confirmations: heuristic64 46.761s; K4 42.074s.
+All three runs: heuristic64=286 DFS nodes/21 branch-free; K4=350/12. Per-puzzle nodes and assignments repeat exactly.
+K4 takes about 6.9% less confirmation median time but 22.4% more DFS nodes. This is approximate aggregate matching, not an exact time cap.
+
+Per-puzzle node comparisons (wins/ties/losses for first method):
+mask2 vs mask1: 3/51/1
+mask4 vs mask1: 8/46/1
+mask8 vs mask1: 11/44/0
+mask4 vs heuristic64: 1/31/23
+mask1 vs heuristic32: 3/33/19
+mask8 vs heuristic16: 8/39/8
+
+Scope and limitations:
+The same 55 validation puzzles were used for checkpoint selection and this comparison; no final test evaluation.
+Comparable aggregate observed CPU wall time; no exact per-puzzle deadline or fixed episode time budget.
+Extra anchors decode existing weights without retraining; proposals are deduplicated and refreshed after pruning.
+All learned variants retain allowance 64 total contractions per closure episode; heuristic caps16/32/64 are separate methods.
+Timings include state setup, inference and solving but exclude checkpoint loading, warmup, result serialization and code hash checks.
+Heuristic 16 dominates all tested learned variants by both total time and DFS nodes in the full sweep.
+
+Use an existing checkpoint with the second anchor enabled:
+from experiments.cluster_selection import runtime
+model = runtime.load("experiments/cluster_selection/results/mask_sudoku.FGN32oF0/train/epoch_0025.pt")
+model.config["anchor_candidates"] = 2
+runtime.attach(state, model, max_candidates=64, stop_on_noop=False)
+# state is the reversible ConstraintNetwork MAC state; propagate/solve as usual.
+
+Reproduce the full sweep into a NEW directory:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python -u experiments/cluster_selection/results/mask_multianchor_20261111.nPJ6CVVR/benchmark.py --output NEW_DIRECTORY
+
+Reproduce the two-method confirmation into a NEW directory:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python -u experiments/cluster_selection/results/mask_multianchor_20261111.nPJ6CVVR/benchmark.py --output NEW_DIRECTORY --methods heuristic64 mask4 --repeats 2 --seed 815
+
+Detailed input/code hashes and frozen randomized order: sweep/protocol.json and confirmation/protocol.json.
+All raw per-puzzle outcomes, full assignments, work statistics, CPU time and setup/solve time remain in their rows/ directories.
+No retraining, no checkpoint changes, no final test evaluation.
+
+Verification: 103 targeted tests passed. Legacy single-anchor default preserved.

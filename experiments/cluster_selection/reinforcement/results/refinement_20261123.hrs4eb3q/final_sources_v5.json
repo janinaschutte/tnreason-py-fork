@@ -1,0 +1,13 @@
+{
+  "scope": "Final production sources; v4 Sudoku experiments preceded only an omitted-reward_colors generic input fallback fix. All evaluated Sudoku inputs have explicit reward_colors.",
+  "archive": "final_sources_v5.zip",
+  "archive_sha256": "5edb5f1e9ab5c6ab8f1bc511ae8490c2d23a0ad4a7331009a32e7859f2fe24d4",
+  "files": {
+    "actor.py": "5965dc2bb392e95a2eba92e218a8a7673eb35611a1b19ef32b6dc7d99c2484e4",
+    "updates.py": "0fe3e592830f2873a1b514717f6beae31105a58f5ce354a74a7e8992b10dad70",
+    "refine.py": "2cc5c1da3ce7b0b0a3a978c82100f9b891fde8884882ca064871d4b77fac8982",
+    "refine_eval.py": "444a2e5d1db11562be2cbf634d2b640ada5411d29b0c8bcd8ce8cedb826af791",
+    "refine_gpu.sh": "622c8f2e20951b8da189837469f80c542ecee2fe515804dcaf623d7399d9838f",
+    "refine_gpu.sub": "6307a2dfc68fda95a775ad83993568ef75f9f98ab80e2f773a87ebd66cb0bc63"
+  }
+}

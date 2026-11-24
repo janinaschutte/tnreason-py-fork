@@ -1,0 +1,29 @@
+Free-construction prefix audit: interpretation
+
+This supplements the frozen supervised fitting experiment. Every audited unforced greedy construction exactly reproduces the signature and trace length in its saved utility probe. The prefix audits add no contractions, DFS solves or training.
+
+Arm / updates | Useful /24 | Useful roots /13 | Useful branches /11 | First unsupported anchor | Core | Early finish | Fully teacher-supported completion
+nearbest_pool / 1000 | 2 | 1 | 1 | 16 | 8 | 0 | 0
+shortest_teacher / 1000 | 2 | 1 | 1 | 21 | 2 | 0 | 1
+nearbest_pool / 4000 | 7 | 4 | 3 | 15 | 5 | 1 | 3
+shortest_teacher / 4000 | 5 | 1 | 4 | 19 | 1 | 1 | 3
+
+Longer training improves free fitting in this experiment: the pool rises from 2/24 useful constructions to 7/24, and the single shorter teacher from 2/24 to 5/24. Fitting remains incomplete. The shorter-teacher arm does not improve on the pool at 4,000 updates. This jointly changes teacher multiplicity, teacher identity and sequence length (state-weighted mean 32.484 versus 21.375 decisions), so it does not isolate label ambiguity alone.
+
+Unsupported means outside the finite verified teacher continuations for that arm, not wrong or useless. Six of the twelve useful constructions at 4,000 updates are unsupported, including all four useful root constructions in the pool arm. A teacher match is therefore a secondary diagnostic, not the definition of useful construction.
+
+The separate teacher_recheck.json reran the 24 selected shortest teachers using current domain-conditioned contraction and GAC: all remain affordable and useful, with identical recorded utility fields, and every state-restoration check passed. Three are contradiction proofs on branch states. This rules out stale utility for these selected labels; it does not re-evaluate every label in the full near-best pool. All 33 possible selected target choices have legal construction traces. Legal existence does not imply discovery within the 8,192-step discrepancy-search limit.
+
+A possible context limitation, not a tested explanation
+
+Policy._context_distribution in experiments/cluster_selection/reinforcement/model.py starts at line 510. At the first anchor choice, keys, opened and their derived scope (line 512) are empty. The three context pools at lines 518, 519 and 520 are respectively:
+  - mean embeddings of selected tensor cores;
+  - mean embeddings of variables in the selected scope;
+  - mean embeddings of opened variables.
+Each is replaced by the zero vector when its selection is empty. Thus the initial anchor scorer receives no explicit global state pool through this context vector. Its candidate embedding is still domain-conditioned: Encoder.encode in experiments/cluster_selection/encoder.py:83-88 performs the checkpoint's two rounds of variable/core message passing. This is a restriction on available context, not an absence of domain information.
+
+The observed anchor mismatches plus this source-level restriction motivate a future controlled anchor-context experiment. They do not establish causality or show that global pooling would fix learning. Optimization, limited capacity/context and incomplete or interchangeable teacher labels remain competing explanations. No model, loss or frozen experiment was changed in response to these audits.
+
+Exposure scope: exposure_audit.json proves that every fixed training puzzle's initial-domain identity is covered by the parent checkpoint's recorded training exposure, and validation puzzle identities are separate. It does not prove prior visitation of every particular frozen branch context.
+
+Frozen model source SHA-256: 535532767944f598454ade7761d58cdec95a538dc1bf6beb69ad33c15bf990c6

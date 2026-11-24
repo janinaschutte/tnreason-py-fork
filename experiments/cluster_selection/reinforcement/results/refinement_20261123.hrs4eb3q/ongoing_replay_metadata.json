@@ -1,0 +1,42 @@
+{
+  "scope": "Checkpoint bookkeeping only; no heldout100 outcomes or grids read; no running benchmark sources or jobs modified.",
+  "benchmark_protocols": [
+    {
+      "protocol": "experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/long1800_j0gp7dtq/protocol.json",
+      "protocol_sha256": "e8f4d7b9c6d7fa78e382e69274ba15c22c7ea5f9de342f852b83da3418e49bf4",
+      "replay": {
+        "path": "/Home/optimier/schuette/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/final_test/self_imitation.pt",
+        "sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+        "epoch": 6,
+        "beta": 0.0
+      }
+    },
+    {
+      "protocol": "experiments/cluster_selection/reinforcement/results/heldout100_20261116.28l6lz3t/protocol.json",
+      "protocol_sha256": "4cbfa7aa8e278f5b17435ceb99db0a735adeb1f5b6cd827e50c6576102aa81a0",
+      "replay": {
+        "path": "/home/schuette/Desktop/Cluster/tnreasonproj/tnreason-py/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/final_test/self_imitation.pt",
+        "sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+        "epoch": 6,
+        "beta": 0.0
+      }
+    }
+  ],
+  "generic_portfolio_replay_sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+  "frozen_small_replay_sha256": "083879d28c1dc7193c9d2f8b658ef0cb2b7b3791118f4ea270ba8adff0ec78b4",
+  "gpu_replay_best_sha256": "7d4e9e57244cda6041de7a1538181432a5ca437186b2bb2ee0713f2ed2c64049",
+  "interpretation": "The ongoing1800s benchmark and generic portfolio use the small CPU epoch6 replay checkpoint, not the later GPU-best epoch4 checkpoint.",
+  "small_cpu_replay_training": {
+    "version": 1,
+    "epoch": 6,
+    "updates": 86,
+    "train_puzzles": 16
+  },
+  "gpu_replay_best_training": {
+    "version": 1,
+    "epoch": 4,
+    "updates": 4670,
+    "train_puzzles": 10000,
+    "puzzle_visits": 2000
+  }
+}

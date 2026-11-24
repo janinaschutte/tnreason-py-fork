@@ -1,0 +1,67 @@
+{
+  "kind": "separate_completed_mask_training_observation",
+  "job": 8000,
+  "exit_code": 0,
+  "epochs": 300,
+  "validation_puzzles": 55,
+  "selected_checkpoint": "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/train/epoch_0020.pt",
+  "selected_epoch": 20,
+  "selected_validation": {
+    "instances": 55,
+    "resolved": 55,
+    "solved": 55,
+    "total_nodes": 348,
+    "completed_nodes": 348,
+    "branch_free": 15,
+    "root_solved": 15,
+    "root_useful": 66,
+    "root_attempts": 106,
+    "mean_root_progress": 0.31380985844602843
+  },
+  "final_validation": {
+    "instances": 55,
+    "resolved": 55,
+    "solved": 55,
+    "total_nodes": 445,
+    "completed_nodes": 445,
+    "branch_free": 8,
+    "root_solved": 8,
+    "root_useful": 23,
+    "root_attempts": 70,
+    "mean_root_progress": 0.15637110852706493
+  },
+  "selected_training_metrics": {
+    "anchor_loss": 1.3748851334104724,
+    "core_loss": 1.145660770001599,
+    "output_loss": 0.9939153510962351,
+    "count_loss": 2.3616731618353968,
+    "anchor_hit": 0.48326220957799904,
+    "core_count_accuracy": 0.5370791844476055,
+    "output_count_accuracy": 0.5379800853485064,
+    "teacher_core_recall": 0.3946060093701762,
+    "teacher_output_recall": 0.49318398731531493,
+    "teacher_exact_masks": 0.007918444760550024,
+    "loss": 4.104879559606893
+  },
+  "final_training_metrics": {
+    "anchor_loss": 0.839962765570216,
+    "core_loss": 0.7248715370398893,
+    "output_loss": 0.6150808842615134,
+    "count_loss": 1.7479434215496819,
+    "anchor_hit": 0.685253674727359,
+    "core_count_accuracy": 0.6902797534376481,
+    "output_count_accuracy": 0.6917970602181128,
+    "teacher_core_recall": 0.6107090936135545,
+    "teacher_output_recall": 0.6798277350272427,
+    "teacher_exact_masks": 0.2321005215742058,
+    "loss": 2.616901050873309
+  },
+  "source_sha256": {
+    "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/condor.log": "2d1d41ad593a970f6be9ad3e7b730d5e3096072f25828ac658a022edc621997a",
+    "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/train.out": "0884595a9766a322c274488703730f32d8b9648da5598054f5f75e4cbb51da0a",
+    "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/train/selection.json": "cc359c1725db2aa0b740d4ec25c6b21cdc178ab7fe20b6449514f8cdc051c0e8",
+    "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/train/metrics_0020.json": "acc2e6c1dea769c8f9e0e0d79ab3798eeede168d4af0c0b5b7fd627d61821a4b",
+    "experiments/cluster_selection/results/mask_sudoku_300ep.6lb43_yj/train/metrics_0300.json": "7fb92b509a5d21307ce94ac98fd6a567a2867a34ffcbbfe957ba50a458aea821"
+  },
+  "note": "Separate network and 55-puzzle validation from the 23-puzzle constructive-teacher diagnostic. Best occurs before epoch30; later training did not improve best DFS nodes. No final test queried."
+}

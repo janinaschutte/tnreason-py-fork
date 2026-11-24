@@ -1,0 +1,34 @@
+MATCHED-TIME ROOT PROPAGATION
+
+One serial pinned CPU process; wall-clock budget includes initial ordinary GAC, proposal adapter/context setup, generation/decoding, planning, contraction and GAC. Model/network/state loading, source hashing, final validation, disk publication and residual DFS are excluded. Closed-domain snapshots are copied in RAM inside the timed interval. Completion timestamps are sampled after full contraction+GAC and lightweight accounting, before snapshot copying. Both wall and CPU timestamps are recorded. SIGALRM interrupts read-only proposals/planning; blocked during initial GAC and domain mutation/contraction+GAC. Atomic completion after a budget earns no earlier credit.
+
+Exploratory reused16 puzzles; no training or checkpoint selection. Single predeclared trajectory per method/puzzle supplies all time prefixes. Original frozen decoder configurations are preserved: random/teacher/REINFORCE/replay sampling_grow, Q depth_first. Heuristic uses progressive nested32/64/128/... quotas with8192/16384/32768/... traversal steps, canonical deduplication and refresh after pruning. No aggregate contraction cap. Technical iterator limits are declared and counted if reached, not assumed mathematical exhaustion. Exact no-op cache is keyed by signature and PRE-contraction scope domains; every useful closure restarts proposals. Expert preserves51 ordered Sudoku-specific detectors and larger historical limits, a separate domain-specific reference. Only original-core contractions prune; no DFS, probes or assumptions. Plain MAC only runs ordinary GAC. A separate unmeasured phase can finish each saved closed prefix with identical plain MAC to count remaining DFS nodes, including the root.
+
+Budget (seconds):          1      5     15     60
+
+Solved without branching (of 16):
+Plain MAC                     0      0      0      0
+Structural heuristic          7      8      8      9
+Untrained constructor         1      6      9     11
+Teacher imitation             7     10     10     14
+REINFORCE                     3      7     11     12
+REINFORCE + replay            1      9     11     12
+Q-learning                    1      1      1      1
+Sudoku expert*               15     15     15     15
+
+Remaining DFS nodes (root included; identical plain MAC):
+Plain MAC                    62     62     62     62
+Structural heuristic         37     34     33     32
+Untrained constructor        59     49     32     29
+Teacher imitation            36     31     31     26
+REINFORCE                    55     48     30     28
+REINFORCE + replay           57     35     29     28
+Q-learning                   60     60     60     60
+Sudoku expert*               22     22     22     22
+
+All residual solves completed and returned valid assignments; no censored node totals.
+The root curve changes only at recorded completed GAC closures; it is not interpolated.
+DFS points are measured only at the four declared budgets, with no interpolating lines.
+No training, checkpoint selection or hyperparameter change used these outcomes.
+Sudoku expert is a domain-specific reference with different, larger per-cluster limits.
+This is an exploratory comparison on a previously reused held-out set, not a fresh final test.

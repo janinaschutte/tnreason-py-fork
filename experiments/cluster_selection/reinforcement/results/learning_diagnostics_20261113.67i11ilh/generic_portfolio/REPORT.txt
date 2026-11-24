@@ -1,0 +1,108 @@
+Combining generic cluster constructors: same sixteen test puzzles
+
+The round-robin portfolio does not beat its strongest individual member at the
+same allowance in this experiment. Its expanded allowance solves 11/16 without
+branching; the teacher alone solves 13/16. More allowance is useful here, but
+mixing every source uniformly is not the best allocation we tested.
+
+Method                               Allowance  DFS nodes  Branch-free  Seconds
+Plain MAC                            0          62         0/16         2.50
+Structural heuristic                 32         44         2/16         6.30
+Structural heuristic                 192        34         7/16         30.21
+Refreshed structural proposals       32         41         3/16         6.99
+Refreshed structural proposals       192        34         6/16         83.43
+Supervised masks, 8 anchors, compact     32         36         5/16         10.65
+Teacher-trained constructor          32         28         10/16        184.19
+Teacher-trained constructor          192        20         13/16        405.93
+Starting REINFORCE                   32         32         8/16         266.18
+REINFORCE with success replay        32         27         10/16        159.69
+REINFORCE with success replay        192        23         11/16        480.19
+Q-learning                          32         54         1/16         38.83
+Initial portfolio                    32         33         7/16         147.37
+Initial portfolio                    192        26         11/16        518.08
+All-source portfolio, structural cap32  192        26         11/16        442.38
+Sudoku expert, 51 families              separate   17         15/16        19.48
+
+Times are recorded solver wall seconds summed over sixteen puzzles, not elapsed
+batch time or training time. Runs use four concurrent CPU workers and one Torch
+thread per worker. Source loading and MAC-state creation are excluded; the
+expert additionally includes final verification. New portfolio runs also record
+lightweight domain hashes for root traces. Times from separate concurrent
+batches are descriptive, not an isolated throughput or exact compute comparison.
+
+The expert is a domain-specific reference with 256-core/10M-work/1M-entry limits,
+exact unary projections and no generic episode cap. Generic methods use 64 cores,
+6 open variables, 1M work,100K intermediate entries, domain-compacted contractions
+and no cumulative-work limit. Every full solve is valid; the root counts as one
+DFS node. The same test set has been reused, so all additions are exploratory.
+
+What is combined
+
+The fixed source order is structural heuristic, supervised eight-anchor masks,
+teacher-trained sequential constructor, original REINFORCE checkpoint, its
+success-replay continuation, and selected Q-learning checkpoint. One- and
+eight-anchor masks share weights, so only the eight-anchor variant is included.
+Random initialization is a control, not a trained portfolio member. No weights
+were retrained or selected using these outcomes.
+
+Existing ConstructionEnsemble and ConstructionPolicy perform the interleaving.
+The cursor advances after each proposal. A chosen cluster is contracted under
+current domains, temporary-summary GAC retains pruning, and all proposal streams
+restart after useful pruning. Duplicate clusters are removed; exhausted sources
+yield to the remaining ones. The contraction allowance is shared by the whole
+portfolio, not granted independently to every member.
+
+The shared 32 arm gets 8,192 aggregate construction/search steps per refresh;
+its six sources get about 1,365 steps each. The shared 192 arm gets 49,152 steps,
+8,192 per source. Single-source 192 controls receive the same 49,152 aggregate steps.
+This shares prescribed limits, not actual contractions, tensor work or CPU time.
+The two refreshed-structural controls use the same regeneration schedule without
+learned sources, distinguishing that change from portfolio complementarity.
+
+Why there is a second192 portfolio
+
+Source accounting found that the initial portfolios contracted no structural
+proposals. Structural generation uses its requested list size to allocate search
+across seeds; requesting 192 while granting that source 8,192 steps did not produce
+an executable structural contribution. The separately frozen structural_cap32
+diagnostic retains the original H32 list size, same six source order, same 192
+total contractions and same 49,152 aggregate steps. It was declared after inspecting
+the initial source counters and remains a post-hoc test-set diagnostic.
+
+The diagnostic really uses every source. Its totals are:
+Source          Contractions  Useful contraction+GAC applications
+Heuristic       310           5
+Mask model      221           25
+Teacher         495           21
+Original RL     470           16
+Replay RL       469           20
+Q               427           0
+
+Its result remains 26 nodes and 11 root solves. These are exactly the replay192
+root solves, and a strict subset of the teacher192 root solves. Teacher192 also
+solves positions 3 and 15 at the root. The source counters demonstrate useful
+contributions in context, not that each source is necessary for a solved puzzle.
+Q consumes 427 contractions without pruning here; equal source rotation therefore
+spends capacity on currently unproductive proposals. This is evidence about
+these selected weights and states, not a general claim against Q-learning.
+
+The small shared 32 portfolio loses some root solves available to individual
+policies. Splitting both contraction slots and decoding steps can sacrifice
+individual strengths. The expanded portfolio recovers 11 root solves, but the
+teacher alone improves from 28 to 20 nodes and from 10 to 13 root solves when given
+the larger allowance. We therefore cannot credit the observed improvement over
+the old32-allowance results to combining methods.
+
+Verification and artifacts
+
+There are 128 initial and 16 targeted new full solves, all valid and uncensored.
+Independent audits checked all 419,904 original tensor-core supports plus givens,
+frozen sources/data/checkpoints, training/test separation, per-episode caps and
+source accounting. No portfolio root is novel relative to both standalone 192
+teacher and replay arms; no extra cluster-proof replay was needed.
+
+Production code, supervised training, ongoing GPU jobs, old checkpoints and old
+results are unchanged. New adapters and results are confined to this directory.
+protocol.json/summary.json/audit.json describe the initial comparison; the
+structural_cap32 subdirectory contains its own frozen runner/protocol/results/
+audit. comparison.json and nodes.csv join these with the earlier controls.

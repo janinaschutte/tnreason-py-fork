@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "scope": "Separate two-second integration smoke on one previously evaluated puzzle; no long-budget performance claim.",
+  "position": 21,
+  "root_records": 9,
+  "residual_records": 9,
+  "single_shared_budget_s": 2,
+  "source_charged_s": 1.91262631200334,
+  "mixed_elapsed_s": 2.0009125770002356,
+  "source_totals": {
+    "heuristic": {
+      "charged_s": 0.3596192120030537,
+      "turns": 115,
+      "useful": 1
+    },
+    "teacher": {
+      "charged_s": 0.34916555100062396,
+      "turns": 2,
+      "useful": 1
+    },
+    "reinforce": {
+      "charged_s": 0.3542651059997297,
+      "turns": 2,
+      "useful": 0
+    },
+    "replay": {
+      "charged_s": 0.3613021720011602,
+      "turns": 2,
+      "useful": 0
+    },
+    "q": {
+      "charged_s": 0.4882742709987724,
+      "turns": 5,
+      "useful": 0
+    }
+  },
+  "mixed_useful": 2,
+  "following_plain_has_no_mix_metadata": true,
+  "all_residuals_valid": true
+}

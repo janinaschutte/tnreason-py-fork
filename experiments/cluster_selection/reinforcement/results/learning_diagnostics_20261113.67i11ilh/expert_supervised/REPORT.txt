@@ -1,0 +1,74 @@
+Supervised constructors and the Sudoku expert: 16-puzzle comparison
+
+The expert will be included in future solver comparison tables. If it has not
+been measured on that same split, its row should explicitly say not measured;
+results from other puzzle sets must not be substituted.
+
+All rows below use the same sixteen reserved puzzles and MRV/maximum-degree/name
+branching. The original five rows were the initial fresh-test comparison; all
+subsequent rows reuse this test set and are exploratory. No supervised weights,
+checkpoint selection or training use these test outcomes.
+
+Method                                DFS nodes   Without branching
+Plain MAC                             62          0/16
+Structural heuristic, allowance 32     44          2/16
+Random sequential constructor         32          7/16
+Teacher-trained sequential constructor 28          10/16
+Supervised masks, one anchor          38          4/16
+Supervised masks, eight anchors       36          5/16
+Starting best REINFORCE               32          8/16
+Continued REINFORCE                   31          9/16
+Lower learning rate                   29          9/16
+REINFORCE with success replay         27          10/16
+Sudoku-specific expert, 51 families    17          15/16
+
+Teacher imitation is itself supervised learning. The teacher-trained sequential
+constructor above builds cores and outputs through successive choices. The
+separate supervised mask model predicts an anchor, a whole core mask and a whole
+output mask. These are different architectures and training runs.
+
+The mask checkpoint was already selected at epoch 20 of the 300-epoch training
+run using the old 55 validation puzzles. Its training contains 3,935 puzzle hashes;
+none overlaps the sixteen test puzzles. Both anchor variants use identical frozen
+weights. Eight anchors means up to eight ranked anchors per unchanged state;
+after useful pruning, proposals are rebuilt from the updated domains. The total
+contraction cap is 32 per propagation episode, just as for the other generic rows.
+An allowance is a maximum, not a guarantee that every slot will be consumed.
+
+The saved mask configuration uses full-shape contraction planning. We also
+predeclared domain-compacted execution of each anchor variant, matching the
+other constructors' planning setting. All per-puzzle DFS counts and assignments
+are identical between the two execution variants, with zero rejected proposals.
+Their estimated work differs, so compact execution is recorded separately in
+summary.json. All executions condition contractions on the current domains.
+
+On this small test, masks beat the structural heuristic by 6 nodes (one anchor)
+or 8 nodes (eight anchors), but remain behind the teacher-trained constructor and
+REINFORCE continuations. More anchors improve this result only modestly. These
+results do not establish a general ranking: on the older 55 validation puzzles,
+the same selected one-anchor mask checkpoint used 348 nodes versus 286 for H64.
+Longer teacher fitting alone had not fixed that gap: its final 300-epoch model
+used 445 nodes, despite lower loss. Those 55-puzzle numbers are not rows in this
+sixteen-puzzle table. No expert result exists for that same 55-puzzle comparison.
+
+The expert is a domain-specific reference with DIFFERENT limits:
+  - all 51 named Sudoku rule families in their unchanged registered order;
+  - up to 256 cores, 10M work and 1M intermediate entries per cluster;
+  - no generic 32-contraction cap per propagation episode;
+  - exact unary output projections using its existing contraction executor.
+Generic rows allow 64 cores, 6 open variables, 1M work and 100K intermediate entries
+per cluster, with 32 contractions/episode and no cumulative work cap.
+The expert therefore provides a useful target for pruning strength, not a claim
+of equal computation or generic learned reasoning. Its 17 nodes comprise fifteen
+root solutions and one two-node solve. The detector proposes original-core sets;
+their consequences are still verified by exact domain-conditioned contractions.
+
+All 80 new solves completed validly within the 10,000-node/600-second guards.
+The expert and mask inference use reversible domain restrictions; summaries are
+temporary or absent. No production inference, supervised training code, ongoing
+GPU experiments, existing checkpoints or earlier results were changed.
+
+protocol.json freezes source files, weights, test data and all reused control
+results before new solver queries. summary.json contains the five new arms;
+comparison.json and nodes.csv include the existing matched controls. audit.json
+records independent assignment/provenance/cap verification.

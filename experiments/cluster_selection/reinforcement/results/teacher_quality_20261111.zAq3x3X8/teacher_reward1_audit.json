@@ -1,0 +1,402 @@
+{
+  "direct": {
+    "states_with_reward1": 17,
+    "reward1_labels": 239,
+    "solved_labels": 152,
+    "contradiction_labels": 87,
+    "rows": [
+      {
+        "id": 0,
+        "puzzle": 53,
+        "known_satisfiable": true,
+        "reward1": 5,
+        "solved": 5,
+        "contradictions": 0
+      },
+      {
+        "id": 1,
+        "puzzle": 16,
+        "known_satisfiable": false,
+        "reward1": 30,
+        "solved": 0,
+        "contradictions": 30
+      },
+      {
+        "id": 2,
+        "puzzle": 63,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 3,
+        "puzzle": 100,
+        "known_satisfiable": false,
+        "reward1": 6,
+        "solved": 6,
+        "contradictions": 0
+      },
+      {
+        "id": 4,
+        "puzzle": 13,
+        "known_satisfiable": true,
+        "reward1": 7,
+        "solved": 7,
+        "contradictions": 0
+      },
+      {
+        "id": 5,
+        "puzzle": 7,
+        "known_satisfiable": true,
+        "reward1": 6,
+        "solved": 6,
+        "contradictions": 0
+      },
+      {
+        "id": 6,
+        "puzzle": 73,
+        "known_satisfiable": true,
+        "reward1": 12,
+        "solved": 12,
+        "contradictions": 0
+      },
+      {
+        "id": 7,
+        "puzzle": 109,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 8,
+        "puzzle": 71,
+        "known_satisfiable": true,
+        "reward1": 4,
+        "solved": 4,
+        "contradictions": 0
+      },
+      {
+        "id": 9,
+        "puzzle": 9,
+        "known_satisfiable": false,
+        "reward1": 19,
+        "solved": 0,
+        "contradictions": 19
+      },
+      {
+        "id": 10,
+        "puzzle": 78,
+        "known_satisfiable": true,
+        "reward1": 6,
+        "solved": 6,
+        "contradictions": 0
+      },
+      {
+        "id": 11,
+        "puzzle": 102,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 12,
+        "puzzle": 15,
+        "known_satisfiable": true,
+        "reward1": 18,
+        "solved": 18,
+        "contradictions": 0
+      },
+      {
+        "id": 13,
+        "puzzle": 51,
+        "known_satisfiable": false,
+        "reward1": 46,
+        "solved": 46,
+        "contradictions": 0
+      },
+      {
+        "id": 14,
+        "puzzle": 106,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 15,
+        "puzzle": 105,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 16,
+        "puzzle": 108,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 17,
+        "puzzle": 45,
+        "known_satisfiable": false,
+        "reward1": 9,
+        "solved": 9,
+        "contradictions": 0
+      },
+      {
+        "id": 18,
+        "puzzle": 103,
+        "known_satisfiable": true,
+        "reward1": 3,
+        "solved": 3,
+        "contradictions": 0
+      },
+      {
+        "id": 19,
+        "puzzle": 64,
+        "known_satisfiable": false,
+        "reward1": 38,
+        "solved": 0,
+        "contradictions": 38
+      },
+      {
+        "id": 20,
+        "puzzle": 66,
+        "known_satisfiable": true,
+        "reward1": 12,
+        "solved": 12,
+        "contradictions": 0
+      },
+      {
+        "id": 21,
+        "puzzle": 18,
+        "known_satisfiable": false,
+        "reward1": 2,
+        "solved": 2,
+        "contradictions": 0
+      },
+      {
+        "id": 22,
+        "puzzle": 104,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 23,
+        "puzzle": 48,
+        "known_satisfiable": false,
+        "reward1": 16,
+        "solved": 16,
+        "contradictions": 0
+      }
+    ]
+  },
+  "nested": {
+    "states_with_reward1": 17,
+    "reward1_labels": 242,
+    "solved_labels": 157,
+    "contradiction_labels": 85,
+    "rows": [
+      {
+        "id": 0,
+        "puzzle": 53,
+        "known_satisfiable": true,
+        "reward1": 5,
+        "solved": 5,
+        "contradictions": 0
+      },
+      {
+        "id": 1,
+        "puzzle": 16,
+        "known_satisfiable": false,
+        "reward1": 25,
+        "solved": 0,
+        "contradictions": 25
+      },
+      {
+        "id": 2,
+        "puzzle": 63,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 3,
+        "puzzle": 100,
+        "known_satisfiable": false,
+        "reward1": 5,
+        "solved": 5,
+        "contradictions": 0
+      },
+      {
+        "id": 4,
+        "puzzle": 13,
+        "known_satisfiable": true,
+        "reward1": 9,
+        "solved": 9,
+        "contradictions": 0
+      },
+      {
+        "id": 5,
+        "puzzle": 7,
+        "known_satisfiable": true,
+        "reward1": 5,
+        "solved": 5,
+        "contradictions": 0
+      },
+      {
+        "id": 6,
+        "puzzle": 73,
+        "known_satisfiable": true,
+        "reward1": 12,
+        "solved": 12,
+        "contradictions": 0
+      },
+      {
+        "id": 7,
+        "puzzle": 109,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 8,
+        "puzzle": 71,
+        "known_satisfiable": true,
+        "reward1": 2,
+        "solved": 2,
+        "contradictions": 0
+      },
+      {
+        "id": 9,
+        "puzzle": 9,
+        "known_satisfiable": false,
+        "reward1": 19,
+        "solved": 0,
+        "contradictions": 19
+      },
+      {
+        "id": 10,
+        "puzzle": 78,
+        "known_satisfiable": true,
+        "reward1": 9,
+        "solved": 9,
+        "contradictions": 0
+      },
+      {
+        "id": 11,
+        "puzzle": 102,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 12,
+        "puzzle": 15,
+        "known_satisfiable": true,
+        "reward1": 18,
+        "solved": 18,
+        "contradictions": 0
+      },
+      {
+        "id": 13,
+        "puzzle": 51,
+        "known_satisfiable": false,
+        "reward1": 43,
+        "solved": 43,
+        "contradictions": 0
+      },
+      {
+        "id": 14,
+        "puzzle": 106,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 15,
+        "puzzle": 105,
+        "known_satisfiable": false,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 16,
+        "puzzle": 108,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 17,
+        "puzzle": 45,
+        "known_satisfiable": false,
+        "reward1": 12,
+        "solved": 12,
+        "contradictions": 0
+      },
+      {
+        "id": 18,
+        "puzzle": 103,
+        "known_satisfiable": true,
+        "reward1": 5,
+        "solved": 5,
+        "contradictions": 0
+      },
+      {
+        "id": 19,
+        "puzzle": 64,
+        "known_satisfiable": false,
+        "reward1": 41,
+        "solved": 0,
+        "contradictions": 41
+      },
+      {
+        "id": 20,
+        "puzzle": 66,
+        "known_satisfiable": true,
+        "reward1": 12,
+        "solved": 12,
+        "contradictions": 0
+      },
+      {
+        "id": 21,
+        "puzzle": 18,
+        "known_satisfiable": false,
+        "reward1": 2,
+        "solved": 2,
+        "contradictions": 0
+      },
+      {
+        "id": 22,
+        "puzzle": 104,
+        "known_satisfiable": true,
+        "reward1": 0,
+        "solved": 0,
+        "contradictions": 0
+      },
+      {
+        "id": 23,
+        "puzzle": 48,
+        "known_satisfiable": false,
+        "reward1": 18,
+        "solved": 18,
+        "contradictions": 0
+      }
+    ]
+  }
+}

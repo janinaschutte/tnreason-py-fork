@@ -1,0 +1,7 @@
+{
+  "default_training_weights_bitwise_identical": true,
+  "epochs": 2,
+  "fresh_updates": 2.0,
+  "fresh_trials": 4.0,
+  "comparison": "archived pre-edit model and learner vs current default self_imitation_weight=0"
+}
