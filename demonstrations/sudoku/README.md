@@ -6,6 +6,40 @@ We here demonstrate the usage of `tnreason` for solving Sudoku puzzles using a t
 
 Sudoku is an instance of a Constraint Satisfaction Problem, which are in more generality representable by boolean tensor networks.
 
+## Animated cluster reasoning
+
+The [README animation](../../images/sudoku_cluster_reasoning.gif) shows a recorded
+generic learned-constructor run: 23 givens, 34 assigned cells after ordinary GAC,
+then six useful cluster applications that finish the puzzle without DFS.
+Fourteen contractions that removed no values are omitted from the animation.
+Each displayed transition is the result of contraction **and** GAC; a summary
+may first prune auxiliary variables before propagation reaches the visible cells.
+
+Blue pencil marks and unit outlines highlight the selected links for the focus
+digit. A highlighted row, column or box supplies context for those links;
+it does not mean that every tensor in that unit was selected. Purple marks show
+all retained variables, independently of the focus digit. When several retained
+position variables belong to the same unit, their digits are grouped in the
+sidebar. Red marks show eliminations, and green numbers show inferred assignments.
+Temporary summaries are discarded after use, retaining their pruning.
+
+Regenerate the animation from the committed compact trace:
+
+```bash
+python -m demonstrations.sudoku.cluster_animation \
+  demonstrations/sudoku/examples/cluster_reasoning.json \
+  --verify --output /tmp/sudoku-clusters.gif
+```
+
+Rendering requires Pillow. `--verify` reconstructs the original `ConstraintNetwork`
+and reapplies every recorded cluster under the current domains. It checks all
+1,053 variable domains, the displayed tensor links, contraction costs, unchanged
+original cores, summary removal and the final assignment. No archived checkpoint
+or dataset is needed. The trace records the original evaluation and checkpoint
+hashes; it illustrates one successful run rather than an average solving result.
+Use `--preview /tmp/sudoku-clusters.png` to export a still frame. Existing exports
+are preserved unless `--force` is supplied.
+
 ## Files 
 
 - `representation.py` spezifies the Sudoku rules as categorical constraints.

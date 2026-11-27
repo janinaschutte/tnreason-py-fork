@@ -1,0 +1,43 @@
+{
+  "scope": "Short verification only; these outputs are not experimental comparison results",
+  "selection": {
+    "pairs": 186,
+    "jobs": 95,
+    "counts": {
+      "q": 95,
+      "heuristic": 46,
+      "initial": 11,
+      "teacher": 7,
+      "reinforce": 10,
+      "replay": 10,
+      "combined": 7
+    }
+  },
+  "frozen_parent_inputs_checked": true,
+  "cpu_only_submission": true,
+  "real_sudoku_worker_methods": [
+    "teacher",
+    "combined"
+  ],
+  "real_worker_seconds_per_method": 1.5,
+  "idempotent_completion": true,
+  "corrupt_marker_rejected": true,
+  "script_sha256": "7f51cd3c7d4ae1bbecfc93ebb50b41c3966edab954a05fa8d339a7306d43ab83",
+  "collector_checks": {
+    "synthetic_collector_fixture": true,
+    "covered_instances": 100,
+    "covered_methods": 9,
+    "larger_budgets": [
+      20,
+      40
+    ],
+    "reused_successes": true,
+    "reused_expert_exhaustion": true,
+    "reused_plain_stall": true,
+    "fresh_solve_credit": true,
+    "censored_dfs_not_summed": true,
+    "old_deadline_comparison": true,
+    "no_overwrite": true
+  },
+  "condor_submit_tested_locally": false
+}

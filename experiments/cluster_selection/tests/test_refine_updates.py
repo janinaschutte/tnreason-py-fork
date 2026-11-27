@@ -221,6 +221,42 @@ def test_retained_graphs_require_a_single_vanilla_epoch(options):
     assert float(actor.theta) == 0. and actor.theta.grad is None
 
 
+def test_verified_replay_can_update_when_fresh_rewards_are_all_zero():
+    actor = Actor()
+    measured = group(actor, rewards=(0., 0.))
+    replay = [dict(domains={"x": (0, 1)}, trace=[("choice", 0)] * 4)]
+    result = update(actor, [measured], torch.optim.SGD(actor.parameters(), lr=.1),
+                    replay=replay, replay_weight=1.)
+    assert result["scored_trials"] == 0 and result["replay_trials"] == 1
+    assert result["optimizer_steps"] == result["replay_only_steps"] == 1
+    assert result["replay_loss"] == pytest.approx(log(2))
+    assert float(actor.theta) == pytest.approx(.05)  # Mean action NLL, independent of length.
+
+
+@pytest.mark.parametrize("retained", [False, True])
+def test_replay_and_reinforce_share_one_optimizer_step_without_editing_fresh_traces(retained):
+    actor = Actor()
+    measured = retained_group(actor) if retained else group(actor)
+    original = [list(item["trace"]) for item in measured["rollouts"]]
+    replay = [dict(domains={"x": (0, 1)}, trace=[("choice", 1)])]
+    result = update(actor, [measured], torch.optim.SGD(actor.parameters(), lr=.1),
+                    entropy_weight=0., replay=replay, replay_weight=.5)
+    assert result["optimizer_steps"] == 1 and result["replay_trials"] == 1
+    assert result["replay_only_steps"] == 0 and result["scored_trials"] == 2
+    assert float(actor.theta) == pytest.approx(.025)
+    assert [item["trace"] for item in measured["rollouts"]] == original
+    assert len(actor.calls) == (1 if retained else 3)
+
+
+@pytest.mark.parametrize("replay,coefficient", [([], -1.), ([dict(domains={}, trace=[])], 1.)])
+def test_invalid_replay_settings_fail_before_an_optimizer_step(replay, coefficient):
+    actor = Actor()
+    with pytest.raises(ValueError):
+        update(actor, [group(actor)], torch.optim.SGD(actor.parameters(), lr=.1),
+               replay=replay, replay_weight=coefficient)
+    assert float(actor.theta) == 0.
+
+
 def test_retained_and_rescored_graphs_cannot_be_mixed_and_zero_advantage_graphs_skip():
     actor = Actor()
     measured = retained_group(actor)

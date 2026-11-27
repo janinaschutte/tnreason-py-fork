@@ -5,6 +5,7 @@ and checkpoint formats. Contraction and GAC, including rollback, are reused.
 """
 import argparse
 from collections import Counter
+from dataclasses import asdict
 from hashlib import sha256
 import json
 from math import isfinite, sqrt
@@ -45,7 +46,8 @@ def atomic_save(path, payload):
 
 
 def initialize(data, *, seed=0, initial=None, global_context=False, distance_features=False,
-               objective_features=False, max_cores=None, max_open_colors=None, max_work=None, max_size=None):
+               objective_features=False, learned_stopping=None,
+               max_cores=None, max_open_colors=None, max_work=None, max_size=None):
     """Add zero-initialized adapters without changing the parent's predictions."""
     torch.manual_seed(seed)
     if initial is None:
@@ -66,6 +68,8 @@ def initialize(data, *, seed=0, initial=None, global_context=False, distance_fea
     flags = {key: value or bool(parent and parent.actor_config.get(key)) for key, value in
              dict(global_context=global_context, distance_features=distance_features,
                   objective_features=objective_features).items()}
+    flags["learned_stopping"] = (bool(parent and parent.actor_config.get("learned_stopping"))
+                                 if learned_stopping is None else learned_stopping)
     model = Policy(data["network"], **config, **flags)
     if parent:
         missing, unexpected = model.load_state_dict(parent.state_dict(), strict=False)
@@ -83,8 +87,10 @@ def initialize(data, *, seed=0, initial=None, global_context=False, distance_fea
     return model.train()
 
 
-def collect(model, state, sample, *, rollouts, solve_bonus=0., retain_graphs=False):
+def collect(model, state, sample, *, rollouts, solve_bonus=0., retain_graphs=False, size_penalty=0.):
     """Independent completed constructions under one unchanged closed state."""
+    if not isfinite(size_penalty) or not 0 <= size_penalty < 1:
+        raise ValueError("Size penalty must be finite and in [0, 1)")
     colors = model.network["colors"]
     with _closed(state, sample, colors), torch.set_grad_enabled(retain_graphs):
         domains = state.snapshot_domains()
@@ -93,8 +99,12 @@ def collect(model, state, sample, *, rollouts, solve_bonus=0., retain_graphs=Fal
             candidate, logp, entropy, trace = model.rollout(domains, beta=0.)
             metrics = measure(model, state, candidate, objective="pruning", record_domains=True,
                               known_satisfiable=sample.get("known_satisfiable", False))
-            reward = metrics["reward"] + solve_bonus * metrics["solved"]
-            items.append(dict(trace=trace, old_logp=float(logp.detach()), entropy=float(entropy.detach()), reward=reward))
+            count = 0 if candidate is None else len(candidate.core_keys)
+            reward = metrics["reward"] * (1 - size_penalty * count / model.config["max_cores"])
+            reward += solve_bonus * metrics["solved"]
+            items.append(dict(trace=trace, old_logp=float(logp.detach()), entropy=float(entropy.detach()), reward=reward,
+                              core_keys=() if candidate is None else candidate.core_keys,
+                              open_colors=() if candidate is None else candidate.open_colors))
             if retain_graphs:
                 items[-1].update(logp_tensor=logp, entropy_tensor=entropy)
             outcomes.append(metrics)
@@ -105,11 +115,13 @@ def collect(model, state, sample, *, rollouts, solve_bonus=0., retain_graphs=Fal
 def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, device="cpu",
         groups=4, rollouts=4, lr=1e-4, normalization="group", root_fraction=.75,
         context_capacity=3, global_context=False, distance_features=False,
-        objective_features=False, retain_graphs=False,
+        objective_features=False, retain_graphs=False, learned_stopping=None,
+        size_penalty=0., replay_weight=0., replay_samples=2, replay_capacity=256,
+        compact_probes=64, compact_every=8, split_replay=False,
         max_cores=None, max_open_colors=None, max_work=None, max_size=None,
         epochs=1, clip_ratio=None, entropy_weight=.001, target_kl=.02, solve_bonus=0.,
         validation_every=4096, validation_attempts=0, validation_samples=8,
-        validation_seconds=30., checkpoint_every=1024):
+        validation_seconds=30., validation_limit=0, checkpoint_every=1024):
     """Train on independent state groups; validation never supplies transitions.
 
     Trials count *fresh* completed policy constructions, not rescoring passes.
@@ -121,10 +133,20 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
             or trials % (groups * rollouts) or not 0 <= root_fraction <= 1
             or normalization not in {"group", "rms", "none"}
             or not all(isfinite(value) and value >= 0 for value in (lr, entropy_weight, solve_bonus))
+            or not isfinite(size_penalty) or not 0 <= size_penalty < 1
+            or not isfinite(replay_weight) or replay_weight < 0
+            or min(replay_samples, replay_capacity, compact_probes, compact_every) < 1
             or lr == 0 or epochs < 1 or epochs > 1 and clip_ratio is None):
         raise ValueError("Invalid training settings; trials must be divisible by groups * rollouts")
     if not data.get("train_indices") or not data.get("validation_indices"):
         raise ValueError("Provide explicit nonempty train_indices and validation_indices")
+    if any(not isinstance(value, int) or isinstance(value, bool) or value < 1
+           for value in (replay_samples, replay_capacity, compact_probes, compact_every)):
+        raise ValueError("Replay sizes and compact probe/refresh limits must be positive integers")
+    if not isinstance(split_replay, bool) or split_replay and not replay_weight:
+        raise ValueError("Split replay requires a boolean option and a positive replay weight")
+    if not isinstance(validation_limit, int) or isinstance(validation_limit, bool) or validation_limit < 0:
+        raise ValueError("Validation limit must be a nonnegative integer; 0 uses all validation puzzles")
     if retain_graphs and (epochs != 1 or clip_ratio is not None):
         raise ValueError("Retained graphs require one vanilla REINFORCE epoch")
     if device.startswith("cuda") and not torch.cuda.is_available():
@@ -169,6 +191,7 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
         dict(path=str(parent_path), sha256=sha256(parent_path.read_bytes()).hexdigest()))
     contexts = {key: [] for key in roots}
     rng, pending = random.Random(seed), []
+    replay, replay_rng = {}, random.Random(seed + 2_000_000)
     if saved:
         model = Policy(base["network"], **saved["config"], **saved["actor_config"])
         model.reward_colors, model.beta = saved["reward_colors"], 0.
@@ -176,8 +199,11 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
     else:
         model = initialize(base, seed=seed, initial=initial,
                            global_context=global_context, distance_features=distance_features,
-                           objective_features=objective_features, max_cores=max_cores,
+                           objective_features=objective_features, learned_stopping=learned_stopping,
+                           max_cores=max_cores,
                            max_open_colors=max_open_colors, max_work=max_work, max_size=max_size).to(device)
+    if (replay_weight or size_penalty) and not model.actor_config.get("learned_stopping"):
+        raise ValueError("Compact replay and size penalties require --learned-stopping")
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     completed, batches, scale, best, history = 0, 0, .05, {}, []
     if saved:
@@ -185,6 +211,9 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
         optimizer.load_state_dict(saved["optimizer"])
         completed, batches, scale, best = (saved[key] for key in ("completed", "batches", "scale", "best"))
         contexts, pending, history = saved["contexts"], saved["pending"], saved["history"]
+        replay = saved.get("replay", {})
+        if "replay_rng" in saved:
+            replay_rng.setstate(saved["replay_rng"])
         rng.setstate(saved["rng"])
         torch.set_rng_state(saved["torch_rng"])
         if saved["cuda_rng"] and device.startswith("cuda"):
@@ -199,22 +228,28 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
             reward_colors=model.reward_colors, training=training, source_hashes=sources,
             optimizer=optimizer.state_dict(), completed=completed, batches=batches, scale=scale,
             best=best, history=history, contexts=contexts, pending=pending,
+            replay=replay, replay_rng=replay_rng.getstate(),
             rng=rng.getstate(), torch_rng=torch.get_rng_state(),
             cuda_rng=torch.cuda.get_rng_state_all() if device.startswith("cuda") else []))
 
     def snapshot(label):
         path = output / f"{label}.pt"
         _save(path, model, [], 0., 1., cost_metric="domain_entropy_pruning",
-              actor_config=model.actor_config, fresh_trials=completed, training_recipe="refine_v2", training=training,
+              actor_config=model.actor_config, fresh_trials=completed, training_recipe=(
+                  "refine_compact_v1" if model.actor_config.get("learned_stopping") else "refine_v2"), training=training,
               settings=settings, seed=seed)
         return path
 
     def validate():
         from .refine_eval import evaluate
         path = snapshot(f"policy_{completed:09d}")
-        print(f"Validating {completed} fresh trials on CPU: {len(data['validation_indices'])} puzzles", flush=True)
+        indices = list(data["validation_indices"])
+        if validation_limit:
+            random.Random(100_000).shuffle(indices)
+            indices = indices[:validation_limit]
+        print(f"Validating {completed} fresh trials on CPU: {len(indices)} puzzles", flush=True)
         try:
-            result = evaluate(model, data, attempts=validation_attempts, samples=validation_samples,
+            result = evaluate(model, data, indices=indices, attempts=validation_attempts, samples=validation_samples,
                 seconds=validation_seconds, seed=seed + 100_000, progress=True, stop_requested=lambda: bool(stop))
         except InterruptedError:
             if not stop:
@@ -239,7 +274,10 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
 
     try:
         print(f"Refined constructive RL on {device}: {normalization} advantages, "
-              f"{groups} states x {rollouts} samples, {root_fraction:.0%} root sampling; no teacher search", flush=True)
+              f"{groups} states x {rollouts} samples, {root_fraction:.0%} root sampling; no structural teacher search", flush=True)
+        if model.actor_config.get("learned_stopping"):
+            print(f"Learned stopping; relative size penalty {size_penalty:g}; compact replay weight {replay_weight:g}",
+                  flush=True)
         if device.startswith("cuda"):
             print(f"GPU: {torch.cuda.get_device_name(device)}; PyTorch {torch.__version__}; "
                   f"CUDA {torch.version.cuda}; validation on CPU", flush=True)
@@ -261,7 +299,7 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
                 root = not contexts[puzzle] or rng.random() < root_fraction
                 sample = roots[puzzle] if root else rng.choice(contexts[puzzle])
                 group, outcomes, distinct = collect(model, state, sample, rollouts=rollouts,
-                                                   solve_bonus=solve_bonus, retain_graphs=retain_graphs)
+                    solve_bonus=solve_bonus, retain_graphs=retain_graphs, size_penalty=size_penalty)
                 values = [item["reward"] for item in group["rollouts"]]
                 for item, advantage in zip(group["rollouts"], advantages(values, normalization, scale)):
                     item["advantage"] = advantage
@@ -274,14 +312,57 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
                 counts[label + "_solved"] += sum(item["solved"] for item in outcomes)
                 counts["rejected"] += sum(item["rejected"] for item in outcomes)
                 counts["work"] += sum(item["work"] for item in outcomes)
+                counts["pruning_reward_sum"] += sum(item["reward"] for item in outcomes)
+                counts["useful_cores"] += sum(len(item["core_keys"]) for item, outcome in
+                                              zip(group["rollouts"], outcomes) if outcome["useful"])
                 eligible = [item for item in outcomes if item["useful"] and not item["solved"]
                             and not item["contradictions"]]
                 if eligible:
                     chosen = max(eligible, key=lambda item: item["reward"])
                     additions.append((puzzle, dict(domains=tuple(tuple(chosen["domains"][color]) for color in
                         model.network["colors"]), root=False, known_satisfiable=sample.get("known_satisfiable", False))))
+            if replay_weight and batches % compact_every == 0:
+                from .compact import compact_success
+                from ..candidate_evaluation_tnreason import SummaryClusterCandidate
+                # One bounded simplification per refresh. Prefer a fresh verified
+                # success; a growth-only proposal can bootstrap stopping when all
+                # early-stopped samples fail. It supplies supervised data only.
+                choices = [(group, item) for group in batch for item in group["rollouts"]
+                           if item["core_keys"] and item["reward"] > 0]
+                if choices:
+                    source, selected = max(choices, key=lambda pair: pair[1]["reward"])
+                    candidate = SummaryClusterCandidate("compact_fresh", selected["core_keys"], selected["open_colors"])
+                else:
+                    source, candidate = batch[0], None
+                source_sample = dict(domains=tuple(source["domains"][color] for color in model.network["colors"]))
+                with _closed(state, source_sample, model.network["colors"]), torch.no_grad():
+                    if candidate is None:
+                        previous = model.actor_config["learned_stopping"]
+                        try:
+                            model.actor_config["learned_stopping"] = False
+                            candidate, _, _, _ = model.rollout(state.domains, beta=0.)
+                            counts["growth_teacher_rollouts"] += 1
+                        finally:
+                            model.actor_config["learned_stopping"] = previous
+                    if candidate is not None:
+                        compact = compact_success(model, state, candidate,
+                            max_probes=compact_probes, split=split_replay)
+                        counts["compact_attempts"] += 1
+                        counts["compact_probes"] += compact.probes
+                        counts["compact_rejected"] += compact.rejected
+                        counts["compact_seconds"] += compact.cost_seconds
+                        if compact.examples:
+                            counts["compact_original_cores"] += compact.original_cores
+                            counts["compact_final_cores"] += compact.final_cores
+                        for example in compact.examples:
+                            key = digest((example.domains, example.trace))
+                            replay[key] = asdict(example)
+                            counts["compact_examples"] += 1
+                while len(replay) > replay_capacity:
+                    replay.pop(next(iter(replay)))
+            replay_batch = replay_rng.sample(list(replay.values()), min(replay_samples, len(replay))) if replay_weight else ()
             metrics = update(model, batch, optimizer, epochs=epochs, clip_ratio=clip_ratio,
-                             entropy_weight=entropy_weight, target_kl=target_kl)
+                entropy_weight=entropy_weight, target_kl=target_kl, replay=replay_batch, replay_weight=replay_weight)
             for puzzle, sample in additions:
                 if sample not in contexts[puzzle]:
                     contexts[puzzle].append(sample)
@@ -291,6 +372,9 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
             batches += 1
             record = dict(batch=batches, fresh_trials=completed, reward=sum(rewards) / len(rewards),
                           unique=sum(unique) / len(unique), seconds=perf_counter() - started,
+                          pruning_reward=counts["pruning_reward_sum"] / len(rewards),
+                          replay_buffer=len(replay),
+                          mean_useful_cores=counts["useful_cores"] / max(1, counts["root_useful"] + counts["context_useful"]),
                           sampled_entropy=sum(item["entropy"] for group in batch for item in group["rollouts"]) / len(rewards),
                           mean_cores=sum(sum(kind == "core" for kind, _ in item["trace"])
                               for group in batch for item in group["rollouts"]) / len(rewards),
@@ -307,7 +391,8 @@ def fit(data, *, output, initial=None, resume=None, trials=100_000, seed=0, devi
                       f"root {reported['root_useful']}/{reported['root_trials']}, "
                       f"context {reported['context_useful']}/{reported['context_trials']}; "
                       f"last batch reward {record['reward']:.4g}, active groups {metrics['active_groups']}/{len(batch)}, "
-                      f"gradient {metrics['grad_norm']:.3g}, elapsed {perf_counter() - began:.0f}s", flush=True)
+                      f"cores {record['mean_cores']:.1f} ({record['mean_useful_cores']:.1f} useful), "
+                      f"replay {len(replay)}, gradient {metrics['grad_norm']:.3g}, elapsed {perf_counter() - began:.0f}s", flush=True)
                 last_report = perf_counter()
                 reported.clear()
             if completed % validation_every < len(rewards) or completed == trials:
@@ -336,7 +421,10 @@ def main():
     for key, default in dict(trials=100_000, seed=0, groups=4, rollouts=4, lr=1e-4,
             root_fraction=.75, context_capacity=3, epochs=1, entropy_weight=.001,
             target_kl=.02, solve_bonus=0., validation_every=4096, validation_attempts=0,
-            validation_samples=8, validation_seconds=30., checkpoint_every=1024).items():
+            validation_samples=8, validation_seconds=30., checkpoint_every=1024,
+            validation_limit=0,
+            size_penalty=0., replay_weight=0., replay_samples=2, replay_capacity=256,
+            compact_probes=64, compact_every=8).items():
         parser.add_argument("--" + key.replace("_", "-"), type=type(default), default=default)
     parser.add_argument("--normalization", choices=("group", "rms", "none"), default="group")
     parser.add_argument("--clip-ratio", type=float)
@@ -344,6 +432,9 @@ def main():
     parser.add_argument("--distance-features", action="store_true")
     parser.add_argument("--objective-features", action="store_true")
     parser.add_argument("--retain-graphs", action="store_true", help="Avoid a second forward pass; needs more memory")
+    parser.add_argument("--learned-stopping", action=argparse.BooleanOptionalAction, default=None,
+                        help="Learn when to finish cores and outputs; otherwise inherit the parent")
+    parser.add_argument("--split-replay", action="store_true", help="Try verified sequences of smaller useful clusters")
     for key in ("max_cores", "max_open_colors", "max_work", "max_size"):
         parser.add_argument("--" + key.replace("_", "-"), type=int, help="Override this computational bound")
     args = vars(parser.parse_args())

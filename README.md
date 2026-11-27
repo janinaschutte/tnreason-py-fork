@@ -49,6 +49,22 @@ pip install tnreason
   A particular well-known example of a CSP is the game of Sudoku,
   see the [Sudoku Example](https://github.com/EnexaProject/enexa-tensor-reasoning/tree/version1/demonstrations/sudoku).
 
+## Cluster reasoning, step by step
+
+[![A learned constructor solves Sudoku through verified cluster contractions and GAC](images/sudoku_cluster_reasoning.gif)](images/sudoku_cluster_reasoning.gif)
+
+[Watch the video with pause controls](images/sudoku_cluster_reasoning.mp4).
+
+Small digits show the remaining candidates. Each useful cluster highlights its
+selected tensor links and retained variables, crosses out eliminated values,
+then reveals the updated domains. This recorded REINFORCE + success-replay run
+solves the puzzle with six useful clusters and no branching. Initial GAC is shown
+separately; later changes include propagation through the original constraints.
+The animation is slowed for readability, and attempts that prune nothing are omitted.
+
+The [Sudoku demonstration](demonstrations/sudoku/README.md#animated-cluster-reasoning)
+explains how to regenerate the GIF and verify its recorded deductions.
+
 ## Architecture
 
 <p align="left">

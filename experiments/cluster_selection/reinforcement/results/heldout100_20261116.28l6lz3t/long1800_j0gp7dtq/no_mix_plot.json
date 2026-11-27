@@ -1,0 +1,28 @@
+{
+  "methods": [
+    "plain",
+    "heuristic",
+    "initial",
+    "teacher",
+    "reinforce",
+    "replay",
+    "q",
+    "expert"
+  ],
+  "excluded": [
+    "combined"
+  ],
+  "footer": false,
+  "inputs": {
+    "protocol.json": "e8f4d7b9c6d7fa78e382e69274ba15c22c7ea5f9de342f852b83da3418e49bf4",
+    "summary.json": "f444128b001f7480eed676c265e6bdfe5b48f4bd9d42e7299f978efd02f4ad55",
+    "matched_time_per_puzzle.csv": "4292c94c5f6c66f02b8100c46988dc0c7cf5c8e3a5752eb4f03d4b0fad96056f"
+  },
+  "style_sha256": "dc74a93ba594e5db7a811ad34b180abf219043469373e14cf3f276a7d928af4a",
+  "script_sha256": "7e0a948900336b1f20423781bac679842efd12b5d956a974e98559d8c5abfa0a",
+  "outputs": {
+    "matched_time_roots_without_mix_no_caption.png": "3675c9b8dec45c8133fe3341bdee1aa1d4f330e6d71ed01d8625ab5f5c2e6e87",
+    "matched_time_roots_without_mix_no_caption.pdf": "166db61a83195f7b561b0379ad5cfebdd72ad7a1d8973643e5a96f435affa048",
+    "matched_time_roots_without_mix_no_caption.svg": "46482bb94120d0f3ea7639b50f993bcc2a4862f9b42aa0b10490a1ec1f532382"
+  }
+}

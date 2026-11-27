@@ -1,8 +1,8 @@
 """Optional context corrections for the existing constructive policy.
 
-The shared encoder, action masks and proposal decoder are unchanged. Domain
-masks are built in one indexed write. Optional heads start at zero, preserving
-a loaded policy before optimization.
+The shared encoder and structural action masks are unchanged. Optional learned
+stopping lets the existing finish action compete with core and output growth. Context
+heads start at zero, preserving a loaded policy before optimization.
 """
 from collections import defaultdict, deque
 from collections.abc import Mapping
@@ -18,12 +18,15 @@ from .model import Policy as BasePolicy
 
 class Policy(BasePolicy):
     def __init__(self, network, *args, global_context=False, distance_features=False,
-                 objective_features=False, **kwargs):
-        if any(not isinstance(flag, bool) for flag in (global_context, distance_features, objective_features)):
-            raise ValueError("Actor context options must be boolean")
+                 objective_features=False, learned_stopping=False, **kwargs):
+        if any(not isinstance(flag, bool) for flag in
+               (global_context, distance_features, objective_features, learned_stopping)):
+            raise ValueError("Actor options must be boolean")
         super().__init__(network, *args, **kwargs)
         self.actor_config = dict(global_context=global_context, distance_features=distance_features,
-                                 objective_features=objective_features)
+                                 objective_features=objective_features, learned_stopping=learned_stopping)
+        if learned_stopping and (self.config.get("decoder") != "sampling_grow" or self.config.get("q_learning")):
+            raise ValueError("Learned stopping requires sampling_grow without Q-learning")
         if (global_context or distance_features) and (
                 not self.contextual or not self.config.get("target_first") or self.config.get("q_learning")):
             raise ValueError("Actor context requires a contextual target-first policy without Q-learning")
@@ -39,6 +42,17 @@ class Policy(BasePolicy):
             if hasattr(self, name):
                 nn.init.zeros_(getattr(self, name)[-1].weight)
                 nn.init.zeros_(getattr(self, name)[-1].bias)
+
+    def _continuations(self, actions, keys, opened, output_phase):
+        """Allow legal stopping in either phase without reducing growth limits."""
+        if self.actor_config["learned_stopping"] and keys:
+            # Finish is supplied only by the original structural masks, including
+            # cyclic_only. A target-first anchor is still chosen before any core.
+            extension = "open" if output_phase else "core"
+            following = [idx for idx, (kind, _) in enumerate(actions) if kind in (extension, "finish")]
+            if following:
+                return following
+        return super()._continuations(actions, keys, opened, output_phase)
 
     def domain_features(self, domains):
         """Keep the original features without one tiny device write per variable."""

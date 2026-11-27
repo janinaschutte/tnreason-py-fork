@@ -86,6 +86,33 @@ def test_solve_bonus_survives_pruning_cap_but_does_not_reward_already_solved_sta
     assert all(item["reward"] == 0. for item in group["rollouts"])
 
 
+def test_size_penalty_prefers_same_pruning_with_fewer_cores_and_keeps_small_gains(tmp_path, monkeypatch):
+    from experiments.cluster_selection.candidate_evaluation_tnreason import SummaryClusterCandidate
+    network, data = problem()
+    actor = parent_checkpoint(data, tmp_path / "parent.pt")
+    actor.config["max_cores"] = 6
+    state = network.create_mac_state()
+    assert state.propagate()
+    candidates = iter([SummaryClusterCandidate("small", ("ab", "bc", "ac"), ("a",)),
+                       SummaryClusterCandidate("large", ("ab", "bc", "ac", "ax"), ("a",)), None])
+
+    def fixed(*args, **kwargs):
+        zero = actor.head[-1].weight.sum() * 0
+        return next(candidates), zero, zero, [("finish", -1)]
+
+    monkeypatch.setattr(actor, "rollout", fixed)
+    sample = dict(domains=list(state.domains.values()), known_satisfiable=True)
+    group, outcomes, _ = refine.collect(actor, state, sample, rollouts=3, size_penalty=.1)
+    raw = outcomes[0]["reward"]
+    small, large, skipped = [item["reward"] for item in group["rollouts"]]
+    assert raw > 0 and raw == outcomes[1]["reward"]
+    assert small == pytest.approx(raw * .95)
+    assert large == pytest.approx(raw * (1 - .1 * 4 / 6))
+    assert small > large >= .9 * raw and skipped == 0.
+    with pytest.raises(ValueError, match="penalty"):
+        refine.collect(actor, state, sample, rollouts=2, size_penalty=1.)
+
+
 def assert_same(left, right):
     if isinstance(left, torch.Tensor):
         assert torch.equal(left, right)
@@ -144,6 +171,29 @@ def test_exact_resume_restores_custom_architecture_optimizer_sampling_and_contex
     with pytest.raises(ValueError, match="source changed"):
         refine.fit(data, output=tmp_path / "bad_sources", resume=tmp_path / "part" / "resume.pt",
                    trials=64, **settings)
+
+
+def test_compact_replay_resume_restores_buffer_rng_weights_and_optimizer(tmp_path, monkeypatch):
+    _, data = problem()
+    parent = tmp_path / "parent.pt"
+    parent_checkpoint(data, parent)
+    monkeypatch.setattr(refine_eval, "evaluate", lambda *a, **kw: dict(totals=dict(
+        root_solved=0, dfs_complete=1, dfs_nodes=3, instances=1, sampled_useful=0, sampled_trials=0)))
+    options = dict(seed=29, groups=2, rollouts=4, lr=.001, normalization="rms", root_fraction=.5,
+        learned_stopping=True, size_penalty=.1, replay_weight=.1, replay_samples=2, replay_capacity=8,
+        compact_probes=16, compact_every=1, split_replay=True, retain_graphs=True,
+        validation_every=32, checkpoint_every=16)
+    refine.fit(data, output=tmp_path / "full", initial=parent, trials=64, **options)
+    refine.fit(data, output=tmp_path / "part", initial=parent, trials=32, **options)
+    refine.fit(data, output=tmp_path / "resumed", resume=tmp_path / "part" / "resume.pt", trials=64, **options)
+    full, resumed = [torch.load(tmp_path / name / "resume.pt", weights_only=True) for name in ("full", "resumed")]
+    assert full["replay"] and full["actor_config"]["learned_stopping"]
+    assert any(row["replay_trials"] for row in full["history"])
+    for key in ("weights", "optimizer", "replay", "replay_rng", "rng", "torch_rng", "contexts", "pending"):
+        assert_same(full[key], resumed[key])
+    for left, right in zip(full["history"], resumed["history"]):
+        assert_same({k: v for k, v in left.items() if not k.endswith("seconds")},
+                    {k: v for k, v in right.items() if not k.endswith("seconds")})
 
 
 def test_real_generic_validation_keeps_model_rng_and_train_split_unchanged(tmp_path):
@@ -245,3 +295,104 @@ def test_stdout_usefulness_aggregates_the_reporting_window(tmp_path, monkeypatch
     line = next(line for line in capsys.readouterr().out.splitlines() if line.startswith("batch 4,"))
     assert "window useful root " in line and "/32, context 0/0;" in line
     assert [json.loads(line)["trials"] for line in (tmp_path / "run" / "training.jsonl").read_text().splitlines()] == [8] * 4
+
+def _wrapper_case(tmp_path, mode, damage=None):
+    """Exercise the real shell bootstrap without importing Torch in its child."""
+    from hashlib import sha256
+    import io
+    import os
+    from pathlib import Path
+    import shutil
+    import subprocess
+    import sys
+    import tarfile
+
+    repo, run, marker = tmp_path / "repo", tmp_path / "run", tmp_path / "called.json"
+    folder = repo / "experiments/cluster_selection/reinforcement"
+    folder.mkdir(parents=True)
+    wrapper = folder / "refine_gpu.sh"
+    shutil.copyfile(Path(refine.__file__).with_name("refine_gpu.sh"), wrapper)
+    stub = '''import json, os, sys
+from pathlib import Path
+
+def main():
+    Path(os.environ["WRAPPER_MARKER"]).write_text(json.dumps(dict(
+        label=LABEL, file=__file__, alive=Path(__file__).is_file(),
+        argv=sys.argv, cwd=str(Path.cwd()))))
+'''
+    names = ("experiments/cluster_selection/__init__.py",
+             "experiments/cluster_selection/reinforcement/__init__.py")
+    legacy = {name: b"" for name in names}
+    legacy["experiments/cluster_selection/reinforcement/refine.py"] = (
+        "LABEL = 'legacy'\n" + stub).encode()
+    current = {**legacy, "experiments/cluster_selection/reinforcement/refine.py": (
+        "LABEL = 'current'\n" + stub).encode()}
+    for name, content in {**current, "experiments/__init__.py": b""}.items():
+        path = repo / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(content)
+    hashes = lambda sources: {name: sha256(content).hexdigest() for name, content in sources.items()}
+    saved = folder / "results/compact_training_mcmfsdfa"
+    saved.mkdir(parents=True)
+    (saved / "previous_source_hashes.json").write_text(json.dumps(hashes(legacy)))
+    with tarfile.open(saved / "previous_training_sources.tar.gz", "w:gz") as archive:
+        for name, content in legacy.items():
+            info = tarfile.TarInfo(name)
+            if name.endswith("refine.py"):
+                if damage == "tamper":
+                    content += b"\n# unexpected source change\n"
+                elif damage == "symlink":
+                    info.type, info.linkname = tarfile.SYMTYPE, "/tmp/unrelated.py"
+                    archive.addfile(info)
+                    continue
+                elif damage == "traversal":
+                    info.name = "../outside.py"
+            info.size = len(content)
+            archive.addfile(info, io.BytesIO(content))
+    if mode != "fresh":
+        segment = run / "segment_original"
+        segment.mkdir(parents=True)
+        (segment / "resume.pt").write_bytes(b"stub checkpoint: child need not load it")
+        (segment / "protocol.json").write_text(json.dumps(dict(
+            source_hashes=hashes(legacy if mode == "legacy" else current))))
+    # A different cwd checks that relative data paths retain their old meaning.
+    working = tmp_path / "working"
+    working.mkdir()
+    child = subprocess.run(["bash", str(wrapper), sys.executable, str(run),
+        "relative-data.json", "--initial", "relative-parent.pt", "--trials", "16"],
+        cwd=working, env={**os.environ, "WRAPPER_MARKER": str(marker)},
+        capture_output=True, text=True, timeout=20)
+    report = json.loads(marker.read_text()) if marker.exists() else None
+    return child, report, repo, run, working
+
+
+@pytest.mark.parametrize("mode", ["fresh", "current", "legacy"])
+def test_gpu_wrapper_selects_exact_sources_and_keeps_run_paths(tmp_path, mode):
+    from pathlib import Path
+    child, report, repo, run, working = _wrapper_case(tmp_path, mode)
+    assert child.returncode == 0, child.stderr
+    assert report["label"] == ("legacy" if mode == "legacy" else "current")
+    assert report["alive"] and report["cwd"] == str(working)
+    args = report["argv"]
+    assert args[1] == "relative-data.json"
+    output = Path(args[args.index("--output") + 1])
+    assert output.parent == run and output.name.startswith("segment_")
+    if mode == "fresh":
+        assert "--resume" not in args
+        assert args[args.index("--initial") + 1] == "relative-parent.pt"
+    else:
+        assert "--initial" not in args
+        assert args[args.index("--resume") + 1] == str(run / "segment_original/resume.pt")
+    if mode == "legacy":
+        assert not Path(report["file"]).is_relative_to(repo)
+        assert not Path(report["file"]).exists(), "Frozen sources must be cleaned after main returns"
+    else:
+        assert Path(report["file"]).is_relative_to(repo)
+        assert Path(report["file"]).exists()
+
+
+@pytest.mark.parametrize("damage", ["tamper", "symlink", "traversal"])
+def test_gpu_wrapper_rejects_invalid_frozen_sources_before_import(tmp_path, damage):
+    child, report, *_ = _wrapper_case(tmp_path, "legacy", damage=damage)
+    assert child.returncode != 0
+    assert report is None, "A corrupt legacy archive must never fall back to current training code"

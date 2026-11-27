@@ -3,6 +3,7 @@ import numpy as np
 import pytest
 
 from experiments.constraint_networks.constraint_networks import ConstraintNetwork
+from experiments.cluster_selection.candidate_evaluation_tnreason import SummaryClusterCandidate
 from experiments.cluster_selection.data import network_data
 from tnreason.engine.workload_to_numpy import NumpyCore
 
@@ -221,9 +222,10 @@ def test_context_corrections_follow_variable_and_core_reordering():
             torch.testing.assert_close(scores[0][action], scores[1][action], atol=1e-6, rtol=0)
 
 
-def test_growth_trace_likelihood_matches_actual_sample_masks():
+@pytest.mark.parametrize("learned_stopping", [False, True])
+def test_growth_trace_likelihood_matches_actual_sample_masks(learned_stopping):
     torch.manual_seed(17)
-    actor = model(global_context=True, distance_features=True)
+    actor = model(global_context=True, distance_features=True, learned_stopping=learned_stopping)
     domains = [[0, 1]] * 4
     candidate, log_prob, _, trace = actor.rollout(domains, beta=0.)
     repeated, replay_log_prob, _, replay_trace = actor.rollout(domains, beta=0., trace=trace, policy_trace=True)
@@ -249,9 +251,70 @@ def test_growth_trace_likelihood_matches_actual_sample_masks():
     torch.testing.assert_close(log_prob, expected, atol=0, rtol=0)
 
 
+def test_learned_stopping_allows_short_core_trace_without_changing_anchor_selection():
+    actor = model(learned_stopping=True)
+    domains = [[0, 1]] * 4
+    candidate = SummaryClusterCandidate("short", ("ab",), ("a", "b"))
+    trace = actor.candidate_trace(candidate, domains, target_color="a")
+    actual, logp, _, repeated = actor.rollout(domains, beta=0., trace=trace, policy_trace=True)
+    assert actual.core_keys == candidate.core_keys and actual.open_colors == candidate.open_colors
+    assert repeated == trace and torch.isfinite(logp)
+    (-logp).backward()
+    assert actor.head[-1].weight.grad.abs().sum() > 0
+    actor.actor_config["learned_stopping"] = False
+    with pytest.raises(ValueError, match="Illegal construction action"):
+        actor.rollout(domains, beta=0., trace=trace, policy_trace=True)
+    actor.actor_config["learned_stopping"] = True
+    for keys, opened, phase in (([], [], False), ([], [0], False)):
+        actions = actor.actions(keys, opened, phase, [2] * 4)
+        assert actor._continuations(actions, keys, opened, phase) == BasePolicy._continuations(
+            actor, actions, keys, opened, phase)
+
+
+def test_learned_stopping_can_finish_with_fewer_outputs_than_the_limit():
+    actor = model(learned_stopping=True)
+    domains = [[0, 1]] * 4
+    candidate = SummaryClusterCandidate("one_output", ("ab",), ("a",))
+    trace = actor.candidate_trace(candidate, domains, target_color="a")
+    actual, logp, _, _ = actor.rollout(domains, beta=0., trace=trace, policy_trace=True)
+    assert actual.open_colors == ("a",) and torch.isfinite(logp)
+    keys, opened = [actor.key_idx["ab"]], [actor.color_idx["a"]]
+    actions = actor.actions(keys, opened, True, [2] * 4)
+    assert ("open", actor.color_idx["b"]) in actions
+    following = [actions[idx] for idx in actor._continuations(actions, keys, opened, True)]
+    assert following == actions and ("finish", -1) in following
+    actor.actor_config["learned_stopping"] = False
+    following = [actions[idx] for idx in actor._continuations(actions, keys, opened, True)]
+    assert following == [("open", actor.color_idx["b"])]
+
+
+def test_learned_stopping_preserves_cycle_mask_and_full_core_limit():
+    actor = model(learned_stopping=True, cyclic_only=True)
+    for selected, can_finish in ((("ab", "bc"), False), (("ab", "bd", "ad"), True)):
+        keys = [actor.key_idx[key] for key in selected]
+        actions = actor.actions(keys, [actor.color_idx["a"]], False, [2] * 4)
+        following = [actions[idx] for idx in actor._continuations(actions, keys, [0], False)]
+        assert (("finish", -1) in following) == can_finish
+        assert any(kind == "core" for kind, _ in following)
+
+    # Parallel original tensors let all 64 legal additions remain affordable.
+    network = ConstraintNetwork({f"link{idx:02d}": NumpyCore(values=np.ones((2, 2), dtype=bool),
+        colors=["a", "b"]) for idx in range(64)}, maintain_indices=True)
+    large = Policy(network_data(network), width=8, rounds=1, contextual=True, target_first=True,
+        learned_stopping=True, heuristic_candidates=0, exploration=0., max_cores=64,
+        max_open_colors=1, decoder="sampling_grow").eval()
+    candidate = SummaryClusterCandidate("large", tuple(large.keys), ("a",))
+    domains = [[0, 1]] * 2
+    trace = large.candidate_trace(candidate, domains)
+    actual, logp, _, _ = large.rollout(domains, beta=0., trace=trace, policy_trace=True)
+    assert actual.core_keys == candidate.core_keys and len(actual.core_keys) == 64
+    assert torch.isfinite(logp)
+
+
 @pytest.mark.parametrize("enabled", [False, True])
 def test_strict_checkpoint_load_preserves_old_and_new_policy(tmp_path, enabled):
-    actor = model(global_context=enabled, distance_features=enabled, objective_features=enabled)
+    actor = model(global_context=enabled, distance_features=enabled, objective_features=enabled,
+                  learned_stopping=enabled)
     actor.beta, actor.reward_colors = 0., ["a"]
     if enabled:
         with torch.no_grad():
@@ -274,6 +337,7 @@ def test_strict_checkpoint_load_preserves_old_and_new_policy(tmp_path, enabled):
         checkpoint["actor_config"] = dict(global_context=False, distance_features=False)
         torch.save(checkpoint, path)
         assert load(path).actor_config["objective_features"] is False
+        assert load(path).actor_config["learned_stopping"] is False
     if enabled:
         checkpoint["weights"].pop("anchor_context.0.weight")
         torch.save(checkpoint, path)
@@ -282,9 +346,10 @@ def test_strict_checkpoint_load_preserves_old_and_new_policy(tmp_path, enabled):
 
 
 @pytest.mark.parametrize("options", [dict(global_context=1), dict(distance_features="yes"),
-    dict(objective_features=1),
+    dict(objective_features=1), dict(learned_stopping=1),
     dict(global_context=True, contextual=False), dict(distance_features=True, target_first=False),
-    dict(global_context=True, q_learning=True)])
+    dict(global_context=True, q_learning=True), dict(learned_stopping=True),
+    dict(learned_stopping=True, decoder="sampling_grow", q_learning=True)])
 def test_invalid_context_configuration_is_rejected(options):
     defaults = dict(contextual=True, target_first=True)
     defaults.update(options)

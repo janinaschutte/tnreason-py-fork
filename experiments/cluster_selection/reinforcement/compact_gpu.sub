@@ -1,0 +1,38 @@
+# One GPU training stage; review development results before extending its resume.
+repo_root = /Home/optimier/schuette/tnreasonproj/tnreason-py
+python_exec = /Home/optimier/schuette/.conda/envs/alphareason/bin/python
+data_file = $(repo_root)/experiments/cluster_selection/reinforcement/results/unique_training_10k_20261106.f9b9837e/development.json
+parent_checkpoint = $(repo_root)/experiments/cluster_selection/reinforcement/results/learning_diagnostics_20261113.67i11ilh/continuations/gpu_self_imitation_8051.2/policy.best.pt
+run_base = $(repo_root)/experiments/cluster_selection/reinforcement/results/compact_gpu_$(ClusterId)
+trials = 65536
+size_penalty = 0.1
+replay_weight = 0.1
+validation_every = 8192
+validation_seconds = 30
+validation_limit = 0
+validation_samples = 8
+checkpoint_every = 1024
+
+universe = vanilla
+initialdir = $(repo_root)
+executable = $(repo_root)/experiments/cluster_selection/reinforcement/refine_gpu.sh
+transfer_executable = False
+should_transfer_files = NO
+arguments = "'$(python_exec)' '$(run_base)/seed0' '$(data_file)' --initial '$(parent_checkpoint)' --device cuda --seed 0 --trials $(trials) --normalization rms --lr 0.0001 --groups 4 --rollouts 4 --root-fraction 0.5 --context-capacity 3 --global-context --learned-stopping --size-penalty $(size_penalty) --replay-weight $(replay_weight) --split-replay --compact-probes 64 --compact-every 8 --validation-every $(validation_every) --validation-attempts 0 --validation-seconds $(validation_seconds) --validation-limit $(validation_limit) --validation-samples $(validation_samples) --checkpoint-every $(checkpoint_every)"
+request_gpus = 1
+require_gpus = Capability >= 7.5
+request_cpus = 1
+request_memory = 32GB
+request_disk = 4GB
+getenv = PATH, LD_LIBRARY_PATH
+environment = "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONUNBUFFERED=1"
+output = $(repo_root)/experiments/cluster_selection/reinforcement/compact_gpu.$(ClusterId).out
+error = $(repo_root)/experiments/cluster_selection/reinforcement/compact_gpu.$(ClusterId).err
+log = $(repo_root)/experiments/cluster_selection/reinforcement/compact_gpu.$(ClusterId).log
+stream_output = True
+stream_error = True
+kill_sig = SIGTERM
+job_max_vacate_time = 120
+want_graceful_removal = True
+on_exit_hold = (ExitBySignal =?= True) || (ExitCode =!= 0)
+queue 1

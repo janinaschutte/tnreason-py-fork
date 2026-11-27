@@ -32,7 +32,7 @@ def advantages(rewards, mode="group", scale=1.):
 
 
 def update(model, groups, optimizer, *, epochs=1, clip_ratio=None, entropy_weight=.001,
-           grad_clip=1., target_kl=.02):
+           grad_clip=1., target_kl=.02, replay=(), replay_weight=0.):
     """Update sampled traces, reusing graphs or rescoring one trace at a time.
 
     Groups contain ``domains`` and ``rollouts``; each rollout supplies ``trace``,
@@ -49,15 +49,22 @@ def update(model, groups, optimizer, *, epochs=1, clip_ratio=None, entropy_weigh
     avoiding repeated forwards at the cost of holding the collected graphs.
     Every rollout must use the same mode. Retained graphs are single-use and
     require one vanilla epoch; parameters must stay unchanged after sampling.
+    Verified edited constructions enter a separate supervised replay loss,
+    never the on-policy likelihood ratio. Its mean action NLL shares the same
+    optimizer step, including when fresh advantages are all zero.
     """
     if (not isinstance(epochs, int) or isinstance(epochs, bool) or epochs < 1
             or clip_ratio is not None and (not isfinite(clip_ratio) or not 0 < clip_ratio < 1)
             or epochs > 1 and clip_ratio is None
             or not isfinite(entropy_weight) or entropy_weight < 0
             or not isfinite(grad_clip) or grad_clip <= 0
+            or not isfinite(replay_weight) or replay_weight < 0
             or target_kl is not None and (not isfinite(target_kl) or target_kl <= 0)):
         raise ValueError("Invalid update settings; multiple epochs require a clipping ratio")
     groups = list(groups)
+    replay = list(replay) if replay_weight else []
+    if any(not item.get("trace") or not item.get("domains") for item in replay):
+        raise ValueError("Replay requires domains and a nonempty verified construction trace")
     modes = set()
     for group in groups:
         if not group.get("rollouts") or "domains" not in group:
@@ -86,9 +93,10 @@ def update(model, groups, optimizer, *, epochs=1, clip_ratio=None, entropy_weigh
                    trials=sum(len(group["rollouts"]) for group in groups), scored_trials=0,
                    retained_trials=0, rescored_trials=0,
                    optimizer_steps=0, policy_loss=0., entropy=0., approx_kl=0., clip_fraction=0.,
-                   grad_norm=0., grad_clipped=0, early_stop=False)
+                   grad_norm=0., grad_clipped=0, early_stop=False,
+                   replay_loss=0., replay_trials=0, replay_only_steps=0)
     optimizer.zero_grad(set_to_none=True)
-    if not active:
+    if not active and not replay:
         return metrics
     try:
         for _ in range(epochs):
@@ -129,6 +137,17 @@ def update(model, groups, optimizer, *, epochs=1, clip_ratio=None, entropy_weigh
                 metrics["early_stop"] = True
                 optimizer.zero_grad(set_to_none=True)
                 break
+            replay_loss = 0.
+            for item in replay:
+                _, logp, _, _ = model.rollout(item["domains"], beta=0.,
+                                              trace=item["trace"], policy_trace=True)
+                loss = -logp / len(item["trace"])
+                if loss.ndim != 0 or not torch.isfinite(loss):
+                    raise FloatingPointError("Nonfinite or nonscalar supervised replay loss")
+                (replay_weight * loss / len(replay)).backward()
+                replay_loss += float(loss.detach()) / len(replay)
+                metrics["replay_trials"] += 1
+            metrics["replay_loss"] = replay_loss
             norm = torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip, error_if_nonfinite=True)
             metrics["grad_norm"] = float(norm)
             metrics["grad_clipped"] += int(norm > grad_clip)
@@ -136,6 +155,7 @@ def update(model, groups, optimizer, *, epochs=1, clip_ratio=None, entropy_weigh
             if not all(torch.isfinite(parameter).all() for parameter in model.parameters()):
                 raise FloatingPointError("Optimizer produced nonfinite parameters")
             metrics["optimizer_steps"] += 1
+            metrics["replay_only_steps"] += int(not active)
     except Exception:
         optimizer.zero_grad(set_to_none=True)
         raise

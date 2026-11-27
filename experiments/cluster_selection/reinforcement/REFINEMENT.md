@@ -3,7 +3,7 @@
 The entry point is `python -m experiments.cluster_selection.reinforcement.refine`.
 It reuses `ConstraintNetwork`, the existing tensor-support encoder, legal
 construction actions, domain-conditioned contractions, GAC and rollback. The
-supervised learners and the source used by the ongoing benchmark are unchanged.
+supervised learners and the default behavior of existing checkpoints are unchanged.
 
 ## What is learned
 
@@ -14,10 +14,12 @@ to construct large clusters: the current Sudoku limits are 64 cores, 6 outputs,
 are computational limits, not Sudoku rules. A completed cluster is evaluated
 under the input domains; its summary is temporary and only its pruning survives.
 
-The current `sampling_grow` decoder keeps adding an affordable core whenever
+Without `--learned-stopping`, the `sampling_grow` decoder keeps adding a core whenever
 one is legal, then keeps adding legal outputs before finishing. It learns
-which cores and outputs to choose; free early stopping is masked by this
-decoder. The NumPy executor also limits the union of selected core scopes to
+which cores and outputs to choose. `--learned-stopping` lets the existing finish
+action compete with continuation during both core growth and output selection.
+The initial anchor, structural masks and upper bounds remain in place; large
+clusters remain reachable. The NumPy executor also limits the union of selected core scopes to
 52 distinct variables, including variables with singleton domains. This
 backend restriction is checked before domain compaction and is separate from
 the core-count, work and tensor-size limits.
@@ -43,7 +45,8 @@ The default leave-one-out advantage is normalized within an input state:
     A_i = [r_i - mean(r_j for j != i)] / std(r_1, ..., r_K).
     loss = -mean(A_i * sum_t log pi(a_it | D, a_i,<t)) - eta * entropy.
 
-Identical rewards give zero advantage and no optimizer step for that group.
+Identical rewards give zero RL advantage for that group. Optional supervised
+replay can still supply an update when all fresh advantages are zero.
 The sequence log probability is summed over its decisions. Dividing it by
 cluster length would change the objective. Entropy is averaged over decisions.
 
@@ -58,6 +61,105 @@ leave-one-out gradient estimates the expected pruning reward up to a common
 factor. Group normalization changes that objective's state weighting. Neither
 scaling has demonstrated a reliable Sudoku advantage in these pilots. The RMS
 control is not an exact reproduction of the historical run.
+
+## Compact reasoning (optional)
+
+The compact recipe keeps propagation as the main objective and mildly favors
+fewer cores when pruning is comparable:
+
+    g = [H(D) - H(GAC(D, C))] / H(D)
+    r = g * (1 - lambda * len(C) / max_cores) + solve_bonus * newly_solved.
+
+`--size-penalty` is lambda, in [0, 1), default 0. With lambda=0.1, even a
+maximum-length cluster retains 90% of its pruning reward. Every real gain
+stays positive; no pruning remains zero. Contradictions use g=1. A solve bonus
+is added after the size adjustment. This is a core-count preference, separate
+from the existing work and tensor-size limits. RMS or unnormalized advantages
+keep its scale; group normalization can amplify small size differences.
+
+`--replay-weight` enables bounded simplification of verified training successes:
+
+- Delete redundant leaf structures, then try individual core deletions. Every
+  accepted edit is checked by contraction and GAC from the same input domains.
+  Preserve the complete resulting domain state, including auxiliary variables.
+- `--split-replay` also tries several smaller clusters. Each must prune under
+  the domains left by its predecessors, and their final domains must equal
+  the original outcome. Each piece gets its own input domains and outputs.
+- Retain only sequences reachable under the actual policy masks, including
+  finish actions. These are verified shorter examples, with no global
+  minimality guarantee. Necessary large examples are retained.
+- Replay uses mean action negative log likelihood. It shares one optimizer
+  step with fresh REINFORCE, whose sequence log likelihood remains summed.
+  Edited traces never receive on-policy reward or importance ratios.
+
+One simplification refresh occurs every `--compact-every` batches (default 8),
+using at most `--compact-probes` contracted trials (default 64). Prefer a fresh
+useful sample. If none exists in that batch, try one growth-only construction
+with the current weights to supply a possible compact teacher; this can
+bootstrap stopping without requiring an already successful short construction.
+Growth teachers and simplification probes are logged separately from fresh RL
+trials. No structural proposal search is used. All examples come from training
+states; validation and the animation example supply no replay data.
+
+The replay buffer, its separate sampling RNG, optimizer and training RNGs are
+saved for exact resumption. Logs distinguish raw `pruning_reward`, adjusted
+`reward`, `mean_cores`, `mean_useful_cores`, replay loss, buffer size, compact
+probe counts/seconds, and updates driven only by replay. Empty replay after a
+short pilot warrants diagnosis before spending on a longer run.
+
+Implementation checks include an essential eight-core generic cycle that
+cannot be shortened, and splitting into useful sequential pieces. As a
+diagnostic only, the first animation cluster reduces from 64 to 4+6 cores
+within 60 probes, preserving all 36 removed domain values. This establishes
+verified compact targets, not an improvement in learned Sudoku solving.
+
+### Start one GPU training stage
+
+`compact_gpu.sub` submits **one 65,536-construction training stage**: 4,096
+optimizer updates on the 10,000-puzzle dataset. It uses learned stopping,
+lambda=0.1, compact replay weight 0.1, RMS advantages and the original trained
+GPU parent. Validation runs on all 55 development puzzles every 8,192
+constructions, with 30 seconds per root and a separate 30-second residual
+search limit. Resume checkpoints are saved every 1,024 constructions. Run
+from the existing shared `tnreason-py` checkout on Bernoulli. Code, data and
+the parent checkpoint use that repository; no second checkout or file copy
+is needed.
+
+```bash
+cd /Home/optimier/schuette/tnreasonproj/tnreason-py
+condor_submit experiments/cluster_selection/reinforcement/compact_gpu.sub
+```
+
+All outputs use a new cluster-ID directory. The completed 1,024-construction
+pilot is preserved; it checked execution, not convergence. Its 64 updates
+visited only 256 puzzles and generated ten verified compact replay examples.
+At its measured rate, budget roughly one day for this stage including
+validation. Fresh later-state sampling begins on revisiting puzzles, after
+about 40,000 constructions with four rollouts per puzzle; roots without useful
+stored contexts continue using their initial state.
+
+Review root solves, residual DFS, pruning and cluster lengths at 8,192 and
+16,384 constructions before committing to a larger extension. To continue
+the exact saved training state later, resubmit with `run_base` set to the
+existing run directory and a larger `trials` value; retain the other settings.
+The wrapper selects the latest resume checkpoint and creates a new segment.
+The pilot's eight-puzzle validation is too small to select its final policy
+as the parent of this stage. Direct `refine` invocations need
+`--learned-stopping --size-penalty 0.1 --replay-weight 0.1 --split-replay`.
+Omit the last flag to use single-cluster compact replay only. All new training
+options default off; the historical six-job submit file is unchanged.
+
+Old exact resumes require their original source. Before this revision, the
+103 Python sources for `refine_gpu_11502` were verified against that run's
+protocol and archived in
+`results/compact_training_mcmfsdfa/previous_training_sources.tar.gz`.
+The shared launcher automatically recognizes resumes with that exact source
+manifest. It verifies the archive, loads it in a temporary worker directory,
+and preserves the original source, settings, optimizer and RNG checks. Keep
+the archive and its `previous_source_hashes.json` alongside existing results
+while these runs may need resumption. New runs load the current repository
+code. A new compact run uses `--initial` to start a new optimizer, rather than
+bypassing old resume checks.
 
 ## Data and optimization
 
